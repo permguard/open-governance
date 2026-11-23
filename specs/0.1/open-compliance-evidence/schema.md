@@ -35,13 +35,13 @@ An OTLP span becomes this form by taking its resource attributes and its span at
 
 ## What it checks, and what it leaves
 
-| The schema checks                                                              | It leaves to materializers ([Obligations and State](./state)) |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| the resource: `oce.version` = `"0.1"` and an organisation                      | whether an action's obligation exists in its case             |
-| the values of the span kind, the action kinds, the results and the states      | whether an obligation was met on time                         |
-| a law id of a known form, articles and points as the law numbers them          | whether the cited article says what the obligation says       |
-| a due as an RFC 3339 time, a quorum of at least 1, a digest with its algorithm | the Recommended attributes: their absence is allowed          |
-| the attributes each kind of span, and each kind of action, must carry          | anything that takes more than one span to judge               |
+| The schema checks                                                                                                              | It leaves to materializers ([Obligations and State](./state)) |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| the resource: `oce.version` = `"0.1"` and an organisation                                                                      | whether an action's obligation exists in its case             |
+| the values of the span kind, the nine action kinds, the results, the findings and the states                                   | whether an obligation was met on time                         |
+| a law id of a known form; for a law of the EU or a country, articles and points as the law numbers them, its version as a date | whether the cited article says what the obligation says       |
+| a due as an RFC 3339 time, a recurrence as an ISO 8601 duration, a quorum of at least 1, a digest with its algorithm           | the Recommended attributes: their absence is allowed          |
+| the attributes each kind of span, and each kind of action, must carry                                                          | anything that takes more than one span to judge               |
 
 Attributes OCE does not define are allowed: receivers keep them as they are.
 

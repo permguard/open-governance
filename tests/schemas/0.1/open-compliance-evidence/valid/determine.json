@@ -1,0 +1,31 @@
+{
+  "resource": {
+    "service.name": "hr-compliance",
+    "oce.version": "0.1",
+    "oce.organization.id": "northwind-hr",
+    "oce.organization.name": "Northwind HR"
+  },
+  "name": "report the serious incident",
+  "context": {
+    "trace_id": "7f3a400ece17d26b658b1ef03f865761",
+    "span_id": "a1b2c3d4e5f60702"
+  },
+  "parent_id": "a1b2c3d4e5f60701",
+  "start_time": "2028-03-14T09:30:00Z",
+  "end_time": "2028-03-14T09:30:00Z",
+  "status_code": "OK",
+  "attributes": {
+    "oce.span.kind": "action",
+    "oce.case.id": "0195f3a2-7c4e-7b21-9a8d-3f6e2c1b0a99",
+    "oce.action.kind": "determine",
+    "oce.obligation.id": "au-6-b",
+    "oce.assessment.finding": "other_than_satisfied",
+    "oce.assessment.finding_basis": "deficiency",
+    "oce.assessment.method": [
+      "examine",
+      "test"
+    ],
+    "oce.control.objective": "AU-06b.",
+    "oce.actor.id": "assessor-0d7e"
+  }
+}
