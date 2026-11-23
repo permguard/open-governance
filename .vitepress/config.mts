@@ -7,17 +7,16 @@ import { specLink, specs } from './specs'
 // GitHub Pages serves the site below the repository path; the deploy passes it in.
 const base = `/${(process.env.VITEPRESS_BASE ?? '').replace(/^\/+|\/+$/g, '')}/`.replace(/^\/\/$/, '/')
 
-// Each specification has a sidebar of its own pages; the specification menu above it moves between
-// specifications (theme/SpecMenu.vue).
+// Each specification has a sidebar of its own sections, each collapsible; the specification menu
+// above it moves between specifications (theme/SpecMenu.vue).
 const sidebar = Object.fromEntries(
   specs.map((spec) => [
     `/${spec.id}/`,
-    [
-      {
-        text: `${spec.title} v${spec.version}`,
-        items: spec.pages.map(([text, slug]) => ({ text, link: specLink(spec, slug) }))
-      }
-    ]
+    spec.sections.map((section) => ({
+      text: section.title,
+      collapsed: false,
+      items: section.pages.map(([text, slug]) => ({ text, link: specLink(spec, slug) }))
+    }))
   ])
 )
 

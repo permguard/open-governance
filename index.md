@@ -5,9 +5,6 @@ hero:
   name: Open Specs
   text: Open specifications for modern software and intelligent systems.
   tagline: Conventions written in the open, built on open standards, implemented before they are written down.
-  image:
-    src: /permguard/symbol.svg
-    alt: Permguard
   actions:
     - theme: brand
       text: Get Started

@@ -13,6 +13,8 @@
   --vp-c-brand-soft: rgba(217, 70, 239, 0.14);
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: linear-gradient(120deg, var(--os-brand-rose) 10%, var(--os-brand) 60%);
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, var(--os-brand-rose) 30%, var(--os-brand) 70%);
+  --vp-home-hero-image-filter: blur(64px);
   --vp-button-brand-border: var(--os-brand-deep);
   --vp-button-brand-bg: var(--os-brand-deep);
   --vp-button-brand-text: #ffffff;
@@ -75,26 +77,203 @@
   box-shadow: inset 0 2px rgba(255, 255, 255, 0.28);
 }
 
+/* The home banner's specification card: a few attributes with their values, as a reader meets
+   them, coloured as code is, over the brand's glow. */
+.os-hero-card {
+  position: relative;
+  z-index: 1;
+  width: min(440px, 88vw);
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--vp-c-bg) 88%, transparent);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  font-family: var(--vp-font-family-mono);
+  font-size: 12.5px;
+  backdrop-filter: blur(8px);
+}
+
+.os-hero-card__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.os-hero-card__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--vp-c-default-3);
+}
+
+.os-hero-card__dot:first-child {
+  background: var(--os-brand-rose);
+}
+
+.os-hero-card__file {
+  margin-left: 8px;
+  color: var(--vp-c-text-3);
+  font-size: 11.5px;
+}
+
+.os-hero-card__rows {
+  margin: 0;
+  padding: 12px 16px;
+}
+
+.os-hero-card__rows > div {
+  display: flex;
+  gap: 14px;
+  padding: 3px 0;
+  white-space: nowrap;
+}
+
+.os-hero-card__rows dt {
+  flex: 0 0 150px;
+  color: var(--vp-c-brand-1);
+}
+
+.os-hero-card__rows dd {
+  overflow: hidden;
+  margin: 0;
+  color: var(--vp-c-text-1);
+  text-overflow: ellipsis;
+}
+
+.os-hero-card__rows dd.is-string {
+  color: #4ade80;
+}
+
+.os-hero-card__rows dd.is-number {
+  color: #fbbf24;
+}
+
+.os-hero-card__rows dd.is-enum {
+  color: var(--vp-c-text-2);
+}
+
+:root:not(.dark) .os-hero-card__rows dd.is-string {
+  color: #15803d;
+}
+
+:root:not(.dark) .os-hero-card__rows dd.is-number {
+  color: #b45309;
+}
+
+.os-hero-card__flow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px 14px;
+  border-top: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-2);
+  font-size: 11px;
+}
+
+.os-hero-card__flow span {
+  padding: 3px 8px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+}
+
+.os-hero-card__flow span.is-out {
+  border-color: var(--os-brand);
+  color: var(--vp-c-brand-1);
+}
+
+.os-hero-card__flow i {
+  flex: 1 1 auto;
+  height: 1px;
+  min-width: 10px;
+  background: linear-gradient(90deg, var(--os-brand-rose), var(--os-brand));
+}
+
+/* Under the two-column banner VitePress gives its image a fixed square pulled up under the
+   navigation; the card has its own height, so it takes its place in the flow instead. */
+@media (max-width: 959px) {
+  .VPHero.has-image .image {
+    margin: 0 0 2.5rem;
+  }
+
+  .VPHero.has-image .image-container {
+    width: auto;
+    height: auto;
+  }
+
+  .os-hero-card {
+    margin: 0 auto;
+  }
+}
+
+.os-hero-card {
+  text-align: left;
+}
+
+/* On a phone the card keeps every attribute on its line: a narrower name column, and the flow
+   without its middle step. */
+@media (max-width: 639px) {
+  .os-hero-card {
+    font-size: 11.5px;
+  }
+
+  .os-hero-card__rows dt {
+    flex-basis: 124px;
+  }
+
+  .os-hero-card__flow {
+    font-size: 10.5px;
+  }
+}
+
+@media (max-width: 399px) {
+  .os-hero-card__flow .is-optional {
+    display: none;
+  }
+}
+
+/* A specification's card on the home page: its icon and its title on one line, the rest under. */
+.VPFeature .box {
+  display: grid !important;
+  grid-template-columns: auto 1fr;
+  column-gap: 14px;
+  align-items: center;
+}
+
+.VPFeature .box > .icon {
+  margin-bottom: 0 !important;
+}
+
+.VPFeature .box > .title {
+  padding-top: 0 !important;
+}
+
+.VPFeature .box > .details,
+.VPFeature .box > .link-text {
+  grid-column: 1 / -1;
+}
+
 /* The specification menu, at the top of the sidebar: a framed list, one row per specification,
    the one in view filled. */
 .os-spec-menu {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin: 20px 0 8px;
-  padding: 6px;
+  margin: 16px 0 20px;
+  padding: 4px;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
+  border-radius: 10px;
   background: var(--vp-c-bg-soft);
 }
 
 .os-spec-menu__item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
+  gap: 8px;
+  padding: 6px 8px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 7px;
   color: var(--vp-c-text-2);
   text-decoration: none;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -116,9 +295,9 @@
 }
 
 .os-spec-menu__icon {
-  flex: 0 0 18px;
-  width: 18px;
-  height: 18px;
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
 }
 
 .os-spec-menu__text {
@@ -128,15 +307,71 @@
 }
 
 .os-spec-menu__title {
-  font-size: 14px;
+  overflow: hidden;
+  font-size: 13px;
   font-weight: 600;
   line-height: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .os-spec-menu__meta {
   color: var(--vp-c-text-3);
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+/* The sections of a specification, as OpenInference draws its own: a small mono caps label, its
+   pages along a thin line, the page in view marked on the line in the brand colour. */
+.VPSidebar .VPSidebarItem.level-0 {
+  padding-bottom: 1.25rem;
+}
+
+.VPSidebar .group + .group {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.VPSidebar .VPSidebarItem.level-0 > .item > .text {
+  padding: 0.25rem 0;
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+}
+
+.VPSidebar .VPSidebarItem.level-0.has-active > .item > .text {
+  color: var(--vp-c-text-1);
+}
+
+.VPSidebar .VPSidebarItem.level-0 > .items {
+  margin: 0.25rem 0 0 0.125rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--vp-c-divider);
+}
+
+.VPSidebar .VPSidebarItem.level-1 > .item > .indicator {
+  left: calc(-1rem - 1.5px);
+}
+
+.VPSidebar .VPSidebarItem.level-1.is-active > .item > .indicator {
+  background-color: var(--vp-c-brand-1);
+}
+
+.VPSidebar .VPSidebarItem.level-1 .text {
+  font-weight: 400;
+}
+
+.VPSidebar .VPSidebarItem.level-1.is-active > .item .link > .text {
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+}
+
+.VPSidebar .VPSidebarItem.level-1 > .item .link:hover > .text {
+  color: var(--vp-c-brand-1);
 }
 
 /* Permguard's band at the bottom of every page, as on its slides: the wordmark, the line, the
