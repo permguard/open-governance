@@ -8,15 +8,18 @@ import SpecMenu from './SpecMenu.vue'
 import SiteFooter from './SiteFooter.vue'
 import SpecHero from './SpecHero.vue'
 import Diagram from './diagrams/Diagram.vue'
+import SpecCatalog from './SpecCatalog.vue'
 import './custom.css'
 
 // VitePress's default theme in Permguard's colours: a specification card in the home banner, the
+// catalogue of specifications under it, the
 // specification menu above every sidebar, the diagrams that open its pages, and Permguard's band
 // at the bottom of every page.
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     app.component('Diagram', Diagram)
+    app.component('SpecCatalog', SpecCatalog)
   },
   Layout: () =>
     h(DefaultTheme.Layout, null, {

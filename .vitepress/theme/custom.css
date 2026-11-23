@@ -233,25 +233,166 @@
   }
 }
 
-/* A specification's card on the home page: its icon and its title on one line, the rest under. */
-.VPFeature .box {
-  display: grid !important;
-  grid-template-columns: auto 1fr;
-  column-gap: 14px;
+/* The catalogue on the home page: the specifications by area of governance, each a card that opens
+   it, so that what can be clicked looks it. */
+.os-catalog {
+  margin: 8px 0 48px;
+}
+
+.os-catalog__head h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.vp-doc .os-catalog__head p {
+  margin: 6px 0 0;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc .os-catalog__domain h3 {
+  margin: 28px 0 12px;
+  color: var(--vp-c-text-3);
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.os-catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+}
+
+.vp-doc a.os-spec-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-weight: 400;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.vp-doc a.os-spec-card:hover {
+  border-color: var(--os-brand);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--os-brand) 14%, transparent);
+  transform: translateY(-2px);
+}
+
+.os-spec-card__top {
+  display: flex;
   align-items: center;
+  gap: 12px;
 }
 
-.VPFeature .box > .icon {
-  margin-bottom: 0 !important;
+.os-spec-card__icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border-radius: 8px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
 }
 
-.VPFeature .box > .title {
-  padding-top: 0 !important;
+.os-spec-card__title {
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.3;
 }
 
-.VPFeature .box > .details,
-.VPFeature .box > .link-text {
-  grid-column: 1 / -1;
+.os-spec-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.os-spec-card__chip {
+  padding: 1px 8px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+}
+
+.os-spec-card__chip.is-development {
+  border-color: var(--vp-c-warning-2);
+  color: var(--vp-c-warning-1);
+}
+
+.os-spec-card__chip.is-stable {
+  border-color: var(--vp-c-success-2);
+  color: var(--vp-c-success-1);
+}
+
+.os-spec-card__line {
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.os-spec-card__go {
+  margin-top: auto;
+  color: var(--vp-c-brand-1);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.os-spec-card__go span {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.vp-doc a.os-spec-card:hover .os-spec-card__go span {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc a.os-spec-card,
+  .os-spec-card__go span {
+    transition: none;
+  }
+
+  .vp-doc a.os-spec-card:hover {
+    transform: none;
+  }
+}
+
+/* Code in several languages: each tab carries its language's mark, as on permguard.com. */
+.vp-code-group .tabs label[data-title] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vp-code-group .tabs label[data-title]::before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: center / contain no-repeat;
+}
+
+.vp-code-group .tabs label[data-title='Go']::before { background-image: url('/languages/go.svg'); }
+.vp-code-group .tabs label[data-title='Java']::before { background-image: url('/languages/java.svg'); }
+.vp-code-group .tabs label[data-title='.NET']::before { background-image: url('/languages/dotnet.svg'); }
+.vp-code-group .tabs label[data-title='Node.js']::before { background-image: url('/languages/nodejs.svg'); }
+.vp-code-group .tabs label[data-title='Python']::before { background-image: url('/languages/python.svg'); }
+.vp-code-group .tabs label[data-title='Rust']::before { background-image: url('/languages/rust.svg'); }
+
+/* Rust's mark is white: dark on a light page. */
+:root:not(.dark) .vp-code-group .tabs label[data-title='Rust']::before {
+  filter: invert(1);
 }
 
 /* The specification menu, at the top of the sidebar: a framed list, one row per specification,

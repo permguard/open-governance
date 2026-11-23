@@ -23,7 +23,7 @@ const sidebar = Object.fromEntries(
 export default defineConfig({
   base,
   title: 'Open Specs',
-  description: 'Open specifications for modern software and intelligent systems.',
+  description: 'Open governance specifications for how organisations decide, control and account.',
   head: [['link', { rel: 'icon', type: 'image/x-icon', href: `${base}permguard/favicon.ico` }]],
   cleanUrls: true,
   // The repository's own files are not pages of the site.

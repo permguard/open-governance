@@ -7,10 +7,16 @@
 //                rules), so a column limit would only push towards wrapping.
 //
 //   no-inline-html  off: a page opens with `<Diagram of="..." />`, a component of the site.
+//
+//   no-hard-tabs  not in code: Go is indented with tabs, as gofmt writes it.
+//
+//   first-line-heading  off: the home page's title is its banner, written in its front matter.
 {
   "config": {
     "line-length": false,
-    "no-inline-html": false
+    "no-inline-html": false,
+    "no-hard-tabs": { "code_blocks": false },
+    "first-line-heading": false
   },
   "globs": ["**/*.md", "!node_modules", "!.vitepress/dist", "!.vitepress/cache"]
 }

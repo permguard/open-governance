@@ -14,6 +14,8 @@ export interface Spec {
   short: string
   /** One line: what the specification is for. */
   line: string
+  /** The area of governance it belongs to, under which the home page lists it. */
+  domain: string
   /** `development`, `stable` or `deprecated`: how far the specification can be relied on. */
   status: 'development' | 'stable' | 'deprecated'
   version: string
@@ -29,6 +31,7 @@ export const specs: Spec[] = [
     title: 'Open Decision Lineage',
     short: 'ODL',
     line: 'What pipelines that analyse authorization decision logs do with them, as OpenTelemetry traces.',
+    domain: 'Decision Governance',
     status: 'development',
     version: '1',
     // Lucide `workflow`.

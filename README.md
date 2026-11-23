@@ -1,6 +1,6 @@
 # Open specs
 
-Open specifications for modern software and intelligent systems.
+Open governance specifications for how organisations decide, control and account.
 
 | Specification                                   | Status      |
 | ----------------------------------------------- | ----------- |
