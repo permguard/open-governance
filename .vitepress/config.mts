@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { defineConfig } from 'vitepress'
-import { specLink, specs } from './specs'
+import { published, specLink, specs } from './specs'
 
 // GitHub Pages serves the site below the repository path; the deploy passes it in.
 const base = `/${(process.env.VITEPRESS_BASE ?? '').replace(/^\/+|\/+$/g, '')}/`.replace(/^\/\/$/, '/')
@@ -10,7 +10,7 @@ const base = `/${(process.env.VITEPRESS_BASE ?? '').replace(/^\/+|\/+$/g, '')}/`
 // Each specification has a sidebar of its own sections, each collapsible; the specification menu
 // above it moves between specifications (theme/SpecMenu.vue).
 const sidebar = Object.fromEntries(
-  specs.map((spec) => [
+  published.map((spec) => [
     specLink(spec),
     spec.sections.map((section) => ({
       text: section.title,
@@ -29,7 +29,8 @@ export default defineConfig({
   // The site's home: opengov.permguard.com, where the schemas' ids point.
   sitemap: { hostname: 'https://opengov.permguard.com' },
   // The repository's own files are not pages of the site.
-  srcExclude: ['README.md'],
+  // A specification in progress keeps its draft pages in the repository, unpublished.
+  srcExclude: ['README.md', ...specs.filter((spec) => spec.status === 'in-progress').map((spec) => `specs/${spec.id}/**`)],
   lastUpdated: true,
   // Dark by default, like permguard.com; the toggle still offers light.
   appearance: 'dark',
@@ -37,9 +38,9 @@ export default defineConfig({
     // Open Governance's own mark, in Permguard's colours; Permguard itself signs the footer.
     logo: { src: '/logo.svg', alt: 'Open Governance' },
     siteTitle: 'Open Governance',
-    specs,
+    specs: published,
     nav: [
-      { text: 'Specifications', items: specs.map((spec) => ({ text: spec.title, link: specLink(spec) })) }
+      { text: 'Specifications', items: published.map((spec) => ({ text: spec.title, link: specLink(spec) })) }
     ],
     sidebar,
     outline: { level: [2, 3] },

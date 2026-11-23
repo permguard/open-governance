@@ -9,8 +9,8 @@ The site is published at [opengov.permguard.com](https://opengov.permguard.com) 
 | [Span-Native Governance](specs/span-native-governance/) | Draft       | [v0](public/specs/span-native-governance/v0/schema.json) |
 | [Open Decision Lineage](specs/open-decision-lineage/)   | Development | [v1](public/specs/open-decision-lineage/v1/schema.json)  |
 | [Open Compliance](specs/open-compliance/)               | Planned     |                                                          |
-| [Open Human Oversight](specs/open-human-oversight/)     | Planned     |                                                          |
-| [Open Agentic Loop](specs/open-agentic-loop/)           | Planned     |                                                          |
+| Open Human Oversight                                    | In progress |                                                          |
+| Open Agentic Loop                                       | In progress |                                                          |
 
 ## Develop
 

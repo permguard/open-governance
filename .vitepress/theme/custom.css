@@ -538,7 +538,7 @@
   margin-top: 20px;
 }
 
-.vp-doc a.os-spec-card {
+.vp-doc .os-spec-card {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -595,6 +595,28 @@
   font-size: 11px;
 }
 
+.os-spec-card.is-in-progress {
+  cursor: default;
+}
+
+.os-spec-card.is-in-progress .os-spec-card__icon {
+  background: var(--vp-c-default-soft);
+  color: var(--vp-c-text-3);
+}
+
+.os-spec-card.is-in-progress .os-spec-card__title,
+.os-spec-card.is-in-progress .os-spec-card__line {
+  color: var(--vp-c-text-3);
+}
+
+.os-spec-card__soon {
+  margin-top: auto;
+  color: var(--vp-c-text-3);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.os-spec-card__chip.is-in-progress,
 .os-spec-card__chip.is-planned {
   color: var(--vp-c-text-3);
 }
