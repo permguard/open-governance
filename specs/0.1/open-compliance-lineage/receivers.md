@@ -55,6 +55,7 @@ The refused spans are counted in `partial_success.rejected_spans`; `partial_succ
 The other spans of the export are accepted: one invalid span never refuses its neighbours.
 
 A receiver MUST NOT refuse a span because it is late, out of order, or names a case it has not seen: the trigger of a case may arrive after its actions.
+Nor because of its catalog: an unreachable, invalid or unknown catalog leaves the span as it is ([Catalog](./catalog#rules)).
 
 ## Normalising
 

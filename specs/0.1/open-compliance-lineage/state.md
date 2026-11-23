@@ -27,8 +27,9 @@ The same trace id and span id received twice with different content are a confli
 
 ## A materializer knows no law
 
-Everything a materializer shows of a law, a standard or an event comes from the records, never from a table of its own: OCL is the same for a law of the European Union, of India, of the United States, or for an organisation's own rule.
+Everything a materializer shows of a law, a standard or an event comes from the records and from the [catalog](./catalog) they point to, never from a table of its own: OCL is the same for a law of the European Union, of India, of the United States, or for an organisation's own rule.
 The producer maps its laws to the contract; the materializer reads the contract.
+In the table, each value comes from the record first, then from the catalog, then as said.
 
 | What it shows                   | From                                                                                                 |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------- |

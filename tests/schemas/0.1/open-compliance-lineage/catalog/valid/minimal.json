@@ -1,0 +1,13 @@
+{
+  "ocl_catalog": "0.1",
+  "id": "acme/rules",
+  "version": "1",
+  "default_language": "en",
+  "laws": {
+    "org:ir-plan-2": {
+      "name": {
+        "en": "Incident response plan 2"
+      }
+    }
+  }
+}

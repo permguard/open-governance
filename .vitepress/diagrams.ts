@@ -256,6 +256,37 @@ export const diagrams: Record<string, Diagram> = {
       'Nobody reports a state: it is derived from the obligation, the actions that count towards it, the present time and the authority, checked in this order, then added up by case, by system and by article.'
   },
 
+  'ocl/catalog': {
+    type: 'flow',
+    stages: [
+      {
+        title: 'Record',
+        items: [
+          { label: 'ocl.law.id · article', sub: 'what it cites', tone: 'brand' },
+          { label: 'ocl.law.name · citation', sub: 'when it says them, they win' }
+        ]
+      },
+      {
+        title: 'Catalog',
+        items: [
+          { label: 'ocl.catalog.url', sub: 'on the resource, once' },
+          { label: 'ocl.catalog.digest', sub: 'sha256: this edition only', tone: 'ok' },
+          { label: 'names · citations · dates', sub: 'in every language it carries' }
+        ]
+      },
+      {
+        title: 'Shown',
+        items: [
+          { label: 'GDPR 33(1)', sub: 'from the record or the catalog', tone: 'brand' },
+          { label: 'eu-gdpr 33 1', sub: 'when neither names it', tone: 'muted' }
+        ]
+      }
+    ],
+    arrows: ['points to', 'fills in'],
+    caption:
+      'A record cites a law by its id and its parts; what a person reads of it comes from the record, then from the catalog the producer published, read by its digest and kept, then from the id as sent.'
+  },
+
   'ocl/receivers': {
     type: 'flow',
     stages: [

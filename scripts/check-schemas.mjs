@@ -24,15 +24,23 @@ for (const version of (await readdir(schemas)).sort()) {
   for (const spec of (await readdir(join(schemas, version))).sort()) {
     const ajv = new Ajv2020({ allErrors: true, strict: true, strictRequired: false, allowUnionTypes: true })
     addFormats(ajv)
-    const validate = ajv.compile(await json(join(schemas, version, spec, 'schema.json')))
-    for (const [expected, folder] of [[true, 'valid'], [false, 'invalid']]) {
-      for (const name of await list(join(tests, version, spec, folder))) {
-        checked++
-        const passed = validate(await json(join(tests, version, spec, folder, name)))
-        if (passed !== expected) {
-          failures++
-          const why = passed ? 'was accepted' : ajv.errorsText(validate.errors)
-          console.error(`${version}/${spec} ${folder}/${name}: ${why}`)
+    // The specification's own schema, then each further document it defines, `<name>.schema.json`,
+    // checked against tests/schemas/<version>/<spec>/<name>/.
+    const documents = [['schema.json', '']]
+    for (const name of (await readdir(join(schemas, version, spec))).sort()) {
+      if (name.endsWith('.schema.json')) documents.push([name, name.slice(0, -'.schema.json'.length)])
+    }
+    for (const [file, sub] of documents) {
+      const validate = ajv.compile(await json(join(schemas, version, spec, file)))
+      for (const [expected, folder] of [[true, 'valid'], [false, 'invalid']]) {
+        for (const name of await list(join(tests, version, spec, sub, folder))) {
+          checked++
+          const passed = validate(await json(join(tests, version, spec, sub, folder, name)))
+          if (passed !== expected) {
+            failures++
+            const why = passed ? 'was accepted' : ajv.errorsText(validate.errors)
+            console.error(`${version}/${spec}${sub ? `/${sub}` : ''} ${folder}/${name}: ${why}`)
+          }
         }
       }
     }

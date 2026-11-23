@@ -34,8 +34,11 @@
         "ocl.version": { "const": "0.1", "description": "The version of this specification the spans follow." },
         "ocl.organization.id": { "$ref": "#/$defs/text", "description": "The organisation the obligations fall on, stable across cases." },
         "ocl.organization.name": { "type": "string", "description": "The name a person reads." },
-        "service.name": { "type": "string", "description": "OpenTelemetry's own: the system that emitted the spans." }
-      }
+        "service.name": { "type": "string", "description": "OpenTelemetry's own: the system that emitted the spans." },
+        "ocl.catalog.url": { "type": "string", "format": "uri", "pattern": "^(https://|http://(127\\.0\\.0\\.1|localhost|\\[::1\\])[:/])", "description": "Where the producer's catalog is: what a person reads of the laws and events its records cite." },
+        "ocl.catalog.digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$", "description": "The catalog's SHA-256: a materializer uses only the edition with this digest." }
+      },
+      "dependentRequired": { "ocl.catalog.url": ["ocl.catalog.digest"] }
     },
     "attributes": {
       "type": "object",

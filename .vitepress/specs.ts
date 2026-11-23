@@ -80,7 +80,7 @@ export const specs: Spec[] = [
     sections: [
       { title: 'Specification', pages: [['Overview', '']] },
       { title: 'Concepts', pages: [['Cases', 'cases'], ['Data Model', 'data-model'], ['Span Kinds', 'span-kinds']] },
-      { title: 'Reference', pages: [['Attributes', 'attributes'], ['Legal References', 'laws'], ['Schema', 'schema']] },
+      { title: 'Reference', pages: [['Attributes', 'attributes'], ['Legal References', 'laws'], ['Catalog', 'catalog'], ['Schema', 'schema']] },
       { title: 'Interpretation', pages: [['Obligations and State', 'state'], ['Receivers', 'receivers']] },
       { title: 'In Practice', pages: [['AI Act Examples', 'examples'], ['Field Guide', 'field-guide']] }
     ]

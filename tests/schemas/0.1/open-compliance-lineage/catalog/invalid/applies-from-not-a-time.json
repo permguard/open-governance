@@ -1,0 +1,76 @@
+{
+  "ocl_catalog": "0.1",
+  "id": "northwind-financial/legal",
+  "version": "2026-11-23",
+  "default_language": "en",
+  "laws": {
+    "eu-gdpr": {
+      "name": {
+        "en": "GDPR"
+      },
+      "title": {
+        "en": "General Data Protection Regulation",
+        "it": "Regolamento generale sulla protezione dei dati"
+      },
+      "jurisdiction": "eu",
+      "uri": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "applies_from": "2018-05-25T00:00:00Z",
+      "provisions": {
+        "33.1": {
+          "citation": {
+            "en": "33(1)"
+          },
+          "title": {
+            "en": "Notify the supervisory authority"
+          }
+        }
+      }
+    },
+    "in:pmla": {
+      "name": {
+        "en": "PMLA"
+      },
+      "jurisdiction": "in",
+      "provisions": {
+        "12.1.b": {
+          "citation": {
+            "en": "§ 12(1)(b)"
+          }
+        }
+      }
+    },
+    "eu-ai-act": {
+      "name": {
+        "en": "AI Act"
+      },
+      "provisions": {
+        "14.5": {
+          "citation": {
+            "en": "14(5)"
+          },
+          "applies_from": "December 2027"
+        }
+      }
+    },
+    "std:nist-csf-2.0": {
+      "name": {
+        "en": "NIST CSF 2.0"
+      },
+      "provisions": {
+        "DE.AE.08": {
+          "citation": {
+            "en": "DE.AE-08"
+          }
+        }
+      }
+    }
+  },
+  "triggers": {
+    "personal_data_breach": {
+      "name": {
+        "en": "Personal data breach",
+        "it": "Violazione di dati personali"
+      }
+    }
+  }
+}

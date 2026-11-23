@@ -21,12 +21,14 @@ The requirement levels follow the [OpenTelemetry definitions](https://openteleme
 Recorded on the OpenTelemetry resource of the producer, not on its spans.
 They name the organisation whose obligations the spans are about.
 
-| Attribute               | Type   | Level       | Meaning                                                                        |
-| ----------------------- | ------ | ----------- | ------------------------------------------------------------------------------ |
-| `ocl.version`           | String | Required    | `"0.1"`: the version of this specification the spans follow; it makes them OCL |
-| `ocl.organization.id`   | String | Required    | the organisation the obligations fall on, stable: `northwind-hr`               |
-| `ocl.organization.name` | String | Recommended | the name a person reads: `Northwind HR`; the id when absent                    |
-| `service.name`          | String | Recommended | OpenTelemetry's own: the system that emitted the spans                         |
+| Attribute               | Type   | Level       | Meaning                                                                                |
+| ----------------------- | ------ | ----------- | -------------------------------------------------------------------------------------- |
+| `ocl.version`           | String | Required    | `"0.1"`: the version of this specification the spans follow; it makes them OCL         |
+| `ocl.organization.id`   | String | Required    | the organisation the obligations fall on, stable: `northwind-hr`                       |
+| `ocl.organization.name` | String | Recommended | the name a person reads: `Northwind HR`; the id when absent                            |
+| `service.name`          | String | Recommended | OpenTelemetry's own: the system that emitted the spans                                 |
+| `ocl.catalog.url`       | String | Optional    | where the producer's [catalog](./catalog) is: what a person reads of the laws it cites |
+| `ocl.catalog.digest`    | String | Optional    | the catalog's `sha256:`; required with `ocl.catalog.url`                               |
 
 ## Span attributes
 
