@@ -2,7 +2,7 @@
 
 Open Compliance Evidence (OCE) is a semantic convention for OpenTelemetry traces.
 It records what happens when an event engages the law: the event itself, the obligations it opens, article by article, and every action taken to meet them, from the moment the organisation became aware to the moment the case is closed.
-From these records alone, anyone receiving them can rebuild each case, see which obligations are on time, late or overdue, and add them up by law and by article.
+From these records alone, anyone receiving them can rebuild each case, see which obligations were performed by their due, after it, or are overdue, and add them up by law and by article.
 
 | Status | Version | Namespace | Signal               |
 | ------ | ------- | --------- | -------------------- |
@@ -40,9 +40,9 @@ OCE only gives meaning to their `oce.*` attributes.
 
 ## What it answers
 
-- Which obligations does this incident engage, and is each of them on time?
+- Which obligations does this incident engage, and where does each stand against its due?
 - Which reports are due this week, and which are already late?
-- How many AI Act Article 73 reports did we make this year, and how many on time?
+- How many AI Act Article 73 reports did we make this year, and how many by their due?
 - Did two people verify this identification before anyone acted on it, and who?
 - What did we do about this contested decision, and when did we tell the person?
 
@@ -50,32 +50,32 @@ OCE answers them from the spans alone, without access to the systems that emitte
 
 ## Principles
 
-| Principle              | Meaning                                                                                                     |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------- |
-| One process            | every law is read the same way: an event engages obligations, and actions meet them                         |
-| Cited, not interpreted | an obligation names its law, article, paragraph and point; OCE never encodes what the law means             |
-| The producer decides   | which obligations an event engages is the organisation's assessment, recorded as such, never this spec's    |
-| Deadlines are data     | an obligation carries its due time; on time, late and overdue are derived, never reported                   |
-| Humans are recorded    | a human review is an action like any other, with its actor and its result, and may need more than one actor |
-| Evidence by reference  | an action names what proves it, by URI and digest; it never carries it                                      |
-| Unknown is a state     | an event nobody assessed is unassessed, never fine; an obligation nobody met is open, then overdue          |
+| Principle              | Meaning                                                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------- |
+| One process            | every law is read the same way: an event engages obligations, and actions meet them                           |
+| Cited, not interpreted | an obligation names its law or standard, article, paragraph and point; OCE never encodes what the text means  |
+| The producer decides   | which obligations an event engages is the organisation's assessment, recorded as such, never this spec's      |
+| Deadlines are data     | an obligation carries its due time and what it counts from; met, late and overdue are derived, never reported |
+| Humans are recorded    | a human review is an action like any other, with its actor and its result, and may need more than one actor   |
+| Evidence by reference  | an action names what proves it, by URI and digest; it never carries it                                        |
+| Unknown is a state     | an event nobody assessed is unassessed, never fine; an obligation nobody met is open, then overdue            |
 
 ## Reading this specification
 
 The pages go from the whole to the detail: the case first, then how it maps onto traces, then every attribute, then what a materializer derives.
 
-| Page                             | What it holds                                                           |
-| -------------------------------- | ----------------------------------------------------------------------- |
-| [Cases](./cases)                 | The process from an event to its close, and what opens and links a case |
-| [Data Model](./data-model)       | Organisations, cases, triggers, obligations and actions, as spans       |
-| [Span Kinds](./span-kinds)       | The four kinds of OCE span, and what each carries                       |
-| [Attributes](./attributes)       | Every attribute, its type and its requirement level                     |
-| [Legal References](./laws)       | How an obligation cites its law, and the obligations of five EU laws    |
-| [Schema](./schema)               | The JSON Schema of a record, to validate what a producer emits          |
-| [Obligations and State](./state) | How the state of an obligation, a case and a system is derived          |
-| [Receivers](./receivers)         | What a receiver must accept, refuse and derive                          |
-| [AI Act Examples](./examples)    | Four cases under the AI Act, span by span                               |
-| [Field Guide](./field-guide)     | A producer in every major language                                      |
+| Page                             | What it holds                                                                    |
+| -------------------------------- | -------------------------------------------------------------------------------- |
+| [Cases](./cases)                 | The process from an event to its close, and what opens and links a case          |
+| [Data Model](./data-model)       | Organisations, cases, triggers, obligations and actions, as spans                |
+| [Span Kinds](./span-kinds)       | The four kinds of OCE span, and what each carries                                |
+| [Attributes](./attributes)       | Every attribute, its type and its requirement level                              |
+| [Legal References](./laws)       | How an obligation cites its law or standard, and the obligations of five EU laws |
+| [Schema](./schema)               | The JSON Schema of a record, to validate what a producer emits                   |
+| [Obligations and State](./state) | How the state of an obligation, a case and a system is derived                   |
+| [Receivers](./receivers)         | What a receiver must accept, refuse and derive                                   |
+| [AI Act Examples](./examples)    | Four cases under the AI Act, span by span                                        |
+| [Field Guide](./field-guide)     | A producer in every major language                                               |
 
 ## Conformance
 
@@ -88,6 +88,7 @@ A producer is conformant when every span it marks as OCE satisfies [Span Kinds](
 ::: warning Draft
 Open Compliance Evidence is a draft, version 0.1: its attributes may still change, and it is not legal advice.
 It records how an organisation reads and meets its obligations; whether that reading is right is for the organisation, its counsel and its authorities.
+What a materializer derives from it is not an audit, and not a certification, conformity assessment or attestation of compliance with any law.
 :::
 
 ## Relation to other specifications
