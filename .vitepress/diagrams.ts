@@ -71,7 +71,7 @@ export const diagrams: Record<string, Diagram> = {
     ],
     arrows: ['engages', 'met by', 'derive'],
     caption:
-      'A compliance process as spans: an event engages obligations, article by article; actions meet them; whether each was met on time is derived, never reported.'
+      'A compliance process as spans: an event engages obligations, article by article; actions meet them; whether each was performed by its due is derived, never reported.'
   },
 
   'oce/cases': {
@@ -87,7 +87,7 @@ export const diagrams: Record<string, Diagram> = {
     ],
     axis: ['aware', 'day 15'],
     caption:
-      'One case in time. Awareness starts every clock; the obligations are assessed at once; each action meets one; the case closes when nothing is left to do.'
+      'One case in time. Each obligation counts from its anchor, here awareness; the obligations are assessed at once; each action meets one; the case closes when nothing is left to do.'
   },
 
   'oce/data-model': {
@@ -130,9 +130,9 @@ export const diagrams: Record<string, Diagram> = {
       {
         title: 'action',
         items: [
-          { label: 'assess · review', sub: 'with a result' },
-          { label: 'notify · inform', sub: 'with a recipient' },
-          { label: 'remediate · record', sub: 'with evidence' }
+          { label: 'assess · review · determine', sub: 'with a result or a finding' },
+          { label: 'notify · inform · escalate', sub: 'with a recipient' },
+          { label: 'remediate · record · attest', sub: 'with evidence or a sign-off' }
         ]
       },
       { title: 'close', items: [{ label: 'closed', tone: 'ok' }, { label: 'withdrawn', tone: 'muted' }] }
@@ -156,7 +156,7 @@ export const diagrams: Record<string, Diagram> = {
           children: [
             { title: 'trigger', chips: ['oce.trigger.type', 'oce.subject.*'] },
             { title: 'obligation', chips: ['oce.obligation.*', 'oce.law.*', 'oce.party.role'] },
-            { title: 'action', chips: ['oce.action.*', 'oce.obligation.id', 'oce.actor.*', 'oce.evidence.*'] },
+            { title: 'action', chips: ['oce.action.*', 'oce.obligation.id', 'oce.actor.*', 'oce.evidence.*', 'oce.assessment.*'] },
             { title: 'close', chips: ['oce.case.state'] }
           ]
         }
@@ -170,17 +170,19 @@ export const diagrams: Record<string, Diagram> = {
     type: 'flow',
     stages: [
       {
-        title: 'As the law reads',
+        title: 'As the text reads',
         items: [
           { label: 'AI Act, Article 73(2)', tone: 'brand' },
-          { label: 'NIS2, Article 23(4)(a)', tone: 'brand' }
+          { label: 'NIS2, Article 23(4)(a)', tone: 'brand' },
+          { label: 'NIST CSF 2.0, DE.AE-08', tone: 'brand' }
         ]
       },
       {
         title: 'As OCE records it',
         items: [
           { label: 'eu-ai-act · 73 · 2', sub: 'oce.law.id · article · paragraph' },
-          { label: 'eu-nis2 · 23 · 4 · a', sub: 'with the point' }
+          { label: 'eu-nis2 · 23 · 4 · a', sub: 'with the point' },
+          { label: 'std:nist-csf-2.0 · DE.AE · 08', sub: 'a standard, counted apart' }
         ]
       },
       {
@@ -225,19 +227,23 @@ export const diagrams: Record<string, Diagram> = {
         title: 'Records of a case',
         items: [
           { label: 'obligation', sub: 'action · quorum · due', tone: 'brand' },
-          { label: 'actions that count', sub: 'same kind, not failed, with authority' },
-          { label: 'the present time' }
+          { label: 'actions that count', sub: 'same kind, not failed, before the close' },
+          { label: 'the present time' },
+          { label: 'the authority', sub: 'whose records count' }
         ]
       },
       {
         title: 'State of an obligation',
         items: [
+          { label: 'conflict', tone: 'error' },
+          { label: 'not applicable', tone: 'muted' },
           { label: 'met', tone: 'ok' },
           { label: 'late', tone: 'warn' },
-          { label: 'waived', tone: 'muted' },
-          { label: 'open' },
+          { label: 'performed', sub: 'no due', tone: 'ok' },
+          { label: 'unmet', tone: 'error' },
           { label: 'overdue', tone: 'error' },
-          { label: 'unmet', tone: 'error' }
+          { label: 'pending', sub: 'its anchor' },
+          { label: 'open' }
         ]
       },
       {
@@ -247,7 +253,7 @@ export const diagrams: Record<string, Diagram> = {
     ],
     arrows: ['derive', 'add up'],
     caption:
-      'Nobody reports a state: it is derived from the obligation, the actions that count towards it and the present time, then added up by case, by system and by article.'
+      'Nobody reports a state: it is derived from the obligation, the actions that count towards it, the present time and the authority, checked in this order, then added up by case, by system and by article.'
   },
 
   'oce/receivers': {

@@ -13,12 +13,12 @@ It is distinct from OpenTelemetry's own `SpanKind`, which describes a span's pos
 | `close`         | the end of the case, sent once            | when the case was closed                 |
 
 Every OCE span MUST carry `oce.span.kind` and `oce.case.id`.
-A span whose resource does not carry `oce.version` is not an OCE span, whatever its attributes.
+A span whose resource does not carry `oce.version` is not an OCE span, whatever its attributes; a span whose resource carries the version of another specification too is refused.
 
 ## trigger
 
 The event that opens the case.
-Its start is when the event happened, as far as it is known; its end, the time of the record, is when the organisation became aware of it ([Cases](./cases#time-starts-at-awareness)).
+Its start is when the event happened, as far as it is known; its end, the time of the record, is when the organisation became aware of it, the anchor most clocks count from ([Cases](./cases#the-clock-starts-at-the-anchor)).
 
 A trigger span MUST carry `oce.trigger.type` and `oce.subject.id`, and SHOULD carry `oce.subject.type`.
 A case has one trigger; a trigger that is reclassified, a malfunction found to be a serious incident, is a new trigger record that `supersedes` the first.
@@ -26,27 +26,33 @@ A case has one trigger; a trigger that is reclassified, a malfunction found to b
 ## obligation
 
 One thing a law asks because of the event.
-An obligation span MUST carry `oce.obligation.id`, `oce.obligation.action`, `oce.law.id` and `oce.law.article`, and SHOULD carry `oce.law.paragraph`, `oce.law.version`, `oce.party.role` and, where the law sets one, `oce.obligation.due`.
+An obligation span MUST carry `oce.obligation.id`, `oce.obligation.action`, `oce.law.id` and `oce.law.article`, and SHOULD carry `oce.law.paragraph`, `oce.law.version`, `oce.party.role`, `oce.obligation.anchor` and, where a deadline is set, `oce.obligation.due`.
+It MAY name who must see it done with `oce.obligation.owner`.
 
 `oce.obligation.action` is the kind of action that meets the obligation: `notify` for a report to an authority, `review` for a human review, and so on below.
 `oce.obligation.quorum` says how many distinct actors must perform it; two for the separate verification Article 14(5) of the AI Act asks for.
 
-An obligation that the law sets without a deadline, *without undue delay*, *immediately*, carries no `oce.obligation.due`, and a producer MAY set one of its own policy.
-An obligation whose deadline counts from another record, a final report one month after the incident notification, is emitted once that record exists, with the due it gives.
+An obligation that the law sets without a deadline, *without undue delay*, *immediately*, carries no `oce.obligation.due`, and a producer MAY set one of its own policy, naming that policy in `oce.obligation.due_basis`.
+A due the organisation sets is always labelled so: it is a policy, never the law's.
+An obligation whose deadline counts from another record, a final report one month after the incident notification, is emitted once that record exists, with the due it gives; until then it MAY be emitted without a due, naming its anchor, and it is `pending`.
+An obligation whose due depends on a parameter the organisation defines names it in `oce.obligation.parameter`, and its value in `oce.obligation.parameter_value`; one whose parameter has no value is `pending` too ([Obligations and State](./state)).
 
 ## action
 
 One thing done towards an obligation.
 An action span MUST carry `oce.action.kind`, and SHOULD carry `oce.obligation.id`, the obligation it works towards.
 
-| `oce.action.kind` | The action                                                                     | Carries also                                     |
-| ----------------- | ------------------------------------------------------------------------------ | ------------------------------------------------ |
-| `assess`          | judges whether an obligation applies                                           | `oce.action.result`: `applies`, `not_applicable` |
-| `review`          | a person reviews an output, a decision or an identification                    | `oce.action.result`, `oce.actor.id`              |
-| `notify`          | reports to an authority: a market surveillance authority, a CSIRT, a regulator | `oce.action.recipient`, `oce.action.reference`   |
-| `inform`          | tells a party: a provider, an affected person, the workers, the clients        | `oce.action.recipient`                           |
-| `remediate`       | corrects: suspends a system, retrains a model, patches a product               | `oce.evidence.ref`                               |
-| `record`          | keeps what the law asks to keep: a log, a documentation of the breach          | `oce.evidence.ref`, `oce.evidence.digest`        |
+| `oce.action.kind` | The action                                                                     | Carries also                                                                |
+| ----------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| `assess`          | judges whether an obligation applies                                           | `oce.action.result`: `applies`, `not_applicable`                            |
+| `review`          | a person reviews an output, a decision or an identification                    | `oce.action.result`, `oce.actor.id`                                         |
+| `notify`          | reports to an authority: a market surveillance authority, a CSIRT, a regulator | `oce.action.recipient`, `oce.action.reference`                              |
+| `inform`          | tells a party: a provider, an affected person, the workers, the clients        | `oce.action.recipient`                                                      |
+| `remediate`       | corrects: suspends a system, retrains a model, patches a product               | `oce.evidence.ref`                                                          |
+| `record`          | keeps what the law asks to keep: a log, a documentation of the breach          | `oce.evidence.ref`, `oce.evidence.digest`                                   |
+| `attest`          | a person with the authority to do so signs off: an approval, an accepted risk  | `oce.actor.id`, optionally `oce.action.result`: `attested`, `risk_accepted` |
+| `escalate`        | hands the matter to someone with more authority, or more resources             | `oce.action.recipient`                                                      |
+| `determine`       | judges one determination statement of a control assessment                     | `oce.assessment.finding`, `oce.control.objective`                           |
 
 A `review` MUST carry `oce.action.result` and `oce.actor.id`:
 
@@ -58,6 +64,10 @@ A `review` MUST carry `oce.action.result` and `oce.actor.id`:
 | `escalated`         | handed it to someone with more authority; it counts as no review |
 
 A review SHOULD link to the record it reviewed, the decision or the identification, with `ogs.link.relation = oce.reviews`.
+
+A `determine` records a finding, `satisfied` or `other_than_satisfied`, with its basis and its method.
+The finding is data, not the obligation's state: the obligation to assess is met by assessing on time, whatever was found, and a finding other than satisfied opens a `weakness_identified` case of its own ([Cases](./cases#what-opens-a-case)).
+A risk accepted is an `attest` with `risk_accepted`, by the person with the authority to accept it; it never makes an obligation not applicable.
 
 The action span's status is whether the action succeeded: a report the authority's platform refused is `ERROR`, with the reason as the status message, and meets nothing.
 An action SHOULD link with `evidence` to the records it rests on, and SHOULD name what proves it with `oce.evidence.ref` and `oce.evidence.digest`.
