@@ -59,6 +59,7 @@ The judgement is the producer's: OCE gives it the words, not the criteria.
 | `serious_incident`        | an AI system's incident that led to harm, as Article 3(49) AI Act says    | AI Act 26(5), 73                     |
 | `identification_match`    | a remote biometric identification system reports a match                  | AI Act 14(5)                         |
 | `contested_decision`      | a person contests a decision taken with an AI system or automatically     | GDPR 22(3), AI Act 86                |
+| `data_subject_request`    | a person exercises a right of Articles 15 to 22 GDPR                      | GDPR 12(3), 12(4)                    |
 | `personal_data_breach`    | a breach of security affecting personal data                              | GDPR 33, 34                          |
 | `significant_incident`    | an incident with a significant impact on an essential or important entity | NIS2 23                              |
 | `major_ict_incident`      | a major ICT-related incident of a financial entity                        | DORA 19                              |
