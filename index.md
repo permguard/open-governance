@@ -10,10 +10,10 @@ hero:
     alt: Permguard
   actions:
     - theme: brand
-      text: Open Decision Lineage
+      text: Get Started
       link: /open-decision-lineage/
     - theme: alt
-      text: GitHub
+      text: View on GitHub
       link: https://github.com/permguard/open-specs
 
 features:
