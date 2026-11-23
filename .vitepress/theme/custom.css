@@ -1280,11 +1280,6 @@
   white-space: nowrap;
 }
 
-.os-lane__bar.is-muted,
-.os-lane__bar.is-ok {
-  padding: 0;
-}
-
 .os-lane__axis {
   display: flex;
   justify-content: space-between;
@@ -1296,6 +1291,10 @@
 }
 
 @container (max-width: 520px) {
+  .os-lane__bar {
+    padding: 0 4px;
+  }
+
   .os-lane {
     grid-template-columns: 1fr;
     gap: 2px;
@@ -1303,6 +1302,15 @@
 
   .os-lane--axis .os-lane__label {
     display: none;
+  }
+}
+
+/* On the narrowest phones a bar's word still fits it whole: a little smaller, a little closer. */
+@container (max-width: 320px) {
+  .os-lane__bar {
+    padding: 0 3px;
+    font-size: 9.5px;
+    letter-spacing: -0.02em;
   }
 }
 

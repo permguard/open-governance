@@ -1,7 +1,8 @@
 <!-- Copyright (c) 2022 Nitro Agility S.r.l. -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
-<!-- Spans on a time line: a lane each, its bars placed by percent of the line. -->
+<!-- Spans on a time line: a lane each, its bars placed by percent of the line, each ending 3px short
+     of its end so that two bars in a row never touch. -->
 <script setup lang="ts">
 import type { LanesDiagram } from './types'
 
@@ -20,7 +21,7 @@ defineProps<{ diagram: LanesDiagram }>()
           :key="bar.from"
           class="os-lane__bar"
           :class="bar.tone && `is-${bar.tone}`"
-          :style="{ left: `${bar.from}%`, width: `${Math.max(bar.to - bar.from, 1.2)}%` }"
+          :style="{ left: `${bar.from}%`, width: `max(4px, calc(${Math.max(bar.to - bar.from, 1.2)}% - 3px))` }"
           :title="bar.label"
         >{{ bar.label }}</span>
       </div>

@@ -81,7 +81,7 @@ export const diagrams: Record<string, Diagram> = {
       { label: 'obligations', depth: 1, bars: [{ from: 2, to: 3 }] },
       { label: 'inform · 26(5)', bars: [{ from: 4, to: 6, tone: 'ok' }] },
       { label: 'notify · 73(2)', bars: [{ from: 44, to: 48, tone: 'ok' }] },
-      { label: 'remediate · 73(6)', bars: [{ from: 50, to: 80, label: 'corrective action', tone: 'ok' }] },
+      { label: 'remediate · 73(6)', bars: [{ from: 50, to: 80, label: 'corrected', tone: 'ok' }] },
       { label: 'due · 73(2)', bars: [{ from: 97.5, to: 99, tone: 'warn' }] },
       { label: 'close', bars: [{ from: 92, to: 94, tone: 'muted' }] }
     ],
@@ -291,10 +291,10 @@ export const diagrams: Record<string, Diagram> = {
   'oce/field-guide': {
     type: 'lanes',
     lanes: [
-      { label: 'trigger', bars: [{ from: 0, to: 40, label: 'identification match', tone: 'brand' }] },
+      { label: 'trigger', bars: [{ from: 0, to: 40, label: 'match', tone: 'brand' }] },
       { label: 'obligation · 14(5)', depth: 1, bars: [{ from: 30, to: 40 }] },
-      { label: 'review · first', bars: [{ from: 50, to: 70, label: 'confirmed', tone: 'ok' }] },
-      { label: 'review · second', bars: [{ from: 75, to: 100, label: 'confirmed', tone: 'ok' }] }
+      { label: 'review · first', bars: [{ from: 44, to: 70, label: 'confirmed', tone: 'ok' }] },
+      { label: 'review · second', bars: [{ from: 74, to: 100, label: 'confirmed', tone: 'ok' }] }
     ],
     axis: ['09:12', '09:31'],
     caption:
@@ -493,16 +493,16 @@ export const diagrams: Record<string, Diagram> = {
       {
         label: 'control evaluated',
         bars: [
-          { from: 4, to: 5.5, tone: 'error' },
+          { from: 2, to: 3.5, tone: 'error' },
           { from: 46, to: 47.5, tone: 'ok' }
         ]
       },
-      { label: 'exception approved', bars: [{ from: 18, to: 19.5, tone: 'warn' }] },
+      { label: 'exception approved', bars: [{ from: 22, to: 23.5, tone: 'warn' }] },
       {
         label: 'state of CTRL-002',
         bars: [
-          { from: 4, to: 18, label: 'failed', tone: 'error' },
-          { from: 18, to: 46, label: 'excepted', tone: 'warn' },
+          { from: 2, to: 22, label: 'failed', tone: 'error' },
+          { from: 22, to: 46, label: 'excepted', tone: 'warn' },
           { from: 46, to: 76, label: 'passed', tone: 'ok' },
           { from: 76, to: 100, label: 'unknown', tone: 'muted' }
         ]
@@ -743,10 +743,10 @@ export const diagrams: Record<string, Diagram> = {
   'odl/span-kinds': {
     type: 'lanes',
     lanes: [
-      { label: 'batch', bars: [{ from: 2, to: 24, label: 'batch 1' }, { from: 30, to: 50, label: 'batch 2' }] },
+      { label: 'batch', bars: [{ from: 2, to: 24, label: 'batch 1' }, { from: 30, to: 54, label: 'batch 2' }] },
       { label: 'step · read', depth: 1, bars: [{ from: 2, to: 8 }, { from: 30, to: 36 }] },
       { label: 'step · enrich', depth: 1, bars: [{ from: 8, to: 15 }, { from: 36, to: 42 }] },
-      { label: 'step · detect', depth: 1, bars: [{ from: 15, to: 24 }, { from: 42, to: 50, tone: 'error' }] },
+      { label: 'step · detect', depth: 1, bars: [{ from: 15, to: 24 }, { from: 42, to: 54, tone: 'error' }] },
       {
         label: 'heartbeat',
         bars: [
