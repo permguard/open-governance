@@ -6,13 +6,13 @@ The site is published at [opengov.permguard.com](https://opengov.permguard.com) 
 
 The current release is 0.1.
 
-| Specification            | Version | Status      | Pages                                                                     | Schema                                                               |
-| ------------------------ | ------- | ----------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| Span-Native Governance   | 0.1     | Draft       | [specs/0.1/span-native-governance](specs/0.1/span-native-governance/)     | [schema.json](public/specs/0.1/span-native-governance/schema.json)   |
-| Open Decision Lineage    | 0.1     | Development | [specs/0.1/open-decision-lineage](specs/0.1/open-decision-lineage/)       | [schema.json](public/specs/0.1/open-decision-lineage/schema.json)    |
-| Open Compliance Evidence | 0.1     | Draft       | [specs/0.1/open-compliance-evidence](specs/0.1/open-compliance-evidence/) | [schema.json](public/specs/0.1/open-compliance-evidence/schema.json) |
-| Open Human Oversight     | 0.1     | Planned     | announced, not published                                                  |                                                                      |
-| Open Agentic Loop        | 0.1     | Planned     | announced, not published                                                  |                                                                      |
+| Specification           | Version | Status      | Pages                                                                   | Schema                                                              |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Span-Native Governance  | 0.1     | Draft       | [specs/0.1/span-native-governance](specs/0.1/span-native-governance/)   | [schema.json](public/specs/0.1/span-native-governance/schema.json)  |
+| Open Decision Lineage   | 0.1     | Development | [specs/0.1/open-decision-lineage](specs/0.1/open-decision-lineage/)     | [schema.json](public/specs/0.1/open-decision-lineage/schema.json)   |
+| Open Compliance Lineage | 0.1     | Draft       | [specs/0.1/open-compliance-lineage](specs/0.1/open-compliance-lineage/) | [schema.json](public/specs/0.1/open-compliance-lineage/schema.json) |
+| Open Human Oversight    | 0.1     | Planned     | announced, not published                                                |                                                                     |
+| Open Agentic Loop       | 0.1     | Planned     | announced, not published                                                |                                                                     |
 
 ## Develop
 

@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opengov.permguard.com/specs/0.1/open-compliance-lineage/schema.json",
+  "title": "Open Compliance Lineage, version 0.1: a record",
+  "description": "One OCL span in the logical JSON form of the specification: its resource, its attributes and its status. It holds what the specification requires: the types of every attribute, the values of its enumerations, the legal reference of an obligation, and the attributes each kind of span must carry. Attributes the specification does not define are allowed, as receivers keep them. Copyright (c) 2022 Nitro Agility S.r.l. SPDX-License-Identifier: Apache-2.0",
+  "type": "object",
+  "required": ["resource", "attributes"],
+  "properties": {
+    "resource": { "$ref": "#/$defs/resource" },
+    "name": { "type": "string" },
+    "context": {
+      "type": "object",
+      "properties": {
+        "trace_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "span_id": { "type": "string", "pattern": "^[0-9a-f]{16}$" }
+      }
+    },
+    "parent_id": { "type": ["string", "null"], "pattern": "^[0-9a-f]{16}$" },
+    "start_time": { "type": "string", "format": "date-time" },
+    "end_time": { "type": "string", "format": "date-time" },
+    "status_code": { "enum": ["UNSET", "OK", "ERROR"] },
+    "status_message": { "type": "string" },
+    "attributes": { "$ref": "#/$defs/attributes" },
+    "links": { "type": "array" }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1 },
+    "word": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "resource": {
+      "type": "object",
+      "description": "The OpenTelemetry resource of the producer: it makes the span OCL, and names the organisation the obligations fall on.",
+      "required": ["ocl.version", "ocl.organization.id"],
+      "properties": {
+        "ocl.version": { "const": "0.1", "description": "The version of this specification the spans follow." },
+        "ocl.organization.id": { "$ref": "#/$defs/text", "description": "The organisation the obligations fall on, stable across cases." },
+        "ocl.organization.name": { "type": "string", "description": "The name a person reads." },
+        "service.name": { "type": "string", "description": "OpenTelemetry's own: the system that emitted the spans." }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "description": "The span's attributes.",
+      "required": ["ocl.span.kind", "ocl.case.id"],
+      "properties": {
+        "ocl.span.kind": { "enum": ["trigger", "obligation", "action", "close"] },
+        "ocl.case.id": { "$ref": "#/$defs/text", "description": "The case, a UUIDv7." },
+        "ocl.trigger.type": { "$ref": "#/$defs/word", "description": "What happened: serious_incident, personal_data_breach, contested_decision, ..." },
+        "ocl.subject.id": { "$ref": "#/$defs/text", "description": "What the case is about: an AI system, a product, a service." },
+        "ocl.subject.type": { "$ref": "#/$defs/word" },
+        "ocl.subject.name": { "type": "string" },
+        "ocl.obligation.id": { "$ref": "#/$defs/text", "description": "The obligation, unique within its case." },
+        "ocl.obligation.name": { "type": "string" },
+        "ocl.obligation.action": { "$ref": "#/$defs/kind", "description": "The kind of action that meets the obligation." },
+        "ocl.obligation.due": { "type": "string", "format": "date-time", "description": "When the obligation must be met, as an RFC 3339 time." },
+        "ocl.obligation.quorum": { "type": "integer", "minimum": 1, "description": "How many distinct actors must act; 1 when absent." },
+        "ocl.obligation.due_basis": { "$ref": "#/$defs/text", "description": "What set the due when the law did not: the organisation's rule or contract." },
+        "ocl.obligation.anchor": { "$ref": "#/$defs/word", "description": "The record the due counts from: awareness, classification, receipt, request, previous, release, termination, scheduled_start, or another. Awareness when absent." },
+        "ocl.obligation.owner": { "$ref": "#/$defs/text", "description": "Who must see it done: a pseudonymous id or a team, never a name." },
+        "ocl.obligation.parameter": { "$ref": "#/$defs/text", "description": "The organisation-defined parameter the obligation depends on, as its standard names it." },
+        "ocl.obligation.parameter_value": { "type": "string", "description": "The value the organisation gave the parameter: an ISO 8601 duration or text." },
+        "ocl.obligation.recurrence": { "$ref": "#/$defs/duration", "description": "How often a standing obligation comes back." },
+        "ocl.law.id": { "type": "string", "pattern": "^(eu-[a-z0-9-]+|std:[a-z0-9][a-z0-9._-]*|org:[a-z0-9][a-z0-9._-]*|[a-z]{2}:[a-z0-9][a-z0-9._-]*)$", "description": "The law or standard: eu-ai-act, eu-gdpr, ..., a national law as <country>:<id>, a standard as std:<id>, or an organisation's own rule as org:<id>." },
+        "ocl.law.article": { "$ref": "#/$defs/reference", "description": "The article, or a standard's first level: 73, DE.AE, IR-6." },
+        "ocl.law.paragraph": { "$ref": "#/$defs/reference", "description": "The paragraph, or a standard's second level." },
+        "ocl.law.point": { "$ref": "#/$defs/reference", "description": "The point, nested points joined by a dot." },
+        "ocl.law.version": { "$ref": "#/$defs/text", "description": "The text the obligation was read from: a consolidated text by its date, a standard by its version or date." },
+        "ocl.law.celex": { "type": "string", "pattern": "^[0-9A-Z]{6,}$" },
+        "ocl.law.uri": { "type": "string", "format": "uri", "description": "Where the text is, for a law or standard with no CELEX: a DOI or a URL." },
+        "ocl.law.supports": { "type": "array", "maxItems": 128, "items": { "type": "string", "pattern": "^(eu-[a-z0-9-]+|std:[a-z0-9][a-z0-9._-]*|org:[a-z0-9][a-z0-9._-]*|[a-z]{2}:[a-z0-9][a-z0-9._-]*)#.+$" }, "description": "The outcomes this obligation also evidences, as <law id>#<reference>." },
+        "ocl.party.role": { "$ref": "#/$defs/word", "description": "The role the law gives the organisation: provider, deployer, controller, ..." },
+        "ocl.action.kind": { "$ref": "#/$defs/kind" },
+        "ocl.action.result": { "enum": ["applies", "not_applicable", "confirmed", "overridden", "rejected", "escalated", "attested", "risk_accepted"] },
+        "ocl.action.recipient": { "$ref": "#/$defs/word" },
+        "ocl.action.reference": { "type": "string" },
+        "ocl.control.objective": { "$ref": "#/$defs/text", "description": "The determination statement a determine action judges, as its standard writes it." },
+        "ocl.assessment.finding": { "enum": ["satisfied", "other_than_satisfied"] },
+        "ocl.assessment.finding_basis": { "$ref": "#/$defs/word", "description": "Why other than satisfied: deficiency, insufficient_information, parameter_undefined, or another." },
+        "ocl.assessment.method": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["examine", "interview", "test"] } },
+        "ocl.actor.id": { "$ref": "#/$defs/text", "description": "Who acted: a pseudonymous id, never a name." },
+        "ocl.actor.role": { "$ref": "#/$defs/word" },
+        "ocl.evidence.ref": { "type": "string", "format": "uri" },
+        "ocl.evidence.digest": { "type": "string", "pattern": "^sha(256|384|512):[0-9a-f]+$" },
+        "ocl.case.state": { "enum": ["closed", "withdrawn"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "ocl.span.kind": { "const": "trigger" } } },
+          "then": { "required": ["ocl.trigger.type", "ocl.subject.id"] }
+        },
+        {
+          "if": { "properties": { "ocl.span.kind": { "const": "obligation" } } },
+          "then": { "required": ["ocl.obligation.id", "ocl.obligation.action", "ocl.law.id", "ocl.law.article"] }
+        },
+        {
+          "if": { "properties": { "ocl.span.kind": { "const": "action" } } },
+          "then": { "required": ["ocl.action.kind"] }
+        },
+        {
+          "if": { "required": ["ocl.action.kind"], "properties": { "ocl.span.kind": { "const": "action" }, "ocl.action.kind": { "const": "assess" } } },
+          "then": { "required": ["ocl.action.result"], "properties": { "ocl.action.result": { "enum": ["applies", "not_applicable"] } } }
+        },
+        {
+          "if": { "required": ["ocl.action.kind"], "properties": { "ocl.span.kind": { "const": "action" }, "ocl.action.kind": { "const": "review" } } },
+          "then": {
+            "required": ["ocl.action.result", "ocl.actor.id"],
+            "properties": { "ocl.action.result": { "enum": ["confirmed", "overridden", "rejected", "escalated"] } }
+          }
+        },
+        {
+          "if": { "required": ["ocl.action.kind", "ocl.action.result"], "properties": { "ocl.span.kind": { "const": "action" }, "ocl.action.kind": { "const": "attest" } } },
+          "then": { "properties": { "ocl.action.result": { "enum": ["attested", "risk_accepted"] } } }
+        },
+        {
+          "if": { "required": ["ocl.action.kind"], "properties": { "ocl.span.kind": { "const": "action" }, "ocl.action.kind": { "const": "determine" } } },
+          "then": { "required": ["ocl.assessment.finding"] }
+        },
+        {
+          "if": { "properties": { "ocl.span.kind": { "const": "close" } } },
+          "then": { "required": ["ocl.case.state"] }
+        },
+        {
+          "if": { "required": ["ocl.law.id"], "properties": { "ocl.law.id": { "type": "string", "pattern": "^(eu-|[a-z]{2}:)" } } },
+          "then": {
+            "properties": {
+              "ocl.law.article": { "type": "string", "pattern": "^[0-9]+[a-z]*$" },
+              "ocl.law.paragraph": { "type": "string", "pattern": "^[0-9]+[a-z]*$" },
+              "ocl.law.point": { "type": "string", "pattern": "^([a-z]+|[0-9]+|[ivxlc]+)(\\.([a-z]+|[0-9]+|[ivxlc]+))*$" },
+              "ocl.law.version": { "type": "string", "format": "date" }
+            }
+          }
+        }
+      ]
+    },
+    "reference": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "duration": { "type": "string", "pattern": "^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d)(\\d+H)?(\\d+M)?(\\d+(\\.\\d+)?S)?)?$", "description": "An ISO 8601 duration: P1Y, P3M, PT4H." },
+    "kind": { "enum": ["assess", "review", "notify", "inform", "remediate", "record", "attest", "escalate", "determine"] }
+  }
+}

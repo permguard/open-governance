@@ -1,0 +1,31 @@
+{
+  "resource": {
+    "service.name": "hr-compliance",
+    "ocl.version": "0.1",
+    "ocl.organization.id": "northwind-hr",
+    "ocl.organization.name": "Northwind HR"
+  },
+  "name": "report the serious incident",
+  "context": {
+    "trace_id": "7f3a400ece17d26b658b1ef03f865761",
+    "span_id": "a1b2c3d4e5f60702"
+  },
+  "parent_id": "a1b2c3d4e5f60701",
+  "start_time": "2028-03-14T09:30:00Z",
+  "end_time": "2028-03-14T09:30:00Z",
+  "status_code": "OK",
+  "attributes": {
+    "ocl.span.kind": "obligation",
+    "ocl.case.id": "0195f3a2-7c4e-7b21-9a8d-3f6e2c1b0a99",
+    "ocl.obligation.id": "csf-de-ae-08",
+    "ocl.obligation.action": "assess",
+    "ocl.obligation.due": "2026-11-21T14:00:00Z",
+    "ocl.obligation.due_basis": "org:ir-plan-2#triage",
+    "ocl.law.id": "std:nist-csf-2.0",
+    "ocl.law.article": "DE.AE",
+    "ocl.law.paragraph": "08",
+    "ocl.law.version": "2024-02-26",
+    "ocl.law.uri": "https://doi.org/10.6028/NIST.CSWP.29",
+    "ocl.party.role": "adopter"
+  }
+}

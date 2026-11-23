@@ -25,7 +25,7 @@ A specification MUST say, for each attribute it defines, that it carries an iden
 
 ## Pseudonymous ids are personal data
 
-A specification names a person by a pseudonymous id, as Open Compliance Evidence names an actor, and a business by a derived transaction id.
+A specification names a person by a pseudonymous id, as Open Compliance Lineage names an actor, and a business by a derived transaction id.
 For the organisation that can resolve them, these ids are personal data (GDPR Article 4(1), Recital 26), and records carrying them are processed as such: for a purpose that is documented, kept no longer than that purpose needs, and protected as the systems they come from.
 
 | Rule              | Meaning                                                                                             |

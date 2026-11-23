@@ -68,9 +68,9 @@ export const specs: Spec[] = [
     ]
   },
   {
-    id: 'open-compliance-evidence',
-    title: 'Open Compliance Evidence',
-    short: 'OCE',
+    id: 'open-compliance-lineage',
+    title: 'Open Compliance Lineage',
+    short: 'OCL',
     line: 'Events that engage the law, the obligations they open article by article, and what was done to meet each, from awareness to close.',
     domain: 'Compliance',
     status: 'draft',

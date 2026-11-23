@@ -1,0 +1,28 @@
+{
+  "resource": {
+    "service.name": "hr-compliance",
+    "ocl.version": "0.1",
+    "ocl.organization.id": "northwind-hr",
+    "ocl.organization.name": "Northwind HR"
+  },
+  "name": "verify the match",
+  "context": {
+    "trace_id": "7f3a400ece17d26b658b1ef03f865761",
+    "span_id": "a1b2c3d4e5f60703"
+  },
+  "parent_id": null,
+  "start_time": "2028-03-14T09:30:00Z",
+  "end_time": "2028-03-14T09:30:00Z",
+  "status_code": "OK",
+  "attributes": {
+    "ocl.case.id": "019a4b2e-7c10-7000-8000-00000000c001",
+    "ocl.span.kind": "obligation",
+    "ocl.obligation.id": "ai-act-14-5",
+    "ocl.obligation.action": "review",
+    "ocl.obligation.quorum": 0,
+    "ocl.law.id": "eu-ai-act",
+    "ocl.law.article": "14",
+    "ocl.law.paragraph": "5",
+    "ocl.party.role": "deployer"
+  }
+}

@@ -34,7 +34,7 @@ export const diagrams: Record<string, Diagram> = {
       'An agent’s loop as governance records: every step it took, the decision that allowed it, and the authority it rested on.'
   },
 
-  'oce/overview': {
+  'ocl/overview': {
     type: 'flow',
     stages: [
       {
@@ -74,7 +74,7 @@ export const diagrams: Record<string, Diagram> = {
       'A compliance process as spans: an event engages obligations, article by article; actions meet them; whether each was performed by its due is derived, never reported.'
   },
 
-  'oce/cases': {
+  'ocl/cases': {
     type: 'lanes',
     lanes: [
       { label: 'trigger', bars: [{ from: 0, to: 2, tone: 'brand' }] },
@@ -90,30 +90,30 @@ export const diagrams: Record<string, Diagram> = {
       'One case in time. Each obligation counts from its anchor, here awareness; the obligations are assessed at once; each action meets one; the case closes when nothing is left to do.'
   },
 
-  'oce/data-model': {
+  'ocl/data-model': {
     type: 'nest',
     root: {
       title: 'Organisation',
       tag: 'resource',
       tone: 'brand',
-      chips: ['oce.organization.id', 'oce.organization.name'],
+      chips: ['ocl.organization.id', 'ocl.organization.name'],
       children: [
         {
           title: 'Case',
-          tag: 'oce.case.id on every span',
+          tag: 'ocl.case.id on every span',
           many: true,
           children: [
-            { title: 'Trigger', tag: 'a span, one per case', chips: ['oce.trigger.type', 'oce.subject.id'] },
+            { title: 'Trigger', tag: 'a span, one per case', chips: ['ocl.trigger.type', 'ocl.subject.id'] },
             {
               title: 'Obligation',
               tag: 'a span',
               many: true,
-              chips: ['oce.law.id', 'oce.law.article', 'oce.obligation.due'],
+              chips: ['ocl.law.id', 'ocl.law.article', 'ocl.obligation.due'],
               children: [
-                { title: 'Action', tag: 'a span, naming its obligation', many: true, chips: ['oce.action.kind', 'oce.actor.id'] }
+                { title: 'Action', tag: 'a span, naming its obligation', many: true, chips: ['ocl.action.kind', 'ocl.actor.id'] }
               ]
             },
-            { title: 'Close', tag: 'a span, sent once', chips: ['oce.case.state'] }
+            { title: 'Close', tag: 'a span, sent once', chips: ['ocl.case.state'] }
           ]
         }
       ]
@@ -122,7 +122,7 @@ export const diagrams: Record<string, Diagram> = {
       'What holds what. An organisation is the resource; a case is the id every span carries; obligations belong to the case, and actions name the obligation they meet.'
   },
 
-  'oce/span-kinds': {
+  'ocl/span-kinds': {
     type: 'flow',
     stages: [
       { title: 'trigger', items: [{ label: 'the event', sub: 'ends at awareness', tone: 'brand' }] },
@@ -138,26 +138,26 @@ export const diagrams: Record<string, Diagram> = {
       { title: 'close', items: [{ label: 'closed', tone: 'ok' }, { label: 'withdrawn', tone: 'muted' }] }
     ],
     arrows: ['opens', 'met by', 'until'],
-    caption: 'The four kinds of OCE span, in the order a case meets them.'
+    caption: 'The four kinds of OCL span, in the order a case meets them.'
   },
 
-  'oce/attributes': {
+  'ocl/attributes': {
     type: 'nest',
     root: {
       title: 'Resource',
       tag: 'once per producer',
       tone: 'brand',
-      chips: ['oce.version', 'oce.organization.id', 'oce.organization.name', 'service.name'],
+      chips: ['ocl.version', 'ocl.organization.id', 'ocl.organization.name', 'service.name'],
       children: [
         {
           title: 'Every span',
-          chips: ['oce.span.kind', 'oce.case.id'],
+          chips: ['ocl.span.kind', 'ocl.case.id'],
           row: true,
           children: [
-            { title: 'trigger', chips: ['oce.trigger.type', 'oce.subject.*'] },
-            { title: 'obligation', chips: ['oce.obligation.*', 'oce.law.*', 'oce.party.role'] },
-            { title: 'action', chips: ['oce.action.*', 'oce.obligation.id', 'oce.actor.*', 'oce.evidence.*', 'oce.assessment.*'] },
-            { title: 'close', chips: ['oce.case.state'] }
+            { title: 'trigger', chips: ['ocl.trigger.type', 'ocl.subject.*'] },
+            { title: 'obligation', chips: ['ocl.obligation.*', 'ocl.law.*', 'ocl.party.role'] },
+            { title: 'action', chips: ['ocl.action.*', 'ocl.obligation.id', 'ocl.actor.*', 'ocl.evidence.*', 'ocl.assessment.*'] },
+            { title: 'close', chips: ['ocl.case.state'] }
           ]
         }
       ]
@@ -166,7 +166,7 @@ export const diagrams: Record<string, Diagram> = {
       'Where each attribute lives: the organisation on the resource, the case on every span, the rest on the kind of span it describes.'
   },
 
-  'oce/laws': {
+  'ocl/laws': {
     type: 'flow',
     stages: [
       {
@@ -178,9 +178,9 @@ export const diagrams: Record<string, Diagram> = {
         ]
       },
       {
-        title: 'As OCE records it',
+        title: 'As OCL records it',
         items: [
-          { label: 'eu-ai-act · 73 · 2', sub: 'oce.law.id · article · paragraph' },
+          { label: 'eu-ai-act · 73 · 2', sub: 'ocl.law.id · article · paragraph' },
           { label: 'eu-nis2 · 23 · 4 · a', sub: 'with the point' },
           { label: 'std:nist-csf-2.0 · DE.AE · 08', sub: 'a standard, counted apart' }
         ]
@@ -195,10 +195,10 @@ export const diagrams: Record<string, Diagram> = {
       'A legal reference in parts, so that obligations from every case add up by law, by article, or by a single paragraph.'
   },
 
-  'oce/schema': {
+  'ocl/schema': {
     type: 'flow',
     stages: [
-      { title: 'Producer', items: [{ label: 'An OCE span', sub: 'in its logical JSON form', tone: 'brand' }] },
+      { title: 'Producer', items: [{ label: 'An OCL span', sub: 'in its logical JSON form', tone: 'brand' }] },
       {
         title: 'schema.json',
         items: [
@@ -220,7 +220,7 @@ export const diagrams: Record<string, Diagram> = {
       'The schema holds what one span can be checked for on its own; whether an obligation was met takes the whole case.'
   },
 
-  'oce/state': {
+  'ocl/state': {
     type: 'flow',
     stages: [
       {
@@ -256,15 +256,15 @@ export const diagrams: Record<string, Diagram> = {
       'Nobody reports a state: it is derived from the obligation, the actions that count towards it, the present time and the authority, checked in this order, then added up by case, by system and by article.'
   },
 
-  'oce/receivers': {
+  'ocl/receivers': {
     type: 'flow',
     stages: [
       { title: 'Accept', items: [{ label: 'OTLP/gRPC' }, { label: 'OTLP/HTTP', sub: 'protobuf or JSON' }] },
       {
         title: 'Recognise',
         items: [
-          { label: 'oce.version', sub: 'on the resource', tone: 'brand' },
-          { label: 'accepted', sub: 'the span is valid OCE', tone: 'ok' },
+          { label: 'ocl.version', sub: 'on the resource', tone: 'brand' },
+          { label: 'accepted', sub: 'the span is valid OCL', tone: 'ok' },
           { label: 'refused', sub: 'alone, and counted in the answer', tone: 'error' }
         ]
       },
@@ -278,7 +278,7 @@ export const diagrams: Record<string, Diagram> = {
       'What a receiver does with an export, span by span: one invalid span is refused alone, and a late or early span is never refused for its order.'
   },
 
-  'oce/examples': {
+  'ocl/examples': {
     type: 'lanes',
     lanes: [
       { label: 'Northwind · trigger', bars: [{ from: 0, to: 1.5, tone: 'brand' }] },
@@ -295,7 +295,7 @@ export const diagrams: Record<string, Diagram> = {
       'The first example in time: the deployer informs the provider within the hour; the provider reports the day after the causal link, completes the report on day 7, tells the authority before correcting, and closes. Two organisations, two cases, one link.'
   },
 
-  'oce/field-guide': {
+  'ocl/field-guide': {
     type: 'lanes',
     lanes: [
       { label: 'trigger', bars: [{ from: 0, to: 40, label: 'match', tone: 'brand' }] },

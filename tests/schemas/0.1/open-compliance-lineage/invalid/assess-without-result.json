@@ -1,0 +1,24 @@
+{
+  "resource": {
+    "service.name": "hr-compliance",
+    "ocl.version": "0.1",
+    "ocl.organization.id": "northwind-hr",
+    "ocl.organization.name": "Northwind HR"
+  },
+  "name": "assessment",
+  "context": {
+    "trace_id": "8e3a400ece17d26b658b1ef03f865762",
+    "span_id": "c1b2c3d4e5f60706"
+  },
+  "parent_id": null,
+  "start_time": "2028-03-15T10:00:00Z",
+  "end_time": "2028-03-15T10:00:00Z",
+  "status_code": "OK",
+  "attributes": {
+    "ocl.case.id": "019a4b2e-7c10-7000-8000-00000000c001",
+    "ocl.span.kind": "action",
+    "ocl.action.kind": "assess",
+    "ocl.obligation.id": "gdpr-34-1",
+    "ocl.actor.id": "dpo-01"
+  }
+}
