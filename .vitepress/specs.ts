@@ -16,11 +16,10 @@ export interface Spec {
   line: string
   /** The area of governance it belongs to, under which the home page lists it. */
   domain: string
-  /**
-   * How far it can be relied on: `in-progress` is announced on the home page and not yet published,
-   * `planned` has an overview, then `draft`, `development`, `stable` and `deprecated`.
-   */
-  status: 'in-progress' | 'planned' | 'draft' | 'development' | 'stable' | 'deprecated'
+  /** How far it can be relied on: `planned`, then `draft`, `development`, `stable` and `deprecated`. */
+  status: 'planned' | 'draft' | 'development' | 'stable' | 'deprecated'
+  /** Only announced: the home page shows its card, dimmed, and none of its pages is published. */
+  announced?: true
   version: string
   /** A Lucide icon's SVG body, drawn at 24 x 24 with a 2 px stroke. */
   icon: string
@@ -68,9 +67,9 @@ export const specs: Spec[] = [
     ]
   },
   {
-    id: 'open-compliance',
-    title: 'Open Compliance',
-    short: 'OC',
+    id: 'open-compliance-evidence',
+    title: 'Open Compliance Evidence',
+    short: 'OCE',
     line: 'Controls evaluated, evidence recorded, exceptions granted, and the state of compliance derived from them.',
     domain: 'Compliance',
     status: 'planned',
@@ -85,7 +84,8 @@ export const specs: Spec[] = [
     short: 'OHO',
     line: 'People in the loop: requests for a human decision, approvals, escalations and overrides, and who held the authority.',
     domain: 'Human Oversight',
-    status: 'in-progress',
+    status: 'planned',
+    announced: true,
     version: '0',
     // Lucide `user-check`.
     icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>',
@@ -97,7 +97,8 @@ export const specs: Spec[] = [
     short: 'OAL',
     line: 'What an AI agent does in its loop, goal, step, tool call, and the authority each action rested on.',
     domain: 'Agentic AI',
-    status: 'in-progress',
+    status: 'planned',
+    announced: true,
     version: '0',
     // Lucide `bot`.
     icon: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
@@ -105,8 +106,8 @@ export const specs: Spec[] = [
   }
 ]
 
-/** The specifications the site publishes: those in progress have a card on the home page and nothing else. */
-export const published = specs.filter((spec) => spec.status !== 'in-progress')
+/** The specifications the site publishes: one only announced has a card on the home page and nothing else. */
+export const published = specs.filter((spec) => !spec.announced)
 
 /** Every specification lives under `/specs/`, beside the pages about the site itself. */
 export const specLink = (spec: Spec, slug = '') => `/specs/${spec.id}/${slug}`

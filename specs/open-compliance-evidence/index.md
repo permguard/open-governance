@@ -1,19 +1,19 @@
-# Open Compliance
+# Open Compliance Evidence
 
-Open Compliance will standardise how the state of compliance is recorded and derived: the controls evaluated, the evidence behind them, the exceptions granted, and the state every system and requirement is in because of them.
+Open Compliance Evidence will standardise the evidence of compliance and how its state is derived from it: the controls evaluated, the evidence behind them, the exceptions granted, and the state every system and requirement is in because of them.
 
 | Status  | Version | Model                                                    |
 | ------- | ------- | -------------------------------------------------------- |
 | Planned | 0       | [Span-Native Governance](/specs/span-native-governance/) |
 
-<Diagram of="oc/overview" />
+<Diagram of="oce/overview" />
 
 ## The idea
 
 Compliance today is a state someone writes down: a spreadsheet cell, a ticket, a dashboard tile.
 It is out of date the day after, and it cannot say why it is what it is.
 
-In Open Compliance nobody writes the state.
+In Open Compliance Evidence nobody writes the state: only the evidence is recorded.
 Every control evaluation, every piece of evidence and every exception is a record, sent as an OpenTelemetry span, and the state of compliance is materialised from them, as [Span-Native Governance](/specs/span-native-governance/materialization) says:
 
 - an evaluation holds for as long as it is valid, and the state is unknown once it is not;
@@ -33,5 +33,5 @@ Every control evaluation, every piece of evidence and every exception is a recor
 
 ::: info Planned
 This page sketches the direction.
-The records, attributes and views of Open Compliance are not written yet.
+The records, attributes and views of Open Compliance Evidence are not written yet.
 :::

@@ -34,7 +34,7 @@ export const diagrams: Record<string, Diagram> = {
       'An agent’s loop as governance records: every step it took, the decision that allowed it, and the authority it rested on.'
   },
 
-  'oc/overview': {
+  'oce/overview': {
     type: 'flow',
     stages: [
       {

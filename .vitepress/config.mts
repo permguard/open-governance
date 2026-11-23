@@ -29,8 +29,8 @@ export default defineConfig({
   // The site's home: opengov.permguard.com, where the schemas' ids point.
   sitemap: { hostname: 'https://opengov.permguard.com' },
   // The repository's own files are not pages of the site.
-  // A specification in progress keeps its draft pages in the repository, unpublished.
-  srcExclude: ['README.md', ...specs.filter((spec) => spec.status === 'in-progress').map((spec) => `specs/${spec.id}/**`)],
+  // A specification only announced keeps its draft pages in the repository, unpublished.
+  srcExclude: ['README.md', ...specs.filter((spec) => spec.announced).map((spec) => `specs/${spec.id}/**`)],
   lastUpdated: true,
   // Dark by default, like permguard.com; the toggle still offers light.
   appearance: 'dark',

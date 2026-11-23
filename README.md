@@ -4,13 +4,13 @@ Open governance specifications for how organisations decide, control and account
 
 The site is published at [opengov.permguard.com](https://opengov.permguard.com) on every commit to `main`.
 
-| Specification                                           | Status      | Schema                                                   |
-| ------------------------------------------------------- | ----------- | -------------------------------------------------------- |
-| [Span-Native Governance](specs/span-native-governance/) | Draft       | [v0](public/specs/span-native-governance/v0/schema.json) |
-| [Open Decision Lineage](specs/open-decision-lineage/)   | Development | [v1](public/specs/open-decision-lineage/v1/schema.json)  |
-| [Open Compliance](specs/open-compliance/)               | Planned     |                                                          |
-| Open Human Oversight                                    | In progress |                                                          |
-| Open Agentic Loop                                       | In progress |                                                          |
+| Specification                                               | Status      | Schema                                                   |
+| ----------------------------------------------------------- | ----------- | -------------------------------------------------------- |
+| [Span-Native Governance](specs/span-native-governance/)     | Draft       | [v0](public/specs/span-native-governance/v0/schema.json) |
+| [Open Decision Lineage](specs/open-decision-lineage/)       | Development | [v1](public/specs/open-decision-lineage/v1/schema.json)  |
+| [Open Compliance Evidence](specs/open-compliance-evidence/) | Planned     |                                                          |
+| Open Human Oversight                                        | Planned     |                                                          |
+| Open Agentic Loop                                           | Planned     |                                                          |
 
 ## Develop
 
