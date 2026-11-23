@@ -3,6 +3,8 @@
 A receiver accepts OTLP traces, recognises the ODL spans among them, and interprets them as this specification says.
 It may store them, show them, forward them or all three; ODL says what it must accept and refuse, not how it keeps what it accepts.
 
+<Diagram of="odl/receivers" />
+
 ## Transport
 
 A receiver SHOULD accept both OTLP transports:
@@ -28,6 +30,7 @@ An ODL span is refused, whole, when:
 | --------------------------------------------------------------------------------------- | -------------------------------------------------- |
 | the resource carries no `odl.version = "1"`                                             | not Open Decision Lineage                          |
 | the resource carries no `odl.pipeline.id`                                               | the resource carries no `odl.pipeline.id`          |
+| the resource carries no `odl.pipeline.version`                                          | the resource carries no `odl.pipeline.version`     |
 | `odl.span.kind` is not `batch`, `step`, `heartbeat` or `run`                            | `odl.span.kind` must be one of the four            |
 | `odl.run.id` or `odl.job.id` is absent                                                  | a span carries no `odl.run.id` or `odl.job.id`     |
 | a step span carries no `odl.step.id`, or an `odl.step.kind` not among the six           | the step is not identified, or its kind is unknown |

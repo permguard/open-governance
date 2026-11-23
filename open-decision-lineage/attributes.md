@@ -3,6 +3,8 @@
 Every ODL attribute is in the `odl.` namespace, with dot-separated segments in `snake_case`.
 ODL reuses OpenTelemetry's attributes where one exists for the same concept.
 
+<Diagram of="odl/attributes" />
+
 ## Requirement levels
 
 The requirement levels follow the [OpenTelemetry definitions](https://opentelemetry.io/docs/specs/semconv/general/attribute-requirement-level/).
@@ -24,7 +26,7 @@ They identify the pipeline the spans belong to.
 | `odl.version`          | String | Required    | `"1"`: the version of this specification the spans follow; it makes them ODL |
 | `odl.pipeline.id`      | String | Required    | the logical pipeline, stable across runs: `privilege-escalation`             |
 | `odl.pipeline.name`    | String | Recommended | the name a person reads: `Privilege escalation`; the id when absent          |
-| `odl.pipeline.version` | String | Recommended | the pipeline's own version: `3`; not the version of this specification       |
+| `odl.pipeline.version` | String | Required    | the pipeline's shape: `3`; not the version of this specification             |
 | `service.name`         | String | Recommended | OpenTelemetry's own: the worker that emitted the spans                       |
 
 ## Span attributes

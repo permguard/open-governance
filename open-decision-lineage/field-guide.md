@@ -1,6 +1,9 @@
-# Examples
+# Field Guide
 
-The examples show spans in a logical JSON form, as the [OpenInference specification](https://github.com/Arize-ai/openinference/tree/main/spec) does: OTLP carries the same attributes, typed.
+ODL as it is met in practice: the spans a pipeline emits, and a producer that emits them.
+The spans are shown in a logical JSON form, as the [OpenInference specification](https://github.com/Arize-ai/openinference/tree/main/spec) does: OTLP carries the same attributes, typed.
+
+<Diagram of="odl/field-guide" />
 
 ## A batch
 

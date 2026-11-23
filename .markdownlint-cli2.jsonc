@@ -1,0 +1,16 @@
+// Copyright (c) 2022 Nitro Agility S.r.l.
+// SPDX-License-Identifier: Apache-2.0
+
+// What the Markdown of the specifications is held to, as in the other Permguard repositories.
+//
+//   line-length  off: a sentence stays on one line however long it is (the workspace's Markdown
+//                rules), so a column limit would only push towards wrapping.
+//
+//   no-inline-html  off: a page opens with `<Diagram of="..." />`, a component of the site.
+{
+  "config": {
+    "line-length": false,
+    "no-inline-html": false
+  },
+  "globs": ["**/*.md", "!node_modules", "!.vitepress/dist", "!.vitepress/cache"]
+}

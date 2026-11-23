@@ -2,6 +2,8 @@
 
 Lineage is what a batch read and what it wrote, named so that a receiver can follow a decision from the log to every result made from it, and back.
 
+<Diagram of="odl/lineage" />
+
 ## Inputs
 
 A batch, and each step that reads from a stream, names its inputs:
@@ -16,11 +18,13 @@ A batch, and each step that reads from a stream, names its inputs:
 
 The batch span names what the batch read as a whole; a source step names what it read itself.
 Steps after the first take their records from their `odl.step.upstream` and SHOULD NOT repeat the input ids.
+When the batch span carries no `odl.input.count`, a batch's input is the sum of what its first steps, those with no upstream, read.
 
 ## Outputs
 
 A step that writes to a stream names its outputs with `odl.output.stream`, `odl.output.ids`, `odl.output.group_id` and `odl.output.count`, as for inputs.
-A batch's results are the sum of its steps' outputs, unless the batch span states `odl.output.count` itself.
+A batch's results are the sum of the outputs of its steps that write to a stream, unless the batch span states `odl.output.count` itself.
+In the same way, its failures are the sum of its steps' `odl.failed.count`, unless the batch span states it.
 
 ## Streams
 

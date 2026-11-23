@@ -35,10 +35,10 @@ export const specs: Spec[] = [
     icon: '<rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/>',
     sections: [
       { title: 'Specification', pages: [['Overview', '']] },
-      { title: 'General', pages: [['Data Model', 'data-model'], ['Span Kinds', 'span-kinds']] },
-      { title: 'Attributes', pages: [['Attributes', 'attributes'], ['Lineage', 'lineage']] },
+      { title: 'Concepts', pages: [['Pipelines', 'pipelines'], ['Data Model', 'data-model'], ['Span Kinds', 'span-kinds']] },
+      { title: 'Reference', pages: [['Attributes', 'attributes'], ['Lineage', 'lineage']] },
       { title: 'Interpretation', pages: [['Runs and Health', 'runs'], ['Receivers', 'receivers']] },
-      { title: 'Examples', pages: [['Examples', 'examples']] }
+      { title: 'In Practice', pages: [['Field Guide', 'field-guide']] }
     ]
   }
 ]

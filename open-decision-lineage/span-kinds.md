@@ -3,6 +3,8 @@
 Every ODL span says what it is with the attribute `odl.span.kind`.
 It is distinct from OpenTelemetry's own `SpanKind`, which describes a span's position in a network call; ODL spans SHOULD use `SpanKind.INTERNAL`.
 
+<Diagram of="odl/span-kinds" />
+
 | `odl.span.kind` | Is                                                             | Parent             | Trace                  |
 | --------------- | -------------------------------------------------------------- | ------------------ | ---------------------- |
 | `batch`         | one unit of work through the pipeline                          | none: it is a root | its own, one per batch |

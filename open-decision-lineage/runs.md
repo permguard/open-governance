@@ -4,6 +4,8 @@ A pipeline does not report its own state.
 A receiver derives it from the spans it received: whether each run is alive, and whether each step is healthy.
 This page fixes how, so that two receivers show the same pipeline the same way.
 
+<Diagram of="odl/runs" />
+
 ## The state of a run
 
 | State       | When                                                                                   |
@@ -23,12 +25,12 @@ A run's totals are the larger of what its last heartbeat or run span reports and
 
 Over the time range a receiver shows:
 
-| Health    | When                                                           |
-| --------- | -------------------------------------------------------------- |
-| `idle`    | the step's last span is older than 2 minutes, or there is none |
-| `error`   | the step's last span has the status `ERROR`                    |
-| `warning` | spans of the step failed in the range, but not its last        |
-| `ok`      | none of the step's spans in the range failed                   |
+| Health    | When                                                              |
+| --------- | ----------------------------------------------------------------- |
+| `idle`    | the step's last span started over 2 minutes ago, or there is none |
+| `error`   | the step's last span has the status `ERROR`                       |
+| `warning` | spans of the step failed in the range, but not its last           |
+| `ok`      | none of the step's spans in the range failed                      |
 
 For `warning`, a span failed when its status is `ERROR` or its `odl.failed.count` is above zero.
 
@@ -42,7 +44,8 @@ A receiver rebuilds a pipeline's graph from the spans of the range:
 | An edge        | each `odl.step.upstream` of a step: from the upstream to the step                                                     |
 | An input       | the `odl.input.stream` of a step with no upstream, drawn before it                                                    |
 | An output      | the `odl.output.stream` of a step, drawn after it                                                                     |
-| A retired step | a step seen in the range but not in the newest run: the pipeline no longer runs it                                    |
+| A retired step | a step seen in the range but not in the pipeline's newest version: the pipeline no longer runs it                     |
 
 The graph is one per pipeline: every run and every batch of the pipeline draws on the same graph.
+The newest version, the version of the pipeline's newest batch, decides its shape; steps of older versions stay on it, marked retired, while the range holds their spans.
 A batch runs a path through it, which a receiver can show by itself: the steps of the batch, the streams it read and wrote, the step that failed.
