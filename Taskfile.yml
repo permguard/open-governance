@@ -1,0 +1,52 @@
+# Copyright (c) 2022 Nitro Agility S.r.l.
+# SPDX-License-Identifier: Apache-2.0
+
+version: '3'
+
+silent: true
+
+tasks:
+  default:
+    desc: List the tasks.
+    cmds:
+      - task --list
+
+  init:
+    desc: Install the exact dependencies from package-lock.json. Run it after cloning and after a dependency change.
+    sources:
+      - package.json
+      - package-lock.json
+    generates:
+      - node_modules/.package-lock.json
+    cmds:
+      - npm ci --no-audit --no-fund
+
+  docs:
+    desc: Live preview of the specifications at http://localhost:5173 (PORT to change it); edits show up without a restart.
+    deps: [init]
+    cmds:
+      - npx vitepress dev --port {{.PORT | default "5173"}}
+
+  build:
+    desc: Build the static site into .vitepress/dist.
+    deps: [init]
+    cmds:
+      - npm run docs:build
+
+  preview:
+    desc: Build, then serve the result as it will be published, at http://localhost:4173 (PORT to change it).
+    deps: [build]
+    cmds:
+      - npx vitepress preview --port {{.PORT | default "4173"}}
+
+  clean:
+    desc: Remove the build output and the VitePress cache.
+    cmds:
+      - rm -rf .vitepress/dist .vitepress/cache
+
+  reset:
+    desc: Remove node_modules, the build output and the cache, then install again.
+    cmds:
+      - task: clean
+      - rm -rf node_modules
+      - task: init

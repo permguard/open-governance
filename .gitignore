@@ -1,0 +1,14 @@
+# Dependencies and the local task state.
+node_modules/
+.task/
+
+# VitePress build output and cache.
+.vitepress/cache/
+.vitepress/dist/
+
+# Operating system and editor clutter.
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,13 @@
+{
+  "name": "open-specs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build && node scripts/add-trailing-slash-aliases.mjs .vitepress/dist",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "2.0.0-alpha.20"
+  }
+}

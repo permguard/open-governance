@@ -1,0 +1,178 @@
+/* Copyright (c) 2022 Nitro Agility S.r.l. */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+/* Permguard's palette on VitePress's default theme: the brand magenta, the dark surfaces of
+   permguard.com. Everything else is the default theme. */
+:root {
+  --os-brand: #d946ef;
+  --os-brand-deep: #b21fc6;
+  --os-brand-rose: #f05c80;
+  --vp-c-brand-1: var(--os-brand-deep);
+  --vp-c-brand-2: var(--os-brand);
+  --vp-c-brand-3: var(--os-brand);
+  --vp-c-brand-soft: rgba(217, 70, 239, 0.14);
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, var(--os-brand-rose) 10%, var(--os-brand) 60%);
+}
+
+.dark {
+  --vp-c-brand-1: #e879f9;
+  --vp-c-brand-2: #d946ef;
+  --vp-c-brand-3: #c026d3;
+  --vp-c-bg: #191a1c;
+  --vp-c-bg-alt: #1d1e23;
+  --vp-c-bg-elv: #1d1e23;
+  --vp-c-bg-soft: #1d1e23;
+}
+
+/* The specification menu, at the top of the sidebar: a framed list, one row per specification,
+   the one in view filled. */
+.os-spec-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 20px 0 8px;
+  padding: 6px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+}
+
+.os-spec-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.os-spec-menu__item:hover {
+  background: var(--vp-c-default-soft);
+  color: var(--vp-c-text-1);
+}
+
+.os-spec-menu__item.is-current {
+  border-color: var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+}
+
+.os-spec-menu__item.is-current .os-spec-menu__icon {
+  color: var(--vp-c-brand-1);
+}
+
+.os-spec-menu__icon {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.os-spec-menu__text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.os-spec-menu__title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.os-spec-menu__meta {
+  color: var(--vp-c-text-3);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Permguard's band at the bottom of every page, as on its slides: the wordmark, the line, the
+   site, the legal notes. */
+.os-footer {
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
+}
+
+.os-footer__inner {
+  display: flex;
+  max-width: 1152px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 auto;
+  padding: 40px 24px 32px;
+}
+
+.os-footer__logo {
+  display: inline-flex;
+}
+
+.os-footer__wordmark {
+  height: 30px;
+  width: auto;
+}
+
+.os-footer__wordmark--light,
+.dark .os-footer__wordmark--dark {
+  display: inline;
+}
+
+.os-footer__wordmark--dark,
+.dark .os-footer__wordmark--light {
+  display: none;
+}
+
+.os-footer__tagline {
+  margin: 14px 0 0;
+  color: var(--os-brand);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.os-footer__tagline span {
+  color: var(--os-brand-rose);
+}
+
+.os-footer__site {
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.os-footer__site:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.os-footer__legal {
+  align-self: stretch;
+  margin: 18px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-3);
+  font-size: 12px;
+  text-align: right;
+}
+
+.os-footer__legal a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (min-width: 960px) {
+  /* The footer starts where the content starts, beside the fixed sidebar. */
+  .VPContent.has-sidebar ~ .os-footer {
+    padding-left: var(--vp-sidebar-width);
+  }
+}
+
+@media (max-width: 640px) {
+  .os-footer__legal {
+    text-align: left;
+  }
+}
