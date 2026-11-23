@@ -99,7 +99,8 @@
           "type": "object",
           "maxProperties": 20000,
           "propertyNames": {
-            "pattern": "^[^.\\s]+(\\.[^.\\s]+){0,2}$"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*(\\.[A-Za-z0-9][A-Za-z0-9_-]*)*$",
+            "description": "The article, paragraph and point a record sends, joined by a dot: 33.1.a, DE.AE.08, AU-6.b, 4.2.5.2."
           },
           "additionalProperties": {
             "$ref": "#/$defs/provision"

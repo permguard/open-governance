@@ -1,0 +1,20 @@
+{
+  "ocl_catalog": "0.1",
+  "id": "acme/rules",
+  "version": "1",
+  "default_language": "en",
+  "laws": {
+    "eu-gdpr": {
+      "name": {
+        "en": "GDPR"
+      },
+      "provisions": {
+        "Article 33(1)": {
+          "citation": {
+            "en": "33(1)"
+          }
+        }
+      }
+    }
+  }
+}

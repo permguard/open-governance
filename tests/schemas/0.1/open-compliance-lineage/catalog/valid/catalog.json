@@ -63,6 +63,30 @@
           }
         }
       }
+    },
+    "std:itu-t-x1051": {
+      "name": {
+        "en": "ITU-T X.1051"
+      },
+      "provisions": {
+        "4.2.5.2": {
+          "citation": {
+            "en": "4.2.5.2"
+          }
+        }
+      }
+    },
+    "std:nist-sp-800-53r5": {
+      "name": {
+        "en": "NIST SP 800-53"
+      },
+      "provisions": {
+        "AU-6.b": {
+          "citation": {
+            "en": "AU-6b"
+          }
+        }
+      }
     }
   },
   "triggers": {

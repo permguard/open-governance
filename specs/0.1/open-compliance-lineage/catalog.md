@@ -26,7 +26,9 @@ The same pattern as OpenTelemetry's schema URL: a versioned document, read once 
 | what an obligation asks       | `ocl.obligation.name`  | the provision's `title`                        | `ocl.obligation.id`                  |
 | the name of an event          | `ocl.trigger.name`     | the trigger type's `name`                      | `ocl.trigger.type`                   |
 
-A provision is looked up from the most precise reference to the least: `33.1.a`, then `33.1`, then `33`.
+A provision's key is the article, paragraph and point a record sends, joined by `.`: `33.1.a`, `DE.AE.08`, `AU-6.b` for a point with no paragraph.
+A title and a date are read from the most precise provision that has one: `33.1.a`, then `33.1`, then `33`.
+A citation is read only from the provision the reference names exactly: the citation of an article is not the citation of its paragraph.
 A value of the record always wins: a catalog fills in, it never overrides.
 
 ## The document
