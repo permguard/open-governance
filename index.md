@@ -11,6 +11,4 @@ hero:
 
 <Diagram of="sng/model" />
 
-<HomeAreas />
-
 <SpecCatalog />

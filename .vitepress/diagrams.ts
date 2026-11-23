@@ -8,6 +8,97 @@ import type { Diagram } from './theme/diagrams/types'
  * so that a reader has the picture before the rules.
  */
 export const diagrams: Record<string, Diagram> = {
+  'oal/overview': {
+    type: 'flow',
+    stages: [
+      { title: 'Goal', items: [{ label: 'Given to an agent', sub: 'by a person or a system', tone: 'brand' }] },
+      {
+        title: 'The loop',
+        items: [
+          { label: 'Plan', sub: 'the next step' },
+          { label: 'Ask', sub: 'may I? an authorization decision', tone: 'brand' },
+          { label: 'Act', sub: 'a tool call, on whose authority' },
+          { label: 'Observe', sub: 'and go round again' }
+        ]
+      },
+      {
+        title: 'Views',
+        items: [
+          { label: 'What the agent did', sub: 'step by step, with its authority' },
+          { label: 'Loops that run away', sub: 'stuck, repeating, over budget', tone: 'warn' }
+        ]
+      }
+    ],
+    arrows: ['starts', 'derive'],
+    caption:
+      'An agent’s loop as governance records: every step it took, the decision that allowed it, and the authority it rested on.'
+  },
+
+  'oc/overview': {
+    type: 'flow',
+    stages: [
+      {
+        title: 'Records',
+        items: [
+          { label: 'Control evaluated', sub: 'passed or failed, valid until' },
+          { label: 'Evidence recorded', sub: 'by reference and digest' },
+          { label: 'Exception granted', sub: 'by whom, until when', tone: 'brand' }
+        ]
+      },
+      {
+        title: 'Materialization',
+        items: [
+          { label: 'Validity', sub: 'an evaluation expires' },
+          { label: 'Authority', sub: 'who may assert a control' }
+        ]
+      },
+      {
+        title: 'Compliance state',
+        items: [
+          { label: 'compliant', tone: 'ok' },
+          { label: 'non-compliant', tone: 'error' },
+          { label: 'excepted', tone: 'warn' },
+          { label: 'unknown', tone: 'muted' }
+        ]
+      }
+    ],
+    arrows: ['spans', 'derive'],
+    caption:
+      'Compliance as a view: nobody records that a system is compliant; the state is derived from the controls evaluated, the evidence behind them and the exceptions granted, and is unknown where nothing proves it.'
+  },
+
+  'oho/overview': {
+    type: 'flow',
+    stages: [
+      {
+        title: 'Asked',
+        items: [
+          { label: 'An agent or a system', sub: 'needs a human decision', tone: 'brand' },
+          { label: 'Or acted', sub: 'and a human may reverse it' }
+        ]
+      },
+      {
+        title: 'A human',
+        items: [
+          { label: 'approves', tone: 'ok' },
+          { label: 'rejects', tone: 'error' },
+          { label: 'escalates', sub: 'to a higher authority', tone: 'warn' },
+          { label: 'overrides', sub: 'an automated decision' }
+        ]
+      },
+      {
+        title: 'Views',
+        items: [
+          { label: 'Waiting for a human' },
+          { label: 'Oversight history', sub: 'who decided, on whose authority', tone: 'brand' }
+        ]
+      }
+    ],
+    arrows: ['request', 'derive'],
+    caption:
+      'Every point where a person is in the loop, recorded as spans that link to what they approved, rejected or overrode.'
+  },
+
   'sng/schema': {
     type: 'flow',
     stages: [

@@ -16,8 +16,8 @@ export interface Spec {
   line: string
   /** The area of governance it belongs to, under which the home page lists it. */
   domain: string
-  /** `draft`, `development`, `stable` or `deprecated`: how far the specification can be relied on. */
-  status: 'draft' | 'development' | 'stable' | 'deprecated'
+  /** `planned`, `draft`, `development`, `stable` or `deprecated`: how far it can be relied on. */
+  status: 'planned' | 'draft' | 'development' | 'stable' | 'deprecated'
   version: string
   /** A Lucide icon's SVG body, drawn at 24 x 24 with a 2 px stroke. */
   icon: string
@@ -63,6 +63,42 @@ export const specs: Spec[] = [
       { title: 'Interpretation', pages: [['Runs and Health', 'runs'], ['Receivers', 'receivers']] },
       { title: 'In Practice', pages: [['Field Guide', 'field-guide']] }
     ]
+  },
+  {
+    id: 'open-compliance',
+    title: 'Open Compliance',
+    short: 'OC',
+    line: 'Controls evaluated, evidence recorded, exceptions granted, and the state of compliance derived from them.',
+    domain: 'Compliance',
+    status: 'planned',
+    version: '0',
+    // Lucide `gavel`: the law, which compliance answers to.
+    icon: '<path d="m14.5 12.5-8 8a2.119 2.119 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/>',
+    sections: [{ title: 'Specification', pages: [['Overview', '']] }]
+  },
+  {
+    id: 'open-human-oversight',
+    title: 'Open Human Oversight',
+    short: 'OHO',
+    line: 'People in the loop: requests for a human decision, approvals, escalations and overrides, and who held the authority.',
+    domain: 'Human Oversight',
+    status: 'planned',
+    version: '0',
+    // Lucide `user-check`.
+    icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>',
+    sections: [{ title: 'Specification', pages: [['Overview', '']] }]
+  },
+  {
+    id: 'open-agentic-loop',
+    title: 'Open Agentic Loop',
+    short: 'OAL',
+    line: 'What an AI agent does in its loop, goal, step, tool call, and the authority each action rested on.',
+    domain: 'Agentic AI',
+    status: 'planned',
+    version: '0',
+    // Lucide `bot`.
+    icon: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
+    sections: [{ title: 'Specification', pages: [['Overview', '']] }]
   }
 ]
 

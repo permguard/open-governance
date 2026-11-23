@@ -366,6 +366,40 @@
   }
 }
 
+/* The site's mark beside the banner's name, as in the navigation bar. */
+.VPHero .main .name {
+  display: flex;
+  align-items: center;
+  gap: 0.28em;
+}
+
+.VPHero .main .name::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0.92em;
+  height: 0.92em;
+  background: url('/logo.svg') center / contain no-repeat;
+}
+
+@media (max-width: 959px) {
+  .VPHero.has-image .main .name {
+    justify-content: center;
+  }
+}
+
+/* The title in the navigation bar is a link home: no box around it when clicked, a rounded ring in
+   the brand's colour only for the keyboard. */
+.VPNavBarTitle .title {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.VPNavBarTitle .title:focus-visible {
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px var(--os-brand);
+}
+
 /* The banner's second line is the thesis, not the name: smaller than the name, and still bold. */
 .VPHero .main .text {
   max-width: 560px;
@@ -499,7 +533,7 @@
 
 .os-catalog__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
   gap: 16px;
   margin-top: 20px;
 }
@@ -559,6 +593,10 @@
   color: var(--vp-c-text-2);
   font-family: var(--vp-font-family-mono);
   font-size: 11px;
+}
+
+.os-spec-card__chip.is-planned {
+  color: var(--vp-c-text-3);
 }
 
 .os-spec-card__chip.is-draft {
@@ -1238,87 +1276,5 @@
 @media (max-width: 639px) {
   .os-diagram {
     padding: 14px;
-  }
-}
-
-/* The areas of governance on the home page: the written ones link to their specification, the
-   others say they are planned. */
-.os-areas {
-  margin: 40px 0;
-}
-
-.os-areas__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.vp-doc .os-area,
-.os-area {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-  padding: 16px 18px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
-  background: var(--vp-c-bg-soft);
-  color: var(--vp-c-text-1);
-  font-weight: 400;
-  text-decoration: none;
-}
-
-.os-area.is-live {
-  border-color: color-mix(in srgb, var(--os-brand) 60%, var(--vp-c-divider));
-  background: color-mix(in srgb, var(--os-brand) 7%, var(--vp-c-bg-soft));
-  transition: border-color 0.2s, transform 0.2s;
-}
-
-.vp-doc a.os-area.is-live:hover {
-  border-color: var(--os-brand);
-  transform: translateY(-2px);
-}
-
-.os-area__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.os-area__head strong {
-  font-size: 15px;
-  font-weight: 650;
-}
-
-.os-area__state {
-  flex: 0 0 auto;
-  padding: 1px 8px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 999px;
-  color: var(--vp-c-text-3);
-  font-family: var(--vp-font-family-mono);
-  font-size: 10.5px;
-}
-
-.os-area.is-live .os-area__state {
-  border-color: var(--os-brand);
-  color: var(--vp-c-brand-1);
-}
-
-.os-area__line {
-  color: var(--vp-c-text-2);
-  font-size: 13.5px;
-  line-height: 1.55;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .os-area.is-live {
-    transition: none;
-  }
-
-  .vp-doc a.os-area.is-live:hover {
-    transform: none;
   }
 }
