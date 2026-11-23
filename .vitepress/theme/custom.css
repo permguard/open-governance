@@ -197,7 +197,8 @@
 
 .os-gov__spans li {
   display: grid;
-  grid-template-columns: 8px 64px minmax(0, 1fr) 110px;
+  /* The name column fits the longest name, `obligation`, so that no name runs into its detail. */
+  grid-template-columns: 8px 10.5ch minmax(0, 1fr) 110px;
   white-space: nowrap;
   align-items: center;
   gap: 8px;
@@ -311,10 +312,16 @@
 }
 
 /* Under the two-column banner VitePress gives its image a fixed square pulled up under the
-   navigation; the card has its own height, so it takes its place in the flow instead. */
+   navigation, before the title; the card has its own height, and comes after the title and its
+   thesis, as it does beside them on a wide screen. */
 @media (max-width: 959px) {
+  .VPHero.has-image .main {
+    order: 1;
+  }
+
   .VPHero.has-image .image {
-    margin: 0 0 2.5rem;
+    order: 2;
+    margin: 2.5rem 0 0;
   }
 
   .VPHero.has-image .image-container {
@@ -404,6 +411,24 @@
   .vp-doc table:has(+ .os-diagram) {
     display: table;
     width: 100%;
+  }
+}
+
+/* On a narrow screen VitePress lets the navigation scroll away with the page, and with it the menu
+   and the search. It stays at the top instead, opaque on the home page too, and the bar under it,
+   Menu and Return to top, stays right below it. */
+@media (max-width: 959px) {
+  .Layout > .VPNav.VPNav {
+    position: sticky;
+    top: 0;
+  }
+
+  .VPNav .VPNavBar.home::before {
+    background-color: var(--vp-nav-bg-color);
+  }
+
+  .Layout .VPLocalNav.VPLocalNav {
+    top: var(--vp-nav-height);
   }
 }
 

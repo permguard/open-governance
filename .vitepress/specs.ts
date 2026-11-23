@@ -36,8 +36,9 @@ export const specs: Spec[] = [
     domain: 'Foundation',
     status: 'draft',
     version: '0.1',
-    // Lucide `layers`.
-    icon: '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+    // Lucide `waypoints`: spans joined into a trace, the icon of the Traces section of Permguard Admin,
+    // where these records arrive. Not `layers`, which is the Admin's ledgers.
+    icon: '<circle cx="12" cy="4.5" r="2.5"/><path d="m10.2 6.3-3.9 3.9"/><circle cx="4.5" cy="12" r="2.5"/><path d="M7 12h10"/><circle cx="19.5" cy="12" r="2.5"/><path d="m13.8 17.7 3.9-3.9"/><circle cx="12" cy="19.5" r="2.5"/>',
     sections: [
       { title: 'Foundation', pages: [['Overview', '']] },
       {
@@ -56,7 +57,7 @@ export const specs: Spec[] = [
     domain: 'Decision Governance',
     status: 'development',
     version: '0.1',
-    // Lucide `workflow`.
+    // Lucide `workflow`, as on the Decision Lineage page of Permguard Admin.
     icon: '<rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/>',
     sections: [
       { title: 'Specification', pages: [['Overview', '']] },
@@ -106,8 +107,8 @@ export const specs: Spec[] = [
     status: 'planned',
     announced: true,
     version: '0.1',
-    // Lucide `bot`.
-    icon: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
+    // Lucide `iteration-cw`: the loop. Not `bot`, which is the service accounts of Permguard Admin.
+    icon: '<path d="M4 10c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8H4"/><polyline points="8 22 4 18 8 14"/>',
     sections: [{ title: 'Specification', pages: [['Overview', '']] }]
   }
 ]
