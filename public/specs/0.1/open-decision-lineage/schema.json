@@ -59,6 +59,7 @@
         "odl.output.ids": { "$ref": "#/$defs/ids" },
         "odl.output.group_id": { "type": "string" },
         "odl.output.count": { "$ref": "#/$defs/count" },
+        "ogs.transaction.ids": { "$ref": "#/$defs/ids", "description": "The business transactions the findings written are about: keyed derivations, never the references (Span-Native Governance, Records)." },
         "odl.failed.count": { "$ref": "#/$defs/count" },
         "odl.processed.total": { "$ref": "#/$defs/count" },
         "odl.failed.total": { "$ref": "#/$defs/count" }

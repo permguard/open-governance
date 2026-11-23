@@ -81,18 +81,21 @@ The level of each attribute on each kind of span: **R** Required, **Rc** Recomme
 | `odl.processed.total` | –     | –    | Rc        | Rc  |
 | `odl.failed.total`    | –     | –    | Rc        | Rc  |
 
+A step that writes findings, a detection, an alert, a sighting, MAY name the business transactions they are about with `ogs.transaction.ids`, at most 1 000, as [Span-Native Governance](/specs/0.1/span-native-governance/records#business-transactions) defines it.
+A compliance case that takes up a finding names the same transaction, so that the transaction's flow shows both; the link from the case to the step stays the evidence.
+
 Levels marked Recommended on a step apply where they make sense: `odl.input.*` on a step that reads from a stream, `odl.output.*` on a step that writes to one, `odl.failed.count` on a step that failed records.
 
 ## Value rules
 
-| Rule      | Meaning                                                                                                                  |
-| --------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Types     | the OTLP primitive of the same name; `String[]` is an OTLP array of strings, never a JSON string                         |
-| Counts    | non-negative integers; a producer MUST NOT send a count as a string                                                      |
-| Id lists  | at most 1 000 ids; past that, a producer SHOULD send a group id and the count, and MAY send the first 1 000 ids as well  |
-| Enums     | `odl.span.kind`, `odl.run.state` and `odl.step.kind` take only the values listed; receivers refuse a span that does not  |
-| Empty     | an empty string is the same as an absent attribute                                                                       |
-| Sensitive | ids identify records, they never carry their content: a decision's subject, resource or context MUST NOT be an attribute |
+| Rule      | Meaning                                                                                                                                            |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Types     | the OTLP primitive of the same name; `String[]` is an OTLP array of strings, never a JSON string                                                   |
+| Counts    | non-negative integers; a producer MUST NOT send a count as a string                                                                                |
+| Id lists  | at most 1 000 ids; past that, a producer SHOULD send a group id and the count, and MAY send the first 1 000 ids as well; `ogs.transaction.ids` too |
+| Enums     | `odl.span.kind`, `odl.run.state` and `odl.step.kind` take only the values listed; receivers refuse a span that does not                            |
+| Empty     | an empty string is the same as an absent attribute                                                                                                 |
+| Sensitive | ids identify records, they never carry their content: a decision's subject, resource or context MUST NOT be an attribute                           |
 
 The last rule matters: a decision log may hold personal data in clear, and ODL spans travel to systems that do not apply the log's access rules.
 A pipeline names the decisions it read; it never copies them.
