@@ -20,7 +20,8 @@
     "ocl.trigger.type": "serious_incident",
     "ocl.subject.id": "cv-screening",
     "ocl.subject.type": "ai_system",
-    "ocl.subject.name": "CV screening"
+    "ocl.subject.name": "CV screening",
+    "ocl.trigger.name": "Serious incident"
   },
   "links": [
     {

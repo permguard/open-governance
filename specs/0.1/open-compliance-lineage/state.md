@@ -25,6 +25,22 @@ Nothing else changes it, and never the order in which the records arrived.
 
 The same trace id and span id received twice with different content are a conflict too: the records they name are in conflict, and so is their case when they are its trigger or its close.
 
+## A materializer knows no law
+
+Everything a materializer shows of a law, a standard or an event comes from the records, never from a table of its own: OCL is the same for a law of the European Union, of India, of the United States, or for an organisation's own rule.
+The producer maps its laws to the contract; the materializer reads the contract.
+
+| What it shows                   | From                                                                                                 |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| the name of a law               | `ocl.law.name`; the id when absent                                                                   |
+| how a reference is cited        | `ocl.law.citation`; article, paragraph and point as sent when absent                                 |
+| whether a provision applies yet | `ocl.law.applies_from`: before it, the obligation is readiness, its state derived as any other's     |
+| the name of an event            | `ocl.trigger.name`; the type when absent                                                             |
+| a due                           | `ocl.obligation.due`, as the producer computed it from the law or from its own rule                  |
+| a law, a standard or a rule     | the namespace of `ocl.law.id`: `std:` a standard, `org:` the organisation's rule, any other id a law |
+
+A law shows as readiness while every one of its obligations in the view applies only later.
+
 ## The state of an obligation
 
 An action **counts** towards an obligation when all of these hold:

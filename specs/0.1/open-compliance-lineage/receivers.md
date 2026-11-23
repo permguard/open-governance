@@ -41,6 +41,7 @@ An OCL span is refused, whole, when:
 | an obligation carries no `ocl.obligation.id`, `ocl.obligation.action`, `ocl.law.id` or `ocl.law.article`   | the obligation is not identified or cites no law |
 | `ocl.obligation.action` or `ocl.action.kind` is not among the nine                                         | the kind of action is unknown                    |
 | `ocl.obligation.due` is present and not an RFC 3339 time                                                   | no valid `ocl.obligation.due`                    |
+| `ocl.law.applies_from` is present and not an RFC 3339 time                                                 | no valid `ocl.law.applies_from`                  |
 | an `assess` or a `review` carries no valid `ocl.action.result`, or a review no `ocl.actor.id`              | the action has no valid result or actor          |
 | an `attest` carries an `ocl.action.result` other than `attested` or `risk_accepted`                        | the action has no valid result or actor          |
 | a `determine` carries no `ocl.assessment.finding`, or one other than `satisfied` or `other_than_satisfied` | the action has no valid result or actor          |

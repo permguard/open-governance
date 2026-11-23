@@ -26,6 +26,9 @@
     "ocl.law.paragraph": "2",
     "ocl.law.version": "2026-07-27",
     "ocl.law.celex": "32024R1689",
-    "ocl.party.role": "provider"
+    "ocl.party.role": "provider",
+    "ocl.law.name": "AI Act",
+    "ocl.law.citation": "73(2)",
+    "ocl.law.applies_from": "2027-12-02T00:00:00Z"
   }
 }

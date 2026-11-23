@@ -37,6 +37,7 @@ They name the organisation whose obligations the spans are about.
 | `ocl.span.kind`    | String | `trigger`, `obligation`, `action` or `close`                                                      |
 | `ocl.case.id`      | String | the case, a UUIDv7                                                                                |
 | `ocl.trigger.type` | String | what happened: `serious_incident`, `personal_data_breach`, … ([Cases](./cases#what-opens-a-case)) |
+| `ocl.trigger.name` | String | the name a person reads of the event: `Personal data breach`; the type when absent                |
 | `ocl.subject.id`   | String | what the case is about: `cv-screening`                                                            |
 | `ocl.subject.type` | String | `ai_system`, `product`, `service`, `processing`, `ict_service`, `system`, or another              |
 | `ocl.subject.name` | String | the name a person reads; the id when absent                                                       |
@@ -44,28 +45,31 @@ They name the organisation whose obligations the spans are about.
 
 ### The obligation
 
-| Attribute                        | Type     | Meaning                                                                                                                       |
-| -------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `ocl.obligation.id`              | String   | the obligation, unique within its case: `ai-act-73-2`                                                                         |
-| `ocl.obligation.name`            | String   | what it asks, as a person reads it: `Report the serious incident`                                                             |
-| `ocl.obligation.action`          | String   | the kind of action that meets it: one of the nine of `ocl.action.kind`                                                        |
-| `ocl.obligation.due`             | String   | when it must be met, an RFC 3339 time; none when nobody set one                                                               |
-| `ocl.obligation.due_basis`       | String   | what set the due when the law did not: the organisation's rule or contract, `org:ir-plan-2#sev2`                              |
-| `ocl.obligation.anchor`          | String   | the record the due counts from: `awareness`, `classification`, `receipt`, … ([Cases](./cases#the-clock-starts-at-the-anchor)) |
-| `ocl.obligation.owner`           | String   | who must see it done: a pseudonymous id or a team, never a name                                                               |
-| `ocl.obligation.quorum`          | Int      | how many distinct actors must perform the action; 1 when absent                                                               |
-| `ocl.obligation.parameter`       | String   | the organisation-defined parameter the obligation depends on, as its standard names it: `IR-06_ODP[01]`                       |
-| `ocl.obligation.parameter_value` | String   | the value the organisation gave it: an ISO 8601 duration, `PT1H`, or text                                                     |
-| `ocl.obligation.recurrence`      | String   | how often a standing obligation comes back, an ISO 8601 duration: `P1Y`                                                       |
-| `ocl.law.id`                     | String   | the law or standard: `eu-ai-act`, `eu-gdpr`, `std:nist-csf-2.0`, … ([Legal References](./laws))                               |
-| `ocl.law.article`                | String   | the article, or the standard's first level: `73`, `DE.AE`, `IR-6`                                                             |
-| `ocl.law.paragraph`              | String   | the paragraph, or the second level: `2`, `08`                                                                                 |
-| `ocl.law.point`                  | String   | the point, nested points joined by `.`: `a`, `49.b`, `d.i`                                                                    |
-| `ocl.law.version`                | String   | the text the obligation was read from: a consolidated text by its date, `2026-07-27`, a standard by its version               |
-| `ocl.law.celex`                  | String   | the law's CELEX number, for the EU's own: `32024R1689`                                                                        |
-| `ocl.law.uri`                    | String   | where the text is, for a law or standard with no CELEX: a DOI or a URL                                                        |
-| `ocl.law.supports`               | String[] | the outcomes of a standard this obligation also evidences: `std:nist-ai-rmf#MANAGE 4.3`                                       |
-| `ocl.party.role`                 | String   | the role the law gives the organisation: `provider`, `deployer`, `controller`, …                                              |
+| Attribute                        | Type     | Meaning                                                                                                                                                       |
+| -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ocl.obligation.id`              | String   | the obligation, unique within its case: `ai-act-73-2`                                                                                                         |
+| `ocl.obligation.name`            | String   | what it asks, as a person reads it: `Report the serious incident`                                                                                             |
+| `ocl.obligation.action`          | String   | the kind of action that meets it: one of the nine of `ocl.action.kind`                                                                                        |
+| `ocl.obligation.due`             | String   | when it must be met, an RFC 3339 time; none when nobody set one                                                                                               |
+| `ocl.obligation.due_basis`       | String   | what set the due when the law did not: the organisation's rule or contract, `org:ir-plan-2#sev2`                                                              |
+| `ocl.obligation.anchor`          | String   | the record the due counts from: `awareness`, `classification`, `receipt`, … ([Cases](./cases#the-clock-starts-at-the-anchor))                                 |
+| `ocl.obligation.owner`           | String   | who must see it done: a pseudonymous id or a team, never a name                                                                                               |
+| `ocl.obligation.quorum`          | Int      | how many distinct actors must perform the action; 1 when absent                                                                                               |
+| `ocl.obligation.parameter`       | String   | the organisation-defined parameter the obligation depends on, as its standard names it: `IR-06_ODP[01]`                                                       |
+| `ocl.obligation.parameter_value` | String   | the value the organisation gave it: an ISO 8601 duration, `PT1H`, or text                                                                                     |
+| `ocl.obligation.recurrence`      | String   | how often a standing obligation comes back, an ISO 8601 duration: `P1Y`                                                                                       |
+| `ocl.law.id`                     | String   | the law or standard: `eu-ai-act`, `eu-gdpr`, `std:nist-csf-2.0`, … ([Legal References](./laws))                                                               |
+| `ocl.law.name`                   | String   | the name a person reads of the law or standard: `GDPR`, `NIST CSF 2.0`, `PMLA`; the id when absent                                                            |
+| `ocl.law.citation`               | String   | the reference as the law cites itself: `33(1)`, `§ 164.410(b)`, `DE.AE-08`; article, paragraph and point as sent when absent                                  |
+| `ocl.law.applies_from`           | String   | from when the cited provision applies, an RFC 3339 time; before it the obligation is readiness ([Obligations and State](./state#a-materializer-knows-no-law)) |
+| `ocl.law.article`                | String   | the article, or the standard's first level: `73`, `DE.AE`, `IR-6`                                                                                             |
+| `ocl.law.paragraph`              | String   | the paragraph, or the second level: `2`, `08`                                                                                                                 |
+| `ocl.law.point`                  | String   | the point, nested points joined by `.`: `a`, `49.b`, `d.i`                                                                                                    |
+| `ocl.law.version`                | String   | the text the obligation was read from: a consolidated text by its date, `2026-07-27`, a standard by its version                                               |
+| `ocl.law.celex`                  | String   | the law's CELEX number, for the EU's own: `32024R1689`                                                                                                        |
+| `ocl.law.uri`                    | String   | where the text is, for a law or standard with no CELEX: a DOI or a URL                                                                                        |
+| `ocl.law.supports`               | String[] | the outcomes of a standard this obligation also evidences: `std:nist-ai-rmf#MANAGE 4.3`                                                                       |
+| `ocl.party.role`                 | String   | the role the law gives the organisation: `provider`, `deployer`, `controller`, …                                                                              |
 
 ### The action
 
@@ -95,6 +99,7 @@ The level of each attribute on each kind of span: **R** Required, **Rc** Recomme
 | `ocl.span.kind`                  | R       | R          | R      | R     |
 | `ocl.case.id`                    | R       | R          | R      | R     |
 | `ocl.trigger.type`               | R       | –          | –      | –     |
+| `ocl.trigger.name`               | Rc      | –          | –      | –     |
 | `ocl.subject.id`                 | R       | –          | –      | –     |
 | `ocl.subject.type`               | Rc      | –          | –      | –     |
 | `ocl.subject.name`               | O       | –          | –      | –     |
@@ -110,6 +115,9 @@ The level of each attribute on each kind of span: **R** Required, **Rc** Recomme
 | `ocl.obligation.parameter_value` | –       | O          | –      | –     |
 | `ocl.obligation.recurrence`      | –       | O          | –      | –     |
 | `ocl.law.id`                     | –       | R          | –      | –     |
+| `ocl.law.name`                   | –       | Rc         | –      | –     |
+| `ocl.law.citation`               | –       | Rc         | –      | –     |
+| `ocl.law.applies_from`           | –       | O          | –      | –     |
 | `ocl.law.article`                | –       | R          | –      | –     |
 | `ocl.law.paragraph`              | –       | Rc         | –      | –     |
 | `ocl.law.point`                  | –       | O          | –      | –     |

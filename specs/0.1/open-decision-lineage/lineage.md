@@ -35,9 +35,12 @@ A stream name is a path of segments separated by `/`, the first naming the kind 
 | `decisions/<zone>/<ledger>` | the decision log of one ledger; RECOMMENDED for decision logs |
 | `stix/<collection>`         | STIX objects, such as `stix/sightings`                        |
 | `alerts/<queue>`            | alerts for people, such as `alerts/soc`                       |
+| `incidents/<queue>`         | incidents for people, such as `incidents/ict`                 |
 | any other path              | whatever the pipeline writes; receivers show it as it is      |
 
 The name is the same in every span that reads or writes the stream, so that a receiver can join them.
+
+What a step writes to `alerts/` or `incidents/` waits for a person: it is taken up when an [Open Compliance Lineage](/specs/0.1/open-compliance-lineage/) trigger links to that step with `caused_by`, and a materializer MAY show the ones nobody took up.
 
 ## Ids and group ids
 
