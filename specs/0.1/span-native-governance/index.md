@@ -13,7 +13,7 @@ Every view of governance, a decision history, a risk register, a compliance stat
 ## Why spans
 
 Governance today is assembled from a different format per source: a log here, an event bus there, a spreadsheet for the controls, a ticket for the approval.
-Each format needs its own connector, and the answers to the questions that matter, why this was allowed, what this risk rests on, whether this system is compliant now, are spread across all of them.
+Each format needs its own connector, and the answers to the questions that matter, why this was allowed, what this risk rests on, whether this system meets its obligations now, are spread across all of them.
 
 OpenTelemetry is already in almost every stack.
 Its SDKs exist for every major language, its collectors route and buffer, and its trace model already carries what governance needs: who emitted a record, when, what it is about, how it relates to others.

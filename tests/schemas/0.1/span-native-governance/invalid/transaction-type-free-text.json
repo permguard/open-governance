@@ -1,0 +1,15 @@
+{
+  "resource": {
+    "service.name": "loan-origination",
+    "oce.version": "0.1",
+    "oce.organization.id": "fjord-bank"
+  },
+  "name": "contested decision",
+  "start_time": "2028-05-03T08:00:00Z",
+  "end_time": "2028-05-03T08:00:00Z",
+  "attributes": {
+    "oce.span.kind": "trigger",
+    "ogs.transaction.id": "txn-5b1c9e0a7d2f4e81",
+    "ogs.transaction.type": "Loan Application"
+  }
+}

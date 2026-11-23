@@ -29,7 +29,12 @@
     "attributes": {
       "type": "object",
       "propertyNames": { "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$" },
-      "maxProperties": 128
+      "maxProperties": 128,
+      "properties": {
+        "ogs.transaction.id": { "type": "string", "minLength": 1, "description": "The business transaction the record is about: a keyed one-way derivation of the business reference, never the reference. Personal data for the organisation that issues it." },
+        "ogs.transaction.type": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "description": "What kind of transaction: loan_application, payment, agent_task." },
+        "ogs.transaction.ids": { "type": "array", "items": { "type": "string", "minLength": 1 }, "maxItems": 1000, "description": "The transactions a record that writes findings is about, at most 1 000." }
+      }
     },
     "links": {
       "type": "array",

@@ -15,14 +15,15 @@ The schema is JSON Schema 2020-12.
 
 ## What it checks
 
-| Part       | Checked                                                                                                  |
-| ---------- | -------------------------------------------------------------------------------------------------------- |
-| Resource   | present, with attribute names in dotted lower case                                                       |
-| Identity   | a trace id of 32 and a span id of 16 lower-case hexadecimal digits                                       |
-| Time       | start and end as RFC 3339 times                                                                          |
-| Attributes | dotted lower-case names, at most 128                                                                     |
-| Links      | at most 128, each to a trace id and span id                                                              |
-| Relations  | `ogs.link.relation` is `supersedes`, `evidence`, `approves`, `caused_by`, or prefixed by a specification |
+| Part         | Checked                                                                                                  |
+| ------------ | -------------------------------------------------------------------------------------------------------- |
+| Resource     | present, with attribute names in dotted lower case                                                       |
+| Identity     | a trace id of 32 and a span id of 16 lower-case hexadecimal digits                                       |
+| Time         | start and end as RFC 3339 times                                                                          |
+| Attributes   | dotted lower-case names, at most 128                                                                     |
+| Links        | at most 128, each to a trace id and span id                                                              |
+| Relations    | `ogs.link.relation` is `supersedes`, `evidence`, `approves`, `caused_by`, or prefixed by a specification |
+| Transactions | `ogs.transaction.id` and `.type` as strings, `.ids` a list of at most 1 000                              |
 
 A record that passes a specification's schema also passes this one: the check of this site validates every example of every specification against both.
 

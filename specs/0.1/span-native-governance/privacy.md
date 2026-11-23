@@ -16,12 +16,24 @@ A governance record is therefore built to be safe wherever it goes: it names wha
 
 ## What never goes in a span
 
-- Personal data: a decision's subject, a user's name, an address.
+- Directly identifying data: a decision's subject, a person's name, an address, an account, an IBAN, a customer number.
 - The content of evidence: documents, screenshots, payloads.
 - Secrets, keys and credentials, in any form.
 - The context of an authorization decision, which may carry any of the above.
 
 A specification MUST say, for each attribute it defines, that it carries an identifier or a classification and not content.
+
+## Pseudonymous ids are personal data
+
+A specification names a person by a pseudonymous id, as Open Compliance Evidence names an actor, and a business by a derived transaction id.
+For the organisation that can resolve them, these ids are personal data (GDPR Article 4(1), Recital 26), and records carrying them are processed as such: for a purpose that is documented, kept no longer than that purpose needs, and protected as the systems they come from.
+
+| Rule              | Meaning                                                                                             |
+| ----------------- | --------------------------------------------------------------------------------------------------- |
+| Derived, keyed    | an id is a one-way derivation with a key the organisation holds, never the identifier it stands for |
+| Only where needed | an id is set only where a record needs it, never by default                                         |
+| Not shared        | two organisations never use the same id value for the same person or transaction                    |
+| Resolved inside   | only the organisation resolves an id, under its own access rules, and logs when it does             |
 
 ## Resolving
 
