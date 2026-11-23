@@ -89,6 +89,8 @@ Attributes are deprecated, never removed or renamed.
 
 ## Relation to other conventions
 
+ODL is a specification of [Span-Native Governance](/span-native-governance/), the model every specification of this site follows: its records are spans, and what a receiver shows, pipelines, runs, health and lineage, is materialised from them.
+
 ODL builds on the [OpenTelemetry trace data model](https://opentelemetry.io/docs/concepts/signals/traces/) unchanged and reuses its attributes where one exists for the same concept, such as `service.name`.
 
 The [OpenInference](https://github.com/Arize-ai/openinference) conventions use the `decision.*` namespace for calls to decision models, models that score or select among options.

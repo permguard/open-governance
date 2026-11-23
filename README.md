@@ -1,4 +1,4 @@
-# Open specs
+# Open Governance Specs
 
 Open governance specifications for how organisations decide, control and account.
 

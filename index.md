@@ -2,9 +2,13 @@
 layout: home
 
 hero:
-  name: Open governance specifications
-  text: for how organisations decide, control and account.
-  tagline: Open, modular contracts for decisions, security, risk, compliance and oversight, from IT operations to the board, in software and in AI. Each one standardises a contract, never a product.
+  name: Open Governance Specs
+  text: Every decision, control and risk is a span. Everything else is derived.
+  tagline: One ingestion model for governance, from AI agents and SOC pipelines to the boardroom. Spans go in over OTLP; decision history, risk posture and compliance state come out, rebuilt at any time from the spans alone.
 ---
+
+<HomePillars />
+
+<Diagram of="sng/model" />
 
 <SpecCatalog />

@@ -8,6 +8,201 @@ import type { Diagram } from './theme/diagrams/types'
  * so that a reader has the picture before the rules.
  */
 export const diagrams: Record<string, Diagram> = {
+  'sng/model': {
+    type: 'flow',
+    stages: [
+      {
+        title: 'Sources',
+        items: [
+          { label: 'AI agents' },
+          { label: 'Decision points' },
+          { label: 'SOC · CTI' },
+          { label: 'Controls and people' }
+        ]
+      },
+      {
+        title: 'Records',
+        items: [
+          { label: 'OTLP spans', sub: 'the only way in', tone: 'brand' },
+          { label: 'Never sampled', sub: 'acknowledged once stored' }
+        ]
+      },
+      {
+        title: 'Span store',
+        items: [
+          { label: 'Append-only', sub: 'the source of truth', tone: 'brand' },
+          { label: 'Replayable', sub: 'duplicates stored once' }
+        ]
+      },
+      {
+        title: 'Materialization',
+        items: [
+          { label: 'Event time', sub: 'not arrival order' },
+          { label: 'Validity, authority', sub: 'unknown when unproven' }
+        ]
+      },
+      {
+        title: 'Views',
+        items: [
+          { label: 'Decision history', tone: 'brand' },
+          { label: 'Risk posture', tone: 'warn' },
+          { label: 'Compliance state', tone: 'ok' }
+        ]
+      }
+    ],
+    arrows: ['emit', 'store', 'replay', 'derive'],
+    caption:
+      'Span-Native Governance: whatever the source, a governance record arrives as an OpenTelemetry span, is kept as it came, and every view of governance is derived from the records, never written beside them.'
+  },
+
+  'sng/records': {
+    type: 'nest',
+    root: {
+      title: 'Resource',
+      tag: 'who emits',
+      tone: 'brand',
+      chips: ['<spec>.version', 'service.name'],
+      children: [
+        {
+          title: 'Record',
+          tag: 'one span',
+          many: true,
+          chips: ['trace id + span id', 'start · end', 'status', '<spec>.* attributes'],
+          children: [
+            {
+              title: 'Subject',
+              tag: 'what the record is about',
+              chips: ['the specification’s own keys: a decision, a control, an asset']
+            },
+            {
+              title: 'Links',
+              tag: 'to other records',
+              many: true,
+              chips: ['ogs.link.relation', 'supersedes · evidence · approves · caused_by']
+            }
+          ]
+        }
+      ]
+    },
+    caption:
+      'A governance record is one span. Its resource names the specification it follows; its own attributes name what it is about; its links tie it to the records it replaces, proves or answers.'
+  },
+
+  'sng/delivery': {
+    type: 'flow',
+    stages: [
+      {
+        title: 'Producer',
+        items: [
+          { label: 'Always sampled', sub: 'a governance tracer never drops', tone: 'brand' },
+          { label: 'Retries', sub: 'the same trace and span ids' }
+        ]
+      },
+      { title: 'Transport', items: [{ label: 'OTLP', sub: 'gRPC or HTTP, through collectors with persistent queues' }] },
+      {
+        title: 'Receiver',
+        items: [
+          { label: 'Stores, then answers', sub: 'success means kept', tone: 'ok' },
+          { label: 'Stores once', sub: 'a resent span is a duplicate' }
+        ]
+      },
+      { title: 'Store', items: [{ label: 'Append-only', sub: 'nothing edited, nothing lost', tone: 'brand' }] }
+    ],
+    arrows: ['export', 'deliver', 'keep'],
+    caption:
+      'Delivery is at least once and storage exactly once: a producer may send a record twice, a receiver keeps it once, and nothing is acknowledged before it is kept.'
+  },
+
+  'sng/materialization': {
+    type: 'lanes',
+    lanes: [
+      {
+        label: 'control evaluated',
+        bars: [
+          { from: 4, to: 5.5, tone: 'error' },
+          { from: 46, to: 47.5, tone: 'ok' }
+        ]
+      },
+      { label: 'exception approved', bars: [{ from: 18, to: 19.5, tone: 'warn' }] },
+      {
+        label: 'state of CTRL-002',
+        bars: [
+          { from: 4, to: 18, label: 'failed', tone: 'error' },
+          { from: 18, to: 46, label: 'excepted', tone: 'warn' },
+          { from: 46, to: 76, label: 'passed', tone: 'ok' },
+          { from: 76, to: 100, label: 'unknown', tone: 'muted' }
+        ]
+      }
+    ],
+    axis: ['first evaluation', 'validity of the last one ends'],
+    caption:
+      'The state of a control, materialised from its records. It follows event time, so a record arriving late lands where it belongs; and once the last evaluation is no longer valid, the state is unknown, never passed.'
+  },
+
+  'sng/privacy': {
+    type: 'flow',
+    stages: [
+      {
+        title: 'At the source',
+        items: [{ label: 'The content', sub: 'a decision’s subject, a document, evidence', tone: 'brand' }]
+      },
+      {
+        title: 'In the span',
+        items: [
+          { label: 'An id', sub: 'what to look up' },
+          { label: 'A digest', sub: 'that it was not changed' },
+          { label: 'A reference', sub: 'where it lives' }
+        ]
+      },
+      {
+        title: 'At the receiver',
+        items: [{ label: 'Resolved on demand', sub: 'under the source’s own access rules', tone: 'ok' }]
+      }
+    ],
+    arrows: ['named', 'resolved'],
+    caption:
+      'Spans travel to systems that do not apply the source’s access rules, so they carry references, never content.'
+  },
+
+  'sng/writing': {
+    type: 'nest',
+    root: {
+      title: 'A specification',
+      tag: '<spec>.* · its own prefix',
+      tone: 'brand',
+      children: [
+        {
+          title: 'Concepts',
+          row: true,
+          children: [
+            { title: 'Purpose and scope', chips: ['what it standardises', 'what it leaves out'] },
+            { title: 'Data model', chips: ['subjects and their keys', 'how they map onto spans'] }
+          ]
+        },
+        {
+          title: 'Reference',
+          row: true,
+          children: [
+            { title: 'Records', chips: ['span kinds', 'attributes and levels'] },
+            { title: 'Interoperability', chips: ['links to other specifications'] }
+          ]
+        },
+        {
+          title: 'Interpretation',
+          row: true,
+          children: [
+            { title: 'Materialization', chips: ['the views', 'how each is derived'] },
+            { title: 'Receivers', chips: ['accept, refuse, normalise'] },
+            { title: 'Security and privacy', chips: ['what never goes in a span'] }
+          ]
+        },
+        { title: 'In practice', chips: ['examples', 'producers in every language', 'conformance', 'versioning'] }
+      ]
+    },
+    caption:
+      'Every specification has the same parts, in the same order, so that a reader who knows one knows where to look in the next.'
+  },
+
   'odl/architecture': {
     type: 'flow',
     stages: [

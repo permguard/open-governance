@@ -16,8 +16,8 @@ export interface Spec {
   line: string
   /** The area of governance it belongs to, under which the home page lists it. */
   domain: string
-  /** `development`, `stable` or `deprecated`: how far the specification can be relied on. */
-  status: 'development' | 'stable' | 'deprecated'
+  /** `draft`, `development`, `stable` or `deprecated`: how far the specification can be relied on. */
+  status: 'draft' | 'development' | 'stable' | 'deprecated'
   version: string
   /** A Lucide icon's SVG body, drawn at 24 x 24 with a 2 px stroke. */
   icon: string
@@ -26,6 +26,25 @@ export interface Spec {
 }
 
 export const specs: Spec[] = [
+  {
+    id: 'span-native-governance',
+    title: 'Span-Native Governance',
+    short: 'SNG',
+    line: 'The model every specification here shares: governance records as OpenTelemetry spans, state materialised from them.',
+    domain: 'Foundation',
+    status: 'draft',
+    version: '0',
+    // Lucide `layers`.
+    icon: '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+    sections: [
+      { title: 'Foundation', pages: [['Overview', '']] },
+      {
+        title: 'Model',
+        pages: [['Records', 'records'], ['Delivery', 'delivery'], ['Materialization', 'materialization'], ['Privacy', 'privacy']]
+      },
+      { title: 'Authoring', pages: [['Writing a Specification', 'writing']] }
+    ]
+  },
   {
     id: 'open-decision-lineage',
     title: 'Open Decision Lineage',

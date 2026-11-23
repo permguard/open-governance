@@ -22,7 +22,7 @@ const sidebar = Object.fromEntries(
 
 export default defineConfig({
   base,
-  title: 'Open Specs',
+  title: 'Open Governance Specs',
   description: 'Open governance specifications for how organisations decide, control and account.',
   head: [['link', { rel: 'icon', type: 'image/x-icon', href: `${base}permguard/favicon.ico` }]],
   cleanUrls: true,
@@ -33,7 +33,7 @@ export default defineConfig({
   appearance: 'dark',
   themeConfig: {
     logo: { light: '/permguard/symbol.svg', dark: '/permguard/symbol.svg', alt: 'Permguard' },
-    siteTitle: 'Open Specs',
+    siteTitle: 'Open Governance Specs',
     specs,
     nav: [
       { text: 'Specifications', items: specs.map((spec) => ({ text: spec.title, link: specLink(spec) })) }
