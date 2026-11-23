@@ -12,7 +12,7 @@
   --vp-c-brand-3: var(--os-brand);
   --vp-c-brand-soft: rgba(217, 70, 239, 0.14);
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, var(--os-brand) 20%, #a855f7 90%);
+  --vp-home-hero-name-background: linear-gradient(90deg, var(--os-brand-rose) 0%, var(--os-brand) 100%);
   --vp-home-hero-image-background-image: linear-gradient(-45deg, var(--os-brand-rose) 30%, var(--os-brand) 70%);
   --vp-home-hero-image-filter: blur(64px);
   --vp-button-brand-border: var(--os-brand-deep);
@@ -82,7 +82,7 @@
 .os-hero-card {
   position: relative;
   z-index: 1;
-  width: min(460px, 88vw);
+  width: min(460px, 100%);
   overflow: hidden;
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
@@ -119,7 +119,12 @@
   font-size: 11.5px;
 }
 
+.os-gov {
+  container-type: inline-size;
+}
+
 .os-gov .is-brand { --os-tone: var(--vp-c-brand-1); }
+.os-gov .is-rose { --os-tone: var(--os-brand-rose); }
 .os-gov .is-ok { --os-tone: var(--vp-c-success-1); }
 .os-gov .is-warn { --os-tone: var(--vp-c-warning-1); }
 .os-gov .is-error { --os-tone: var(--vp-c-danger-1); }
@@ -127,7 +132,8 @@
 .os-gov__label {
   color: var(--vp-c-text-3);
   font-size: 10px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
+  overflow-wrap: anywhere;
   text-transform: uppercase;
 }
 
@@ -263,11 +269,9 @@
 }
 
 .os-gov__view > span:last-child {
-  overflow: hidden;
   color: var(--vp-c-text-2);
   font-size: 10.5px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.35;
 }
 
 @keyframes os-gov-flow {
@@ -295,6 +299,17 @@
   }
 }
 
+/* Beside the title the card takes the width of its column, which VitePress pulls 2rem to the left. */
+@media (min-width: 960px) {
+  .VPHero.has-image .image {
+    min-width: 0;
+  }
+
+  .VPHero.has-image .image-container {
+    padding-left: 2rem;
+  }
+}
+
 /* Under the two-column banner VitePress gives its image a fixed square pulled up under the
    navigation; the card has its own height, so it takes its place in the flow instead. */
 @media (max-width: 959px) {
@@ -303,7 +318,7 @@
   }
 
   .VPHero.has-image .image-container {
-    width: auto;
+    width: 100%;
     height: auto;
   }
 
@@ -312,34 +327,68 @@
   }
 }
 
-/* On a phone the spans drop their time line, and the views their second line. */
-@media (max-width: 479px) {
+/* A narrow card, on a phone or beside a narrow title, keeps every word inside its box: the spans
+   drop their time line, and the views become rows, a name and its value. */
+@container (max-width: 430px) {
   .os-gov__spans li {
     grid-template-columns: 8px max-content minmax(0, 1fr);
+    align-items: baseline;
+    white-space: normal;
+  }
+
+  .os-gov__detail {
+    overflow: visible;
+    white-space: normal;
   }
 
   .os-gov__track {
     display: none;
   }
 
+  .os-gov__views {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .os-gov__view {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 10px;
+    padding: 8px 10px;
+  }
+
   .os-gov__view strong {
-    font-size: 14px;
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+    font-size: 15px;
   }
 }
 
-@media (max-width: 379px) {
-  .os-gov__view {
-    padding: 8px;
-  }
+/* The banner's second line is the thesis, not the name: smaller than the name, and still bold. */
+.VPHero .main .text {
+  max-width: 560px;
+  font-size: 26px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
 
-  .os-gov__view .os-gov__label {
-    font-size: 9px;
-    letter-spacing: 0.06em;
+@media (min-width: 640px) {
+  .VPHero .main .text {
+    font-size: 32px;
   }
+}
 
-  .os-gov__view > span:last-child {
-    display: none;
+@media (min-width: 960px) {
+  .VPHero .main .text {
+    font-size: 36px;
   }
+}
+
+.VPHero .main .tagline {
+  max-width: 560px;
 }
 
 /* The line above the home title, and the model's four rules under the banner. */
@@ -386,7 +435,7 @@
 
 .os-pillars__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: 16px;
   margin-top: 20px;
 }
@@ -1189,5 +1238,87 @@
 @media (max-width: 639px) {
   .os-diagram {
     padding: 14px;
+  }
+}
+
+/* The areas of governance on the home page: the written ones link to their specification, the
+   others say they are planned. */
+.os-areas {
+  margin: 40px 0;
+}
+
+.os-areas__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.vp-doc .os-area,
+.os-area {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.os-area.is-live {
+  border-color: color-mix(in srgb, var(--os-brand) 60%, var(--vp-c-divider));
+  background: color-mix(in srgb, var(--os-brand) 7%, var(--vp-c-bg-soft));
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.vp-doc a.os-area.is-live:hover {
+  border-color: var(--os-brand);
+  transform: translateY(-2px);
+}
+
+.os-area__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.os-area__head strong {
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.os-area__state {
+  flex: 0 0 auto;
+  padding: 1px 8px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  color: var(--vp-c-text-3);
+  font-family: var(--vp-font-family-mono);
+  font-size: 10.5px;
+}
+
+.os-area.is-live .os-area__state {
+  border-color: var(--os-brand);
+  color: var(--vp-c-brand-1);
+}
+
+.os-area__line {
+  color: var(--vp-c-text-2);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .os-area.is-live {
+    transition: none;
+  }
+
+  .vp-doc a.os-area.is-live:hover {
+    transform: none;
   }
 }

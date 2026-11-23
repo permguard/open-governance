@@ -11,7 +11,7 @@ const base = `/${(process.env.VITEPRESS_BASE ?? '').replace(/^\/+|\/+$/g, '')}/`
 // above it moves between specifications (theme/SpecMenu.vue).
 const sidebar = Object.fromEntries(
   specs.map((spec) => [
-    `/${spec.id}/`,
+    specLink(spec),
     spec.sections.map((section) => ({
       text: section.title,
       collapsed: false,
@@ -22,18 +22,21 @@ const sidebar = Object.fromEntries(
 
 export default defineConfig({
   base,
-  title: 'Open Governance Specs',
+  title: 'Open Governance',
   description: 'Open governance specifications for how organisations decide, control and account.',
-  head: [['link', { rel: 'icon', type: 'image/x-icon', href: `${base}permguard/favicon.ico` }]],
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}logo.svg` }]],
   cleanUrls: true,
+  // The site's home: opengov.permguard.com, where the schemas' ids point.
+  sitemap: { hostname: 'https://opengov.permguard.com' },
   // The repository's own files are not pages of the site.
   srcExclude: ['README.md'],
   lastUpdated: true,
   // Dark by default, like permguard.com; the toggle still offers light.
   appearance: 'dark',
   themeConfig: {
-    logo: { light: '/permguard/symbol.svg', dark: '/permguard/symbol.svg', alt: 'Permguard' },
-    siteTitle: 'Open Governance Specs',
+    // Open Governance's own mark, in Permguard's colours; Permguard itself signs the footer.
+    logo: { src: '/logo.svg', alt: 'Open Governance' },
+    siteTitle: 'Open Governance',
     specs,
     nav: [
       { text: 'Specifications', items: specs.map((spec) => ({ text: spec.title, link: specLink(spec) })) }
@@ -41,9 +44,9 @@ export default defineConfig({
     sidebar,
     outline: { level: [2, 3] },
     search: { provider: 'local' },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/permguard/open-specs' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/permguard/open-governance' }],
     editLink: {
-      pattern: 'https://github.com/permguard/open-specs/edit/main/:path',
+      pattern: 'https://github.com/permguard/open-governance/edit/main/:path',
       text: 'Edit this page on GitHub'
     }
   }

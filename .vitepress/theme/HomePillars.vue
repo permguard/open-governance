@@ -35,7 +35,7 @@ const pillars = [
       <h2>Governance, rebuilt from spans</h2>
       <p>
         Every specification here follows the same model,
-        <a :href="withBase('/span-native-governance/')">Span-Native Governance</a>: four rules, and everything else follows.
+        <a :href="withBase('/specs/span-native-governance/')">Span-Native Governance</a>: four rules, and everything else follows.
       </p>
     </header>
     <div class="os-pillars__grid">

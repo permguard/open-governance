@@ -70,6 +70,7 @@ The pages go from the whole to the detail: the shape of a pipeline first, then h
 | [Span Kinds](./span-kinds)   | The four kinds of ODL span, and what each carries                               |
 | [Attributes](./attributes)   | Every attribute, its type and its requirement level                             |
 | [Lineage](./lineage)         | How a batch names what it read and what it wrote                                |
+| [Schema](./schema)           | The JSON Schema of a record, to validate what a producer emits                  |
 | [Runs and Health](./runs)    | How a run's state, a step's health and a pipeline's graph are derived           |
 | [Receivers](./receivers)     | What a receiver must accept, refuse and rebuild                                 |
 | [Field Guide](./field-guide) | Spans as a producer emits them, and a producer in Python                        |
@@ -89,7 +90,7 @@ Attributes are deprecated, never removed or renamed.
 
 ## Relation to other conventions
 
-ODL is a specification of [Span-Native Governance](/span-native-governance/), the model every specification of this site follows: its records are spans, and what a receiver shows, pipelines, runs, health and lineage, is materialised from them.
+ODL is a specification of [Span-Native Governance](/specs/span-native-governance/), the model every specification of this site follows: its records are spans, and what a receiver shows, pipelines, runs, health and lineage, is materialised from them.
 
 ODL builds on the [OpenTelemetry trace data model](https://opentelemetry.io/docs/concepts/signals/traces/) unchanged and reuses its attributes where one exists for the same concept, such as `service.name`.
 

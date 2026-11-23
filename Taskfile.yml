@@ -33,6 +33,12 @@ tasks:
     cmds:
       - npm run docs:build
 
+  check:
+    desc: Check every specification's schema against its valid and invalid examples.
+    deps: [init]
+    cmds:
+      - npm run check:schemas
+
   preview:
     desc: Build, then serve the result as it will be published, at http://localhost:4173 (PORT to change it).
     deps: [build]

@@ -41,7 +41,7 @@ Making the span the one way in means any instrumented system is already a govern
 | [Privacy](./privacy)                 | What never goes in a span, and what goes instead                             |
 | [Writing a Specification](./writing) | The parts every specification has, and the rules for naming its attributes   |
 
-A specification of this site, such as [Open Decision Lineage](/open-decision-lineage/), defines its own records and views and follows these rules for everything else.
+A specification of this site, such as [Open Decision Lineage](/specs/open-decision-lineage/), defines its own records and views and follows these rules for everything else.
 
 ## Spans for facts
 

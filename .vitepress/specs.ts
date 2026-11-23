@@ -7,7 +7,7 @@
  * follow from it.
  */
 export interface Spec {
-  /** The folder, and the first segment of every route of the specification. */
+  /** The folder under `specs/`, and the segment after `/specs/` of every route of the specification. */
   id: string
   title: string
   /** The short name the specification goes by. */
@@ -42,6 +42,7 @@ export const specs: Spec[] = [
         title: 'Model',
         pages: [['Records', 'records'], ['Delivery', 'delivery'], ['Materialization', 'materialization'], ['Privacy', 'privacy']]
       },
+      { title: 'Reference', pages: [['Schema', 'schema']] },
       { title: 'Authoring', pages: [['Writing a Specification', 'writing']] }
     ]
   },
@@ -58,11 +59,12 @@ export const specs: Spec[] = [
     sections: [
       { title: 'Specification', pages: [['Overview', '']] },
       { title: 'Concepts', pages: [['Pipelines', 'pipelines'], ['Data Model', 'data-model'], ['Span Kinds', 'span-kinds']] },
-      { title: 'Reference', pages: [['Attributes', 'attributes'], ['Lineage', 'lineage']] },
+      { title: 'Reference', pages: [['Attributes', 'attributes'], ['Lineage', 'lineage'], ['Schema', 'schema']] },
       { title: 'Interpretation', pages: [['Runs and Health', 'runs'], ['Receivers', 'receivers']] },
       { title: 'In Practice', pages: [['Field Guide', 'field-guide']] }
     ]
   }
 ]
 
-export const specLink = (spec: Spec, slug = '') => `/${spec.id}/${slug}`
+/** Every specification lives under `/specs/`, beside the pages about the site itself. */
+export const specLink = (spec: Spec, slug = '') => `/specs/${spec.id}/${slug}`

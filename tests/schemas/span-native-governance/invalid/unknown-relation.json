@@ -1,0 +1,24 @@
+{
+  "resource": {
+    "service.name": "control-runner",
+    "odl.version": "1"
+  },
+  "name": "evaluation",
+  "start_time": "2026-11-23T10:00:00Z",
+  "end_time": "2026-11-23T10:00:00Z",
+  "status_code": "OK",
+  "attributes": {
+    "odl.span.kind": "batch"
+  },
+  "links": [
+    {
+      "context": {
+        "trace_id": "5d2e400ece17d26b658b1ef03f865761",
+        "span_id": "c1b2c3d4e5f60718"
+      },
+      "attributes": {
+        "ogs.link.relation": "replaces"
+      }
+    }
+  ]
+}

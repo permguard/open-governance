@@ -1,13 +1,16 @@
 {
-  "name": "open-specs",
+  "name": "open-governance",
   "private": true,
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build && node scripts/add-trailing-slash-aliases.mjs .vitepress/dist",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "check:schemas": "node scripts/check-schemas.mjs"
   },
   "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
     "vitepress": "2.0.0-alpha.20"
   }
 }

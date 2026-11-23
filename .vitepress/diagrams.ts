@@ -8,6 +8,55 @@ import type { Diagram } from './theme/diagrams/types'
  * so that a reader has the picture before the rules.
  */
 export const diagrams: Record<string, Diagram> = {
+  'sng/schema': {
+    type: 'flow',
+    stages: [
+      { title: 'A record', items: [{ label: 'One span', sub: 'resource, attributes, links', tone: 'brand' }] },
+      {
+        title: 'Schemas',
+        items: [
+          { label: 'The envelope', sub: 'span-native-governance/v0' },
+          { label: 'Its specification', sub: 'for example open-decision-lineage/v1', tone: 'brand' }
+        ]
+      },
+      {
+        title: 'Result',
+        items: [
+          { label: 'valid', tone: 'ok' },
+          { label: 'invalid', sub: 'with the path and the reason', tone: 'error' }
+        ]
+      }
+    ],
+    arrows: ['checked by', 'gives'],
+    caption:
+      'Every record passes two schemas: the envelope every governance record shares, and the schema of its own specification.'
+  },
+
+  'odl/schema': {
+    type: 'flow',
+    stages: [
+      { title: 'Producer', items: [{ label: 'An ODL span', sub: 'in its logical JSON form', tone: 'brand' }] },
+      {
+        title: 'schema.json',
+        items: [
+          { label: 'Resource', sub: 'version, pipeline, shape' },
+          { label: 'Attributes', sub: 'types, values, bounds' },
+          { label: 'By kind', sub: 'what each kind must carry' }
+        ]
+      },
+      {
+        title: 'Result',
+        items: [
+          { label: 'valid', tone: 'ok' },
+          { label: 'invalid', sub: 'with the path and the reason', tone: 'error' }
+        ]
+      }
+    ],
+    arrows: ['checked by', 'gives'],
+    caption:
+      'The schema holds what one span can be checked for on its own; what takes several spans to judge is the receiver’s.'
+  },
+
   'sng/model': {
     type: 'flow',
     stages: [
@@ -15,8 +64,8 @@ export const diagrams: Record<string, Diagram> = {
         title: 'Sources',
         items: [
           { label: 'AI agents' },
-          { label: 'Decision points' },
-          { label: 'SOC · CTI' },
+          { label: 'Policies and decision points' },
+          { label: 'Pipelines' },
           { label: 'Controls and people' }
         ]
       },

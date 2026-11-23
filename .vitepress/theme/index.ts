@@ -9,6 +9,7 @@ import SiteFooter from './SiteFooter.vue'
 import GovernanceHero from './GovernanceHero.vue'
 import HeroEyebrow from './HeroEyebrow.vue'
 import HomePillars from './HomePillars.vue'
+import HomeAreas from './HomeAreas.vue'
 import Diagram from './diagrams/Diagram.vue'
 import SpecCatalog from './SpecCatalog.vue'
 import './custom.css'
@@ -22,6 +23,7 @@ export default {
     app.component('Diagram', Diagram)
     app.component('SpecCatalog', SpecCatalog)
     app.component('HomePillars', HomePillars)
+    app.component('HomeAreas', HomeAreas)
   },
   Layout: () =>
     h(DefaultTheme.Layout, null, {

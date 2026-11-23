@@ -5,19 +5,19 @@
      spans are the only way in, and the state of governance is materialised from them. The spans
      shown are illustrations, not attributes of a specification. -->
 <script setup lang="ts">
-const sources = ['AI agents', 'Decision points', 'SOC · CTI', 'Controls']
+const sources = ['AI agents', 'Policies', 'Decision points', 'Pipelines']
 
 const spans = [
-  { name: 'decision', detail: 'agent-7 · deny', tone: 'brand', from: 2, to: 9 },
-  { name: 'control', detail: 'CTRL-002 · failed', tone: 'error', from: 16, to: 24 },
-  { name: 'approval', detail: 'exception · granted', tone: 'warn', from: 30, to: 46 },
-  { name: 'risk', detail: 'payment-service · high', tone: 'warn', from: 52, to: 60 },
+  { name: 'policy', detail: 'ledger v42 · published', tone: 'brand', from: 2, to: 8 },
+  { name: 'decision', detail: 'agent-7 · deny', tone: 'rose', from: 14, to: 18 },
+  { name: 'pipeline', detail: 'privilege-escalation', tone: 'brand', from: 22, to: 44 },
+  { name: 'approval', detail: 'exception · granted', tone: 'warn', from: 50, to: 62 },
   { name: 'control', detail: 'CTRL-002 · passed', tone: 'ok', from: 70, to: 78 }
 ]
 
 const views = [
-  { title: 'Decision history', value: '12 840', line: 'with their inputs', tone: 'brand' },
-  { title: 'Risk posture', value: 'High', line: 'payment-service', tone: 'warn' },
+  { title: 'Decisions', value: '12 840', line: 'with policies', tone: 'brand' },
+  { title: 'Residual risk', value: 'Medium', line: 'after 3 controls', tone: 'warn' },
   { title: 'Compliance', value: 'Compliant', line: '2 of 2 controls', tone: 'ok' }
 ]
 </script>

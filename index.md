@@ -2,13 +2,15 @@
 layout: home
 
 hero:
-  name: Open Governance Specs
+  name: Open Governance
   text: Every decision, control and risk is a span. Everything else is derived.
-  tagline: One ingestion model for governance, from AI agents and SOC pipelines to the boardroom. Spans go in over OTLP; decision history, risk posture and compliance state come out, rebuilt at any time from the spans alone.
+  tagline: Open specifications for every part of governance, from decisions and residual risk to security, compliance and human oversight. One ingestion model, OpenTelemetry spans, and every view rebuilt from them.
 ---
 
 <HomePillars />
 
 <Diagram of="sng/model" />
+
+<HomeAreas />
 
 <SpecCatalog />
