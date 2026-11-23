@@ -3,7 +3,7 @@
 
 import { existsSync } from 'node:fs'
 import { defineConfig } from 'vitepress'
-import { current, published, specLink, specs, versions } from './specs'
+import { published, specLink, specs, versions } from './specs'
 
 // GitHub Pages serves the site below the repository path; the deploy passes it in.
 const base = `/${(process.env.VITEPRESS_BASE ?? '').replace(/^\/+|\/+$/g, '')}/`.replace(/^\/\/$/, '/')
@@ -54,15 +54,10 @@ export default defineConfig({
     specs: published,
     versions,
     nav: [
-      { text: 'Specifications', items: published.map((spec) => ({ text: spec.title, link: specLink(spec) })) },
-      // The releases, each opening its own page; the label names the current one.
-      {
-        text: `v${current}`,
-        items: versions.map((version) => ({
-          text: version === current ? `${version} · current` : version,
-          link: `/specs/${version}/`
-        }))
-      }
+      // Both follow the release in view (theme/ReleaseMenu.vue): the specifications of that release,
+      // and the releases, labelled with it.
+      { component: 'ReleaseMenu', props: { menu: 'specifications' } },
+      { component: 'ReleaseMenu', props: { menu: 'releases' } }
     ],
     sidebar,
     outline: { level: [2, 3] },

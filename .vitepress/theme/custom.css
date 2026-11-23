@@ -690,7 +690,7 @@
   flex-direction: column;
   gap: 2px;
   margin: 16px 0 20px;
-  padding: 4px;
+  padding: 3px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 10px;
   background: var(--vp-c-bg-soft);
@@ -699,8 +699,8 @@
 .os-spec-menu__item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
+  gap: 7px;
+  padding: 6px;
   border: 1px solid transparent;
   border-radius: 7px;
   color: var(--vp-c-text-2);
@@ -735,13 +735,11 @@
   flex-direction: column;
 }
 
+/* Sized so that every name fits the sidebar whole; a longer one wraps rather than being cut. */
 .os-spec-menu__title {
-  overflow: hidden;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  line-height: 18px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 17px;
 }
 
 .os-spec-menu__meta {
