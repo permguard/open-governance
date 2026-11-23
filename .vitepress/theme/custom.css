@@ -488,11 +488,10 @@
   color: var(--vp-c-text-2);
 }
 
-.vp-doc .os-catalog__domain h3 {
-  margin: 28px 0 12px;
+.os-spec-card__domain {
   color: var(--vp-c-text-3);
   font-family: var(--vp-font-family-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -500,8 +499,9 @@
 
 .os-catalog__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 16px;
+  margin-top: 20px;
 }
 
 .vp-doc a.os-spec-card {
