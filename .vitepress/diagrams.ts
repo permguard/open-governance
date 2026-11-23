@@ -284,14 +284,15 @@ export const diagrams: Record<string, Diagram> = {
       { label: 'Northwind · trigger', bars: [{ from: 0, to: 1.5, tone: 'brand' }] },
       { label: 'inform · 26(5)', depth: 1, bars: [{ from: 1.5, to: 3, tone: 'ok' }] },
       { label: 'Lumen AI · trigger', bars: [{ from: 3, to: 4.5, tone: 'brand' }] },
-      { label: 'notify · 73(2)', depth: 1, bars: [{ from: 23, to: 26, tone: 'ok' }] },
+      { label: 'notify · 73(2)', depth: 1, bars: [{ from: 4.5, to: 6.5, tone: 'ok' }, { from: 23, to: 26, tone: 'ok' }] },
       { label: 'due · 73(2)', depth: 1, bars: [{ from: 49, to: 50, tone: 'warn' }] },
+      { label: 'inform · 73(6)', depth: 1, bars: [{ from: 27, to: 29, tone: 'ok' }] },
       { label: 'remediate · 73(6)', depth: 1, bars: [{ from: 40, to: 77, label: 'retrained', tone: 'ok' }] },
       { label: 'close', depth: 1, bars: [{ from: 96, to: 98, tone: 'muted' }] }
     ],
     axis: ['10 March', '9 April'],
     caption:
-      'The first example in time: the deployer informs the provider within the hour; the provider reports on day 7 of 15, corrects, and closes. Two organisations, two cases, one link.'
+      'The first example in time: the deployer informs the provider within the hour; the provider reports the day after the causal link, completes the report on day 7, tells the authority before correcting, and closes. Two organisations, two cases, one link.'
   },
 
   'oce/field-guide': {
