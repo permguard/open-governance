@@ -7,7 +7,7 @@
  * follow from it.
  */
 export interface Spec {
-  /** The folder under `specs/`, and the segment after `/specs/` of every route of the specification. */
+  /** The folder under `specs/<version>/`, and the segment after `/specs/<version>/` of every route of the specification. */
   id: string
   title: string
   /** The short name the specification goes by. */
@@ -35,7 +35,7 @@ export const specs: Spec[] = [
     line: 'The model every specification here shares: governance records as OpenTelemetry spans, state materialised from them.',
     domain: 'Foundation',
     status: 'draft',
-    version: '0',
+    version: '0.1',
     // Lucide `layers`.
     icon: '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
     sections: [
@@ -55,7 +55,7 @@ export const specs: Spec[] = [
     line: 'What pipelines that analyse authorization decision logs do with them, as OpenTelemetry traces.',
     domain: 'Decision Governance',
     status: 'development',
-    version: '1',
+    version: '0.1',
     // Lucide `workflow`.
     icon: '<rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/>',
     sections: [
@@ -70,13 +70,19 @@ export const specs: Spec[] = [
     id: 'open-compliance-evidence',
     title: 'Open Compliance Evidence',
     short: 'OCE',
-    line: 'Controls evaluated, evidence recorded, exceptions granted, and the state of compliance derived from them.',
+    line: 'Events that engage the law, the obligations they open article by article, and what was done to meet each, from awareness to close.',
     domain: 'Compliance',
-    status: 'planned',
-    version: '0',
+    status: 'draft',
+    version: '0.1',
     // Lucide `gavel`: the law, which compliance answers to.
     icon: '<path d="m14.5 12.5-8 8a2.119 2.119 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/>',
-    sections: [{ title: 'Specification', pages: [['Overview', '']] }]
+    sections: [
+      { title: 'Specification', pages: [['Overview', '']] },
+      { title: 'Concepts', pages: [['Cases', 'cases'], ['Data Model', 'data-model'], ['Span Kinds', 'span-kinds']] },
+      { title: 'Reference', pages: [['Attributes', 'attributes'], ['Legal References', 'laws'], ['Schema', 'schema']] },
+      { title: 'Interpretation', pages: [['Obligations and State', 'state'], ['Receivers', 'receivers']] },
+      { title: 'In Practice', pages: [['AI Act Examples', 'examples'], ['Field Guide', 'field-guide']] }
+    ]
   },
   {
     id: 'open-human-oversight',
@@ -86,7 +92,7 @@ export const specs: Spec[] = [
     domain: 'Human Oversight',
     status: 'planned',
     announced: true,
-    version: '0',
+    version: '0.1',
     // Lucide `user-check`.
     icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>',
     sections: [{ title: 'Specification', pages: [['Overview', '']] }]
@@ -99,7 +105,7 @@ export const specs: Spec[] = [
     domain: 'Agentic AI',
     status: 'planned',
     announced: true,
-    version: '0',
+    version: '0.1',
     // Lucide `bot`.
     icon: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
     sections: [{ title: 'Specification', pages: [['Overview', '']] }]
@@ -109,5 +115,14 @@ export const specs: Spec[] = [
 /** The specifications the site publishes: one only announced has a card on the home page and nothing else. */
 export const published = specs.filter((spec) => !spec.announced)
 
-/** Every specification lives under `/specs/`, beside the pages about the site itself. */
-export const specLink = (spec: Spec, slug = '') => `/specs/${spec.id}/${slug}`
+/**
+ * The releases of the specifications, newest first. A release is a folder, `specs/<version>/`, holding
+ * every specification as it was published in it; a new release is a new folder, and the old ones stay.
+ */
+export const versions = ['0.1']
+
+/** The release the home page, the menus and every link without a version point to. */
+export const current = versions[0]
+
+/** Every specification lives under `/specs/<version>/`, beside the pages about the site itself. */
+export const specLink = (spec: Spec, slug = '', version = current) => `/specs/${version}/${spec.id}/${slug}`

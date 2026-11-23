@@ -1,0 +1,23 @@
+{
+  "resource": {
+    "service.name": "pe-worker-a",
+    "odl.version": "0.1",
+    "odl.pipeline.id": "privilege-escalation",
+    "odl.pipeline.name": "Privilege escalation",
+    "odl.pipeline.version": "3"
+  },
+  "name": "enrich",
+  "status_code": "ERROR",
+  "status_message": "identity service unavailable",
+  "attributes": {
+    "odl.span.kind": "step",
+    "odl.run.id": "01a2b3c4-0000-7000-8000-000000000001",
+    "odl.job.id": "job-1",
+    "odl.step.id": "enrich",
+    "odl.step.kind": "enrich",
+    "odl.step.upstream": [
+      "read"
+    ],
+    "odl.failed.count": 2
+  }
+}

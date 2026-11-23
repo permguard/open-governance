@@ -5,7 +5,10 @@
      governance and opens it; one only announced is shown, dimmed and planned, and opens nothing. -->
 <script setup lang="ts">
 import { withBase } from 'vitepress'
-import { specLink, specs } from '../specs'
+import { current, specLink, specs } from '../specs'
+
+// The release whose specifications the cards open; the current one unless a release page names its own.
+const props = withDefaults(defineProps<{ version?: string }>(), { version: current })
 </script>
 
 <template>
@@ -21,7 +24,7 @@ import { specLink, specs } from '../specs'
         :key="spec.id"
         class="os-spec-card"
         :class="spec.announced && 'is-announced'"
-        :href="spec.announced ? undefined : withBase(specLink(spec))"
+        :href="spec.announced ? undefined : withBase(specLink(spec, '', props.version))"
       >
         <span class="os-spec-card__domain">{{ spec.domain }}</span>
         <span class="os-spec-card__top">

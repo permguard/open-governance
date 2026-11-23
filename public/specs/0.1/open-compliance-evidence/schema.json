@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opengov.permguard.com/specs/0.1/open-compliance-evidence/schema.json",
+  "title": "Open Compliance Evidence, version 0.1: a record",
+  "description": "One OCE span in the logical JSON form of the specification: its resource, its attributes and its status. It holds what the specification requires: the types of every attribute, the values of its enumerations, the legal reference of an obligation, and the attributes each kind of span must carry. Attributes the specification does not define are allowed, as receivers keep them. Copyright (c) 2022 Nitro Agility S.r.l. SPDX-License-Identifier: Apache-2.0",
+  "type": "object",
+  "required": ["resource", "attributes"],
+  "properties": {
+    "resource": { "$ref": "#/$defs/resource" },
+    "name": { "type": "string" },
+    "context": {
+      "type": "object",
+      "properties": {
+        "trace_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "span_id": { "type": "string", "pattern": "^[0-9a-f]{16}$" }
+      }
+    },
+    "parent_id": { "type": ["string", "null"], "pattern": "^[0-9a-f]{16}$" },
+    "start_time": { "type": "string", "format": "date-time" },
+    "end_time": { "type": "string", "format": "date-time" },
+    "status_code": { "enum": ["UNSET", "OK", "ERROR"] },
+    "status_message": { "type": "string" },
+    "attributes": { "$ref": "#/$defs/attributes" },
+    "links": { "type": "array" }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1 },
+    "word": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "resource": {
+      "type": "object",
+      "description": "The OpenTelemetry resource of the producer: it makes the span OCE, and names the organisation the obligations fall on.",
+      "required": ["oce.version", "oce.organization.id"],
+      "properties": {
+        "oce.version": { "const": "0.1", "description": "The version of this specification the spans follow." },
+        "oce.organization.id": { "$ref": "#/$defs/text", "description": "The organisation the obligations fall on, stable across cases." },
+        "oce.organization.name": { "type": "string", "description": "The name a person reads." },
+        "service.name": { "type": "string", "description": "OpenTelemetry's own: the system that emitted the spans." }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "description": "The span's attributes.",
+      "required": ["oce.span.kind", "oce.case.id"],
+      "properties": {
+        "oce.span.kind": { "enum": ["trigger", "obligation", "action", "close"] },
+        "oce.case.id": { "$ref": "#/$defs/text", "description": "The case, a UUIDv7." },
+        "oce.trigger.type": { "$ref": "#/$defs/word", "description": "What happened: serious_incident, personal_data_breach, contested_decision, ..." },
+        "oce.subject.id": { "$ref": "#/$defs/text", "description": "What the case is about: an AI system, a product, a service." },
+        "oce.subject.type": { "$ref": "#/$defs/word" },
+        "oce.subject.name": { "type": "string" },
+        "oce.obligation.id": { "$ref": "#/$defs/text", "description": "The obligation, unique within its case." },
+        "oce.obligation.name": { "type": "string" },
+        "oce.obligation.action": { "$ref": "#/$defs/kind", "description": "The kind of action that meets the obligation." },
+        "oce.obligation.due": { "type": "string", "format": "date-time", "description": "When the obligation must be met, as an RFC 3339 time." },
+        "oce.obligation.quorum": { "type": "integer", "minimum": 1, "description": "How many distinct actors must act; 1 when absent." },
+        "oce.law.id": { "type": "string", "pattern": "^(eu-[a-z0-9-]+|org:[a-z0-9][a-z0-9._-]*|[a-z]{2}:[a-z0-9][a-z0-9._-]*)$", "description": "The law: eu-ai-act, eu-gdpr, ..., a national law as <country>:<id>, or an organisation's own rule as org:<id>." },
+        "oce.law.article": { "type": "string", "pattern": "^[0-9]+[a-z]*$" },
+        "oce.law.paragraph": { "type": "string", "pattern": "^[0-9]+[a-z]*$" },
+        "oce.law.point": { "type": "string", "pattern": "^([a-z]+|[0-9]+|[ivxlc]+)(\\.([a-z]+|[0-9]+|[ivxlc]+))*$" },
+        "oce.law.version": { "type": "string", "format": "date", "description": "The consolidated text the obligation was read from, by its date." },
+        "oce.law.celex": { "type": "string", "pattern": "^[0-9A-Z]{6,}$" },
+        "oce.party.role": { "$ref": "#/$defs/word", "description": "The role the law gives the organisation: provider, deployer, controller, ..." },
+        "oce.action.kind": { "$ref": "#/$defs/kind" },
+        "oce.action.result": { "enum": ["applies", "not_applicable", "confirmed", "overridden", "rejected", "escalated"] },
+        "oce.action.recipient": { "$ref": "#/$defs/word" },
+        "oce.action.reference": { "type": "string" },
+        "oce.actor.id": { "$ref": "#/$defs/text", "description": "Who acted: a pseudonymous id, never a name." },
+        "oce.actor.role": { "$ref": "#/$defs/word" },
+        "oce.evidence.ref": { "type": "string", "format": "uri" },
+        "oce.evidence.digest": { "type": "string", "pattern": "^sha(256|384|512):[0-9a-f]+$" },
+        "oce.case.state": { "enum": ["closed", "withdrawn"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "oce.span.kind": { "const": "trigger" } } },
+          "then": { "required": ["oce.trigger.type", "oce.subject.id"] }
+        },
+        {
+          "if": { "properties": { "oce.span.kind": { "const": "obligation" } } },
+          "then": { "required": ["oce.obligation.id", "oce.obligation.action", "oce.law.id", "oce.law.article"] }
+        },
+        {
+          "if": { "properties": { "oce.span.kind": { "const": "action" } } },
+          "then": { "required": ["oce.action.kind"] }
+        },
+        {
+          "if": { "required": ["oce.action.kind"], "properties": { "oce.span.kind": { "const": "action" }, "oce.action.kind": { "const": "assess" } } },
+          "then": { "required": ["oce.action.result"], "properties": { "oce.action.result": { "enum": ["applies", "not_applicable"] } } }
+        },
+        {
+          "if": { "required": ["oce.action.kind"], "properties": { "oce.span.kind": { "const": "action" }, "oce.action.kind": { "const": "review" } } },
+          "then": {
+            "required": ["oce.action.result", "oce.actor.id"],
+            "properties": { "oce.action.result": { "enum": ["confirmed", "overridden", "rejected", "escalated"] } }
+          }
+        },
+        {
+          "if": { "properties": { "oce.span.kind": { "const": "close" } } },
+          "then": { "required": ["oce.case.state"] }
+        }
+      ]
+    },
+    "kind": { "enum": ["assess", "review", "notify", "inform", "remediate", "record"] }
+  }
+}

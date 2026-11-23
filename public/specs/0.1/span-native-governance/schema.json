@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opengov.permguard.com/specs/0.1/span-native-governance/schema.json",
+  "title": "Span-Native Governance, version 0.1: the envelope of a record",
+  "description": "What every governance record has, whatever its specification, in the logical JSON form of the specifications: a resource naming the specification it follows, an identity, a time, a status, attributes, and links with a governance relation. Each specification's own schema adds its attributes. Copyright (c) 2022 Nitro Agility S.r.l. SPDX-License-Identifier: Apache-2.0",
+  "type": "object",
+  "required": ["resource", "attributes"],
+  "properties": {
+    "resource": {
+      "type": "object",
+      "description": "The producer's resource. A record's specification is named by its version attribute, `<prefix>.version`.",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$" }
+    },
+    "name": { "type": "string" },
+    "context": {
+      "type": "object",
+      "description": "The identity of the record: the same trace id and span id are the same record.",
+      "properties": {
+        "trace_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "span_id": { "type": "string", "pattern": "^[0-9a-f]{16}$" }
+      }
+    },
+    "parent_id": { "type": ["string", "null"], "pattern": "^[0-9a-f]{16}$" },
+    "start_time": { "type": "string", "format": "date-time" },
+    "end_time": { "type": "string", "format": "date-time", "description": "The time of the record: when the operation ended, or the fact became true." },
+    "status_code": { "enum": ["UNSET", "OK", "ERROR"] },
+    "status_message": { "type": "string" },
+    "attributes": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$" },
+      "maxProperties": 128
+    },
+    "links": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "required": ["context"],
+        "properties": {
+          "context": {
+            "type": "object",
+            "required": ["trace_id", "span_id"],
+            "properties": {
+              "trace_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+              "span_id": { "type": "string", "pattern": "^[0-9a-f]{16}$" }
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "ogs.link.relation": {
+                "type": "string",
+                "description": "The governance relation of the link: supersedes, evidence, approves, caused_by, or one a specification defines under its own prefix.",
+                "anyOf": [
+                  { "enum": ["supersedes", "evidence", "approves", "caused_by"] },
+                  { "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$" }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

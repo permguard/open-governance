@@ -389,15 +389,22 @@
 
 /* The title in the navigation bar is a link home: no box around it when clicked, a rounded ring in
    the brand's colour only for the keyboard. */
-.VPNavBarTitle .title {
+.VPNavBarTitle .title,
+.VPNavBarTitle .title:focus,
+.VPNavBarTitle .title:focus-visible {
   outline: none;
+  box-shadow: none;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
 
-.VPNavBarTitle .title:focus-visible {
-  border-radius: 8px;
-  box-shadow: 0 0 0 2px var(--os-brand);
+/* The table that heads a specification, status, version, namespace and signal, spans the width of the
+   diagram right under it, so that the two read as one block. On a phone both already fill the column. */
+@media (min-width: 640px) {
+  .vp-doc table:has(+ .os-diagram) {
+    display: table;
+    width: 100%;
+  }
 }
 
 /* The banner's second line is the thesis, not the name: smaller than the name, and still bold. */

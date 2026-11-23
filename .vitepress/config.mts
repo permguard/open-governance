@@ -1,23 +1,36 @@
 // Copyright (c) 2022 Nitro Agility S.r.l.
 // SPDX-License-Identifier: Apache-2.0
 
+import { existsSync } from 'node:fs'
 import { defineConfig } from 'vitepress'
-import { published, specLink, specs } from './specs'
+import { current, published, specLink, specs, versions } from './specs'
 
 // GitHub Pages serves the site below the repository path; the deploy passes it in.
 const base = `/${(process.env.VITEPRESS_BASE ?? '').replace(/^\/+|\/+$/g, '')}/`.replace(/^\/\/$/, '/')
 
-// Each specification has a sidebar of its own sections, each collapsible; the specification menu
-// above it moves between specifications (theme/SpecMenu.vue).
+// The page of a specification in a release, if that release has it.
+const has = (version: string, id: string, slug: string) => existsSync(`specs/${version}/${id}/${slug || 'index'}.md`)
+
+// Each specification of each release has a sidebar of its own sections, each collapsible, listing the
+// pages that release has; the specification menu above it moves between specifications
+// (theme/SpecMenu.vue).
 const sidebar = Object.fromEntries(
-  published.map((spec) => [
-    specLink(spec),
-    spec.sections.map((section) => ({
-      text: section.title,
-      collapsed: false,
-      items: section.pages.map(([text, slug]) => ({ text, link: specLink(spec, slug) }))
-    }))
-  ])
+  versions.flatMap((version) =>
+    published
+      .filter((spec) => has(version, spec.id, ''))
+      .map((spec) => [
+        specLink(spec, '', version),
+        spec.sections
+          .map((section) => ({
+            text: section.title,
+            collapsed: false,
+            items: section.pages
+              .filter(([, slug]) => has(version, spec.id, slug))
+              .map(([text, slug]) => ({ text, link: specLink(spec, slug, version) }))
+          }))
+          .filter((section) => section.items.length)
+      ])
+  )
 )
 
 export default defineConfig({
@@ -30,7 +43,7 @@ export default defineConfig({
   sitemap: { hostname: 'https://opengov.permguard.com' },
   // The repository's own files are not pages of the site.
   // A specification only announced keeps its draft pages in the repository, unpublished.
-  srcExclude: ['README.md', ...specs.filter((spec) => spec.announced).map((spec) => `specs/${spec.id}/**`)],
+  srcExclude: ['README.md', ...specs.filter((spec) => spec.announced).map((spec) => `specs/*/${spec.id}/**`)],
   lastUpdated: true,
   // Dark by default, like permguard.com; the toggle still offers light.
   appearance: 'dark',
@@ -39,8 +52,17 @@ export default defineConfig({
     logo: { src: '/logo.svg', alt: 'Open Governance' },
     siteTitle: 'Open Governance',
     specs: published,
+    versions,
     nav: [
-      { text: 'Specifications', items: published.map((spec) => ({ text: spec.title, link: specLink(spec) })) }
+      { text: 'Specifications', items: published.map((spec) => ({ text: spec.title, link: specLink(spec) })) },
+      // The releases, each opening its own page; the label names the current one.
+      {
+        text: `v${current}`,
+        items: versions.map((version) => ({
+          text: version === current ? `${version} · current` : version,
+          link: `/specs/${version}/`
+        }))
+      }
     ],
     sidebar,
     outline: { level: [2, 3] },

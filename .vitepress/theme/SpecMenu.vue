@@ -4,14 +4,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useData, useRoute, withBase } from 'vitepress'
-import type { Spec } from '../specs'
+import { current, specLink, type Spec } from '../specs'
 
 // The specification menu at the top of the sidebar: one entry per specification, its icon and its
 // name, the one in view marked. Below it, the sidebar lists the pages of that specification.
 const { theme } = useData()
 const route = useRoute()
 const specs = computed(() => (theme.value.specs ?? []) as Spec[])
-const current = computed(() => {
+// The release in view, so that moving to another specification stays in it.
+const version = computed(() => /\/specs\/([^/]+)\//.exec(route.path)?.[1] ?? current)
+const inView = computed(() => {
   const path = route.path.replace(/^\/+/, '/')
   return specs.value.find((spec) => path.includes(`/${spec.id}/`) || path.endsWith(`/${spec.id}`))?.id
 })
@@ -23,9 +25,9 @@ const current = computed(() => {
       v-for="spec in specs"
       :key="spec.id"
       class="os-spec-menu__item"
-      :class="{ 'is-current': spec.id === current }"
-      :href="withBase(`/${spec.id}/`)"
-      :aria-current="spec.id === current ? 'page' : undefined"
+      :class="{ 'is-current': spec.id === inView }"
+      :href="withBase(specLink(spec, '', version))"
+      :aria-current="spec.id === inView ? 'page' : undefined"
     >
       <svg class="os-spec-menu__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" v-html="spec.icon" />
       <span class="os-spec-menu__text">

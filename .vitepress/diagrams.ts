@@ -38,33 +38,267 @@ export const diagrams: Record<string, Diagram> = {
     type: 'flow',
     stages: [
       {
-        title: 'Records',
+        title: 'Event',
         items: [
-          { label: 'Control evaluated', sub: 'passed or failed, valid until' },
-          { label: 'Evidence recorded', sub: 'by reference and digest' },
-          { label: 'Exception granted', sub: 'by whom, until when', tone: 'brand' }
+          { label: 'Serious incident', sub: 'of an AI system', tone: 'brand' },
+          { label: 'Contested decision', sub: 'or a data breach, a match' }
         ]
       },
       {
-        title: 'Materialization',
+        title: 'Obligations',
         items: [
-          { label: 'Validity', sub: 'an evaluation expires' },
-          { label: 'Authority', sub: 'who may assert a control' }
+          { label: 'AI Act 73(2)', sub: 'notify · due in 15 days' },
+          { label: 'AI Act 14(5)', sub: 'review · two persons' },
+          { label: 'GDPR 33(1)', sub: 'notify · due in 72 hours' }
         ]
       },
       {
-        title: 'Compliance state',
+        title: 'Actions',
         items: [
-          { label: 'compliant', tone: 'ok' },
-          { label: 'non-compliant', tone: 'error' },
-          { label: 'excepted', tone: 'warn' },
-          { label: 'unknown', tone: 'muted' }
+          { label: 'notify · inform', sub: 'authorities and persons' },
+          { label: 'review · remediate', sub: 'by whom, with what evidence' }
+        ]
+      },
+      {
+        title: 'Views',
+        items: [
+          { label: 'met', tone: 'ok' },
+          { label: 'late', tone: 'warn' },
+          { label: 'overdue', tone: 'error' },
+          { label: 'unassessed', tone: 'muted' }
         ]
       }
     ],
-    arrows: ['spans', 'derive'],
+    arrows: ['engages', 'met by', 'derive'],
     caption:
-      'Compliance as a view: nobody records that a system is compliant; the state is derived from the controls evaluated, the evidence behind them and the exceptions granted, and is unknown where nothing proves it.'
+      'A compliance process as spans: an event engages obligations, article by article; actions meet them; whether each was met on time is derived, never reported.'
+  },
+
+  'oce/cases': {
+    type: 'lanes',
+    lanes: [
+      { label: 'trigger', bars: [{ from: 0, to: 2, tone: 'brand' }] },
+      { label: 'obligations', depth: 1, bars: [{ from: 2, to: 3 }] },
+      { label: 'inform · 26(5)', bars: [{ from: 4, to: 6, tone: 'ok' }] },
+      { label: 'notify · 73(2)', bars: [{ from: 44, to: 48, tone: 'ok' }] },
+      { label: 'remediate · 73(6)', bars: [{ from: 50, to: 80, label: 'corrective action', tone: 'ok' }] },
+      { label: 'due · 73(2)', bars: [{ from: 97.5, to: 99, tone: 'warn' }] },
+      { label: 'close', bars: [{ from: 92, to: 94, tone: 'muted' }] }
+    ],
+    axis: ['aware', 'day 15'],
+    caption:
+      'One case in time. Awareness starts every clock; the obligations are assessed at once; each action meets one; the case closes when nothing is left to do.'
+  },
+
+  'oce/data-model': {
+    type: 'nest',
+    root: {
+      title: 'Organisation',
+      tag: 'resource',
+      tone: 'brand',
+      chips: ['oce.organization.id', 'oce.organization.name'],
+      children: [
+        {
+          title: 'Case',
+          tag: 'oce.case.id on every span',
+          many: true,
+          children: [
+            { title: 'Trigger', tag: 'a span, one per case', chips: ['oce.trigger.type', 'oce.subject.id'] },
+            {
+              title: 'Obligation',
+              tag: 'a span',
+              many: true,
+              chips: ['oce.law.id', 'oce.law.article', 'oce.obligation.due'],
+              children: [
+                { title: 'Action', tag: 'a span, naming its obligation', many: true, chips: ['oce.action.kind', 'oce.actor.id'] }
+              ]
+            },
+            { title: 'Close', tag: 'a span, sent once', chips: ['oce.case.state'] }
+          ]
+        }
+      ]
+    },
+    caption:
+      'What holds what. An organisation is the resource; a case is the id every span carries; obligations belong to the case, and actions name the obligation they meet.'
+  },
+
+  'oce/span-kinds': {
+    type: 'flow',
+    stages: [
+      { title: 'trigger', items: [{ label: 'the event', sub: 'ends at awareness', tone: 'brand' }] },
+      { title: 'obligation', items: [{ label: 'the law asks', sub: 'law · article · action · due' }] },
+      {
+        title: 'action',
+        items: [
+          { label: 'assess · review', sub: 'with a result' },
+          { label: 'notify · inform', sub: 'with a recipient' },
+          { label: 'remediate · record', sub: 'with evidence' }
+        ]
+      },
+      { title: 'close', items: [{ label: 'closed', tone: 'ok' }, { label: 'withdrawn', tone: 'muted' }] }
+    ],
+    arrows: ['opens', 'met by', 'until'],
+    caption: 'The four kinds of OCE span, in the order a case meets them.'
+  },
+
+  'oce/attributes': {
+    type: 'nest',
+    root: {
+      title: 'Resource',
+      tag: 'once per producer',
+      tone: 'brand',
+      chips: ['oce.version', 'oce.organization.id', 'oce.organization.name', 'service.name'],
+      children: [
+        {
+          title: 'Every span',
+          chips: ['oce.span.kind', 'oce.case.id'],
+          row: true,
+          children: [
+            { title: 'trigger', chips: ['oce.trigger.type', 'oce.subject.*'] },
+            { title: 'obligation', chips: ['oce.obligation.*', 'oce.law.*', 'oce.party.role'] },
+            { title: 'action', chips: ['oce.action.*', 'oce.obligation.id', 'oce.actor.*', 'oce.evidence.*'] },
+            { title: 'close', chips: ['oce.case.state'] }
+          ]
+        }
+      ]
+    },
+    caption:
+      'Where each attribute lives: the organisation on the resource, the case on every span, the rest on the kind of span it describes.'
+  },
+
+  'oce/laws': {
+    type: 'flow',
+    stages: [
+      {
+        title: 'As the law reads',
+        items: [
+          { label: 'AI Act, Article 73(2)', tone: 'brand' },
+          { label: 'NIS2, Article 23(4)(a)', tone: 'brand' }
+        ]
+      },
+      {
+        title: 'As OCE records it',
+        items: [
+          { label: 'eu-ai-act · 73 · 2', sub: 'oce.law.id · article · paragraph' },
+          { label: 'eu-nis2 · 23 · 4 · a', sub: 'with the point' }
+        ]
+      },
+      {
+        title: 'Added up',
+        items: [{ label: 'by law' }, { label: 'by article' }, { label: 'by paragraph' }]
+      }
+    ],
+    arrows: ['in parts', 'group by'],
+    caption:
+      'A legal reference in parts, so that obligations from every case add up by law, by article, or by a single paragraph.'
+  },
+
+  'oce/schema': {
+    type: 'flow',
+    stages: [
+      { title: 'Producer', items: [{ label: 'An OCE span', sub: 'in its logical JSON form', tone: 'brand' }] },
+      {
+        title: 'schema.json',
+        items: [
+          { label: 'Resource', sub: 'version, organisation' },
+          { label: 'Attributes', sub: 'kinds, results, references' },
+          { label: 'By kind', sub: 'what each kind must carry' }
+        ]
+      },
+      {
+        title: 'Result',
+        items: [
+          { label: 'valid', tone: 'ok' },
+          { label: 'invalid', sub: 'with the path and the reason', tone: 'error' }
+        ]
+      }
+    ],
+    arrows: ['checked by', 'gives'],
+    caption:
+      'The schema holds what one span can be checked for on its own; whether an obligation was met takes the whole case.'
+  },
+
+  'oce/state': {
+    type: 'flow',
+    stages: [
+      {
+        title: 'Records of a case',
+        items: [
+          { label: 'obligation', sub: 'action · quorum · due', tone: 'brand' },
+          { label: 'actions that count', sub: 'same kind, not failed, with authority' },
+          { label: 'the present time' }
+        ]
+      },
+      {
+        title: 'State of an obligation',
+        items: [
+          { label: 'met', tone: 'ok' },
+          { label: 'late', tone: 'warn' },
+          { label: 'waived', tone: 'muted' },
+          { label: 'open' },
+          { label: 'overdue', tone: 'error' },
+          { label: 'unmet', tone: 'error' }
+        ]
+      },
+      {
+        title: 'Added up',
+        items: [{ label: 'case' }, { label: 'subject' }, { label: 'obligation register', tone: 'brand' }]
+      }
+    ],
+    arrows: ['derive', 'add up'],
+    caption:
+      'Nobody reports a state: it is derived from the obligation, the actions that count towards it and the present time, then added up by case, by system and by article.'
+  },
+
+  'oce/receivers': {
+    type: 'flow',
+    stages: [
+      { title: 'Accept', items: [{ label: 'OTLP/gRPC' }, { label: 'OTLP/HTTP', sub: 'protobuf or JSON' }] },
+      {
+        title: 'Recognise',
+        items: [
+          { label: 'oce.version', sub: 'on the resource', tone: 'brand' },
+          { label: 'accepted', sub: 'the span is valid OCE', tone: 'ok' },
+          { label: 'refused', sub: 'alone, and counted in the answer', tone: 'error' }
+        ]
+      },
+      { title: 'Keep', items: [{ label: 'stored, then answered', sub: 'once, in any order' }] },
+      {
+        title: 'Derive',
+        items: [{ label: 'cases · obligations', tone: 'brand' }, { label: 'subjects · register', tone: 'brand' }]
+      }
+    ],
+    caption:
+      'What a receiver does with an export, span by span: one invalid span is refused alone, and a late or early span is never refused for its order.'
+  },
+
+  'oce/examples': {
+    type: 'lanes',
+    lanes: [
+      { label: 'Northwind · trigger', bars: [{ from: 0, to: 1.5, tone: 'brand' }] },
+      { label: 'inform · 26(5)', depth: 1, bars: [{ from: 1.5, to: 3, tone: 'ok' }] },
+      { label: 'Lumen AI · trigger', bars: [{ from: 3, to: 4.5, tone: 'brand' }] },
+      { label: 'notify · 73(2)', depth: 1, bars: [{ from: 23, to: 26, tone: 'ok' }] },
+      { label: 'due · 73(2)', depth: 1, bars: [{ from: 49, to: 50, tone: 'warn' }] },
+      { label: 'remediate · 73(6)', depth: 1, bars: [{ from: 40, to: 77, label: 'retrained', tone: 'ok' }] },
+      { label: 'close', depth: 1, bars: [{ from: 96, to: 98, tone: 'muted' }] }
+    ],
+    axis: ['10 March', '9 April'],
+    caption:
+      'The first example in time: the deployer informs the provider within the hour; the provider reports on day 7 of 15, corrects, and closes. Two organisations, two cases, one link.'
+  },
+
+  'oce/field-guide': {
+    type: 'lanes',
+    lanes: [
+      { label: 'trigger', bars: [{ from: 0, to: 40, label: 'identification match', tone: 'brand' }] },
+      { label: 'obligation · 14(5)', depth: 1, bars: [{ from: 30, to: 40 }] },
+      { label: 'review · first', bars: [{ from: 50, to: 70, label: 'confirmed', tone: 'ok' }] },
+      { label: 'review · second', bars: [{ from: 75, to: 100, label: 'confirmed', tone: 'ok' }] }
+    ],
+    axis: ['09:12', '09:31'],
+    caption:
+      'The case the producers below emit: a trigger with its obligation in one trace, then each review in a trace of its own, joined by the case id.'
   },
 
   'oho/overview': {
@@ -624,7 +858,7 @@ export const diagrams: Record<string, Diagram> = {
       {
         title: 'Recognise',
         items: [
-          { label: 'odl.version = "1"', sub: 'on the resource', tone: 'brand' },
+          { label: 'odl.version = "0.1"', sub: 'on the resource', tone: 'brand' },
           { label: 'accepted', sub: 'the span is valid ODL', tone: 'ok' },
           { label: 'refused', sub: 'alone, and counted in the answer', tone: 'error' }
         ]

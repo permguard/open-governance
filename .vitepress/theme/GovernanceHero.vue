@@ -12,13 +12,13 @@ const spans = [
   { name: 'decision', detail: 'agent-7 · deny', tone: 'rose', from: 14, to: 18 },
   { name: 'pipeline', detail: 'privilege-escalation', tone: 'brand', from: 22, to: 44 },
   { name: 'approval', detail: 'exception · granted', tone: 'warn', from: 50, to: 62 },
-  { name: 'control', detail: 'CTRL-002 · passed', tone: 'ok', from: 70, to: 78 }
+  { name: 'obligation', detail: 'AI Act 73(2) · met', tone: 'ok', from: 70, to: 78 }
 ]
 
 const views = [
   { title: 'Decisions', value: '12 840', line: 'with policies', tone: 'brand' },
   { title: 'Residual risk', value: 'Medium', line: 'after 3 controls', tone: 'warn' },
-  { title: 'Compliance', value: 'Compliant', line: '2 of 2 controls', tone: 'ok' }
+  { title: 'Compliance', value: 'On time', line: '14 of 14 obligations', tone: 'ok' }
 ]
 </script>
 
