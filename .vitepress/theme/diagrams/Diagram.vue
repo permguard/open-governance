@@ -16,7 +16,7 @@ const diagram = computed(() => diagrams[props.of])
 </script>
 
 <template>
-  <figure v-if="diagram" class="os-diagram">
+  <figure v-if="diagram" class="os-diagram dark">
     <FlowLayout v-if="diagram.type === 'flow'" :diagram="diagram" />
     <NestLayout v-else-if="diagram.type === 'nest'" :box="diagram.root" />
     <ShapesLayout v-else-if="diagram.type === 'shapes'" :diagram="diagram" />

@@ -1311,3 +1311,54 @@
     padding: 14px;
   }
 }
+
+/* The pictures, the banner's card and every diagram, are dark in both themes: VitePress's own dark
+   palette, taken by the class `dark` on each of them. On a white page they stand out instead of
+   fading into it, and a deep shadow seats them. */
+.os-hero-card.dark,
+.os-diagram.dark {
+  color: var(--vp-c-text-1);
+  color-scheme: dark;
+}
+
+:root:not(.dark) .os-hero-card {
+  border-color: rgba(25, 26, 28, 0.9);
+  background: var(--vp-c-bg);
+  box-shadow:
+    0 30px 70px -20px rgba(25, 26, 28, 0.55),
+    0 0 60px -10px color-mix(in srgb, var(--os-brand) 35%, transparent);
+}
+
+:root:not(.dark) .os-diagram {
+  border-color: rgba(25, 26, 28, 0.9);
+  box-shadow: 0 18px 40px -24px rgba(25, 26, 28, 0.6);
+}
+
+/* In the light theme the cards are white on white: a hairline, and a shadow tinted with the brand,
+   lift them off the page; on hover they rise a little further. A card only announced stays flat. */
+:root:not(.dark) .os-pillar,
+:root:not(.dark) .vp-doc .os-spec-card {
+  border-color: rgba(25, 26, 28, 0.08);
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(25, 26, 28, 0.04),
+    0 14px 34px -22px color-mix(in srgb, var(--os-brand-deep) 55%, transparent);
+}
+
+:root:not(.dark) .os-pillar {
+  border-top-color: var(--os-brand);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--os-brand) 5%, #fff) 0%, #fff 55%);
+}
+
+:root:not(.dark) .vp-doc a.os-spec-card:hover {
+  border-color: var(--os-brand);
+  box-shadow:
+    0 1px 2px rgba(25, 26, 28, 0.04),
+    0 22px 44px -22px color-mix(in srgb, var(--os-brand-deep) 70%, transparent);
+}
+
+:root:not(.dark) .vp-doc .os-spec-card.is-announced {
+  border-style: solid;
+  background: #fafafb;
+  box-shadow: none;
+}

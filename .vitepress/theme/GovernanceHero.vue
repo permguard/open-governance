@@ -3,7 +3,8 @@
 
 <!-- The home page's banner beside the title: the whole idea in one card. Sources emit spans, the
      spans are the only way in, and the state of governance is materialised from them. The spans
-     shown are illustrations, not attributes of a specification. -->
+     shown are illustrations, not attributes of a specification. It is dark in both themes, as the
+     diagrams are: on a white page it is what the eye lands on. -->
 <script setup lang="ts">
 const sources = ['AI agents', 'Policies', 'Decision points', 'Pipelines']
 
@@ -23,7 +24,7 @@ const views = [
 </script>
 
 <template>
-  <div class="os-hero-card os-gov" aria-hidden="true">
+  <div class="os-hero-card os-gov dark" aria-hidden="true">
     <div class="os-hero-card__bar">
       <span class="os-hero-card__dot" /><span class="os-hero-card__dot" /><span class="os-hero-card__dot" />
       <span class="os-hero-card__file">span-native governance</span>
